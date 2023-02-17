@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Serif:opsz@8..144&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Libre+Baskerville&display=swap";
 html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
@@ -10,10 +10,10 @@ html {
 }
 
 body {
-  color: #36311f;
-  background-color: #fffffd;
+  color: #161b33;
+  background-color: #fafbff;
   margin: 0;
-  font-family: Roboto, sans-serif;
+  font-family: Inter, sans-serif;
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 1.4;
@@ -46,21 +46,6 @@ body {
   position: relative;
 }
 
-.col-9 {
-  max-width: 75%;
-  flex: 0 0 75%;
-}
-
-.col-6 {
-  max-width: 50%;
-  flex: 0 0 50%;
-}
-
-.col-4 {
-  max-width: 33.33%;
-  flex: 0 0 33.33%;
-}
-
 .col-3 {
   max-width: 25%;
   flex: 0 0 25%;
@@ -74,8 +59,8 @@ body {
   }
 }
 
-h1, h2, h3, h4 {
-  font-family: Roboto Serif, serif;
+h1, h2 {
+  font-family: Libre Baskerville, serif;
   line-height: 1.2;
 }
 
@@ -86,12 +71,13 @@ h1 {
 
 h2 {
   margin: 5rem 0 1.2rem;
-  font-size: 4rem;
+  font-size: 3.8rem;
 }
 
 h3 {
   margin: 1.5rem 0 1rem;
-  font-size: 2.8rem;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 p {
@@ -102,12 +88,12 @@ a {
   color: #222323;
   text-decoration: none;
   transition: box-shadow .2s ease-out;
-  box-shadow: inset 0 -5px #f36f5e66;
+  box-shadow: inset 0 -5px #4749734d;
 }
 
 a:hover, a:focus {
   transition-timing-function: ease-in;
-  box-shadow: inset 0 -18px #f36f5e66;
+  box-shadow: inset 0 -18px #4749734d;
 }
 
 .source {
