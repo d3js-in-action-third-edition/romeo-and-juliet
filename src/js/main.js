@@ -1,11 +1,11 @@
 import { createLegend } from "./legend";
 import { loadData } from "./load-data";
-import { runSimulation } from "./simulation";
+import { appendNodes } from "./nodes";
 
 createLegend();
 
 // Load data
 const data = loadData();
 
-// Run the simulation
-runSimulation(data);
+// Append the nodes
+appendNodes(data);
