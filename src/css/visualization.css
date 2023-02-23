@@ -24,3 +24,23 @@
   border-radius: 50%;
   border: 3px solid;
 }
+
+/* Adjacency matrix legend */
+.matrix-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-left: 15px;
+}
+.matrix-legend .legend-bar {
+  height: 40px;
+  background: rgb(195,210,219);
+  background: linear-gradient(90deg, rgba(195,210,219,1) 0%, rgba(54,70,82,1) 100%);
+  border-radius: 3px;
+}
+.matrix-legend-numbers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;
+}

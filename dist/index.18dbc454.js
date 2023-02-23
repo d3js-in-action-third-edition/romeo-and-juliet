@@ -2017,6 +2017,7 @@ const drawMatrix = (nodes, edges)=>{
     // Append labels
     svg.selectAll(".label-left").data(nodes).join("text").attr("class", "label-left").attr("x", -8).attr("y", (d, i)=>i * (itemWidth + padding) + itemWidth / 2).attr("text-anchor", "end").attr("dominant-baseline", "middle").text((d)=>d.name).style("font-size", "13px");
     svg.selectAll(".label-top").data(nodes).join("text").attr("class", "label-top").attr("dominant-baseline", "middle").attr("transform", (d, i)=>`translate(${i * (itemWidth + padding) + itemWidth / 2}, -8) rotate(-90)`).text((d)=>d.name).style("font-size", "13px");
+// Add interactions
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","d3-selection":"gn9gd","d3-scale":"UQ8g3","d3-array":"1yX2W"}],"UQ8g3":[function(require,module,exports) {

@@ -27,4 +27,24 @@
   top: 1px;
 }
 
+.matrix-sidebar {
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 15px;
+  display: flex;
+}
+
+.matrix-legend .legend-bar {
+  height: 40px;
+  background: linear-gradient(90deg, #c3d2db 0%, #364652 100%);
+  border-radius: 3px;
+}
+
+.matrix-legend-numbers {
+  justify-content: space-between;
+  margin-top: 2px;
+  display: flex;
+}
+
 /*# sourceMappingURL=index.2fd0c333.css.map */
