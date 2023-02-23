@@ -1,6 +1,6 @@
 import { select } from "d3-selection";
 import { scaleLinear } from "d3-scale";
-import { min, max } from "d3-array";
+import { min, max, range } from "d3-array";
 
 export const drawMatrix = (nodes, edges) => {
 
@@ -94,6 +94,21 @@ export const drawMatrix = (nodes, edges) => {
       .style("font-size", "13px");
 
 
-  // Add interactions
+  // Add legend
+  const weights = range(minWeight, maxWeight + 1);
+  const legend = select(".matrix-legend")
+    .append("ul")
+    .selectAll(".legend-color")
+    .data(weights)
+    .join("li")
+      .attr("class", "legend-color");
+  legend
+    .append("div")
+      .attr("class", "legend-color-circle")
+      .style("background-color", d => colorScale(d));
+  legend
+    .append("div")
+      .attr("class", "legend-color-label")
+      .text(d => d);
 
 };

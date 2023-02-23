@@ -2017,7 +2017,11 @@ const drawMatrix = (nodes, edges)=>{
     // Append labels
     svg.selectAll(".label-left").data(nodes).join("text").attr("class", "label-left").attr("x", -8).attr("y", (d, i)=>i * (itemWidth + padding) + itemWidth / 2).attr("text-anchor", "end").attr("dominant-baseline", "middle").text((d)=>d.name).style("font-size", "13px");
     svg.selectAll(".label-top").data(nodes).join("text").attr("class", "label-top").attr("dominant-baseline", "middle").attr("transform", (d, i)=>`translate(${i * (itemWidth + padding) + itemWidth / 2}, -8) rotate(-90)`).text((d)=>d.name).style("font-size", "13px");
-// Add interactions
+    // Add legend
+    const weights = (0, _d3Array.range)(minWeight, maxWeight + 1);
+    const legend = (0, _d3Selection.select)(".matrix-legend").append("ul").selectAll(".legend-color").data(weights).join("li").attr("class", "legend-color");
+    legend.append("div").attr("class", "legend-color-circle").style("background-color", (d)=>colorScale(d));
+    legend.append("div").attr("class", "legend-color-label").text((d)=>d);
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","d3-selection":"gn9gd","d3-scale":"UQ8g3","d3-array":"1yX2W"}],"UQ8g3":[function(require,module,exports) {
@@ -2345,7 +2349,7 @@ var _unionJs = require("./union.js");
 var _unionJsDefault = parcelHelpers.interopDefault(_unionJs);
 var _internmap = require("internmap");
 
-},{"./bisect.js":"2jqf4","./ascending.js":"2iZSL","./bisector.js":"1BY0F","./blur.js":false,"./count.js":false,"./cross.js":false,"./cumsum.js":false,"./descending.js":"dpgkj","./deviation.js":false,"./extent.js":false,"./fsum.js":false,"./group.js":false,"./groupSort.js":false,"./bin.js":false,"./threshold/freedmanDiaconis.js":false,"./threshold/scott.js":false,"./threshold/sturges.js":false,"./max.js":"6b1uv","./maxIndex.js":false,"./mean.js":false,"./median.js":false,"./merge.js":false,"./min.js":"1KKa7","./minIndex.js":false,"./mode.js":false,"./nice.js":false,"./pairs.js":false,"./permute.js":false,"./quantile.js":false,"./quickselect.js":false,"./range.js":false,"./rank.js":false,"./least.js":false,"./leastIndex.js":false,"./greatest.js":false,"./greatestIndex.js":false,"./scan.js":false,"./shuffle.js":false,"./sum.js":false,"./ticks.js":"iDfKX","./transpose.js":false,"./variance.js":false,"./zip.js":false,"./every.js":false,"./some.js":false,"./filter.js":false,"./map.js":false,"./reduce.js":false,"./reverse.js":false,"./sort.js":false,"./difference.js":false,"./disjoint.js":false,"./intersection.js":false,"./subset.js":false,"./superset.js":false,"./union.js":false,"internmap":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"2jqf4":[function(require,module,exports) {
+},{"./bisect.js":"2jqf4","./ascending.js":"2iZSL","./bisector.js":"1BY0F","./blur.js":false,"./count.js":false,"./cross.js":false,"./cumsum.js":false,"./descending.js":"dpgkj","./deviation.js":false,"./extent.js":false,"./fsum.js":false,"./group.js":false,"./groupSort.js":false,"./bin.js":false,"./threshold/freedmanDiaconis.js":false,"./threshold/scott.js":false,"./threshold/sturges.js":false,"./max.js":"6b1uv","./maxIndex.js":false,"./mean.js":false,"./median.js":false,"./merge.js":false,"./min.js":"1KKa7","./minIndex.js":false,"./mode.js":false,"./nice.js":false,"./pairs.js":false,"./permute.js":false,"./quantile.js":false,"./quickselect.js":false,"./range.js":"kH8Ba","./rank.js":false,"./least.js":false,"./leastIndex.js":false,"./greatest.js":false,"./greatestIndex.js":false,"./scan.js":false,"./shuffle.js":false,"./sum.js":false,"./ticks.js":"iDfKX","./transpose.js":false,"./variance.js":false,"./zip.js":false,"./every.js":false,"./some.js":false,"./filter.js":false,"./map.js":false,"./reduce.js":false,"./reverse.js":false,"./sort.js":false,"./difference.js":false,"./disjoint.js":false,"./intersection.js":false,"./subset.js":false,"./superset.js":false,"./union.js":false,"internmap":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"2jqf4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "bisectRight", ()=>bisectRight);
@@ -2485,6 +2489,17 @@ function min(values, valueof) {
     return min;
 }
 exports.default = min;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"kH8Ba":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function range(start, stop, step) {
+    start = +start, stop = +stop, step = (n = arguments.length) < 2 ? (stop = start, start = 0, 1) : n < 3 ? 1 : +step;
+    var i = -1, n = Math.max(0, Math.ceil((stop - start) / step)) | 0, range = new Array(n);
+    while(++i < n)range[i] = start + i * step;
+    return range;
+}
+exports.default = range;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"iDfKX":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");

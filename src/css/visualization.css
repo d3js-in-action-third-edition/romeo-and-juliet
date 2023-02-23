@@ -33,14 +33,22 @@
   height: 100%;
   padding-left: 15px;
 }
-.matrix-legend .legend-bar {
-  height: 40px;
-  background: rgb(195,210,219);
-  background: linear-gradient(90deg, rgba(195,210,219,1) 0%, rgba(54,70,82,1) 100%);
-  border-radius: 3px;
-}
-.matrix-legend-numbers {
+.matrix-legend ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
   display: flex;
-  justify-content: space-between;
-  margin-top: 2px;
+}
+.matrix-legend li {
+  margin-right: 10px;
+  text-align: center;
+}
+.matrix-legend .legend-color-circle {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+.matrix-legend .legend-color-label {
+  margin-top: 3px;
+  font-size: 1.6rem;
 }
