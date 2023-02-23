@@ -10,11 +10,21 @@ export const runSimulation = () => {
       .attr("cy", d => d.y);
   };
 
+  // const simulation = forceSimulation(characters)
+  //   .on("tick", tick)
+  //   .force("x", forceX() )
+  //   .stop();
+
+  // const simulation = forceSimulation(characters)
+  //   .on("tick", tick)
+  //   .force("y", forceY().strength(0.01) )
+  //   .stop();
+
   const simulation = forceSimulation(characters)
     .on("tick", tick)
     .force("x", forceX().strength(0.001) )
     .force("y", forceY().strength(0.001) )
-    .force("collide", forceCollide().radius(d => d.radius + 3 ) )
+    .force("collide", forceCollide().radius(d => d.radius + 1 ) )
     .stop();
 
   simulation.restart();

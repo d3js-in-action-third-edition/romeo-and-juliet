@@ -1,0 +1,2282 @@
+[
+  {
+      "source": "SAMPSON",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "First Citizen",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "SAMPSON",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "First Citizen",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "GREGORY",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "First Citizen",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "ABRAHAM",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "TYBALT",
+      "weight": 3
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "First Citizen",
+      "weight": 2
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "CAPULET",
+      "weight": 3
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "LADY CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "MONTAGUE",
+      "weight": 2
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "PRINCE",
+      "weight": 2
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "ROMEO",
+      "weight": 7
+  },
+  {
+      "source": "TYBALT",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "BENVOLIO",
+      "weight": 3
+  },
+  {
+      "source": "TYBALT",
+      "target": "First Citizen",
+      "weight": 2
+  },
+  {
+      "source": "TYBALT",
+      "target": "CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "TYBALT",
+      "target": "LADY CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "TYBALT",
+      "target": "MONTAGUE",
+      "weight": 2
+  },
+  {
+      "source": "TYBALT",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "PRINCE",
+      "weight": 2
+  },
+  {
+      "source": "TYBALT",
+      "target": "ROMEO",
+      "weight": 3
+  },
+  {
+      "source": "First Citizen",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "First Citizen",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "First Citizen",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "First Citizen",
+      "target": "BENVOLIO",
+      "weight": 2
+  },
+  {
+      "source": "First Citizen",
+      "target": "TYBALT",
+      "weight": 2
+  },
+  {
+      "source": "First Citizen",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "First Citizen",
+      "target": "LADY CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "First Citizen",
+      "target": "MONTAGUE",
+      "weight": 2
+  },
+  {
+      "source": "First Citizen",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "First Citizen",
+      "target": "PRINCE",
+      "weight": 2
+  },
+  {
+      "source": "First Citizen",
+      "target": "ROMEO",
+      "weight": 2
+  },
+  {
+      "source": "CAPULET",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "BENVOLIO",
+      "weight": 3
+  },
+  {
+      "source": "CAPULET",
+      "target": "TYBALT",
+      "weight": 2
+  },
+  {
+      "source": "CAPULET",
+      "target": "First Citizen",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "LADY CAPULET",
+      "weight": 7
+  },
+  {
+      "source": "CAPULET",
+      "target": "MONTAGUE",
+      "weight": 2
+  },
+  {
+      "source": "CAPULET",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "PRINCE",
+      "weight": 2
+  },
+  {
+      "source": "CAPULET",
+      "target": "ROMEO",
+      "weight": 5
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "BENVOLIO",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "TYBALT",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "First Citizen",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "CAPULET",
+      "weight": 7
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "MONTAGUE",
+      "weight": 3
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "PRINCE",
+      "weight": 3
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "ROMEO",
+      "weight": 4
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "BENVOLIO",
+      "weight": 2
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "TYBALT",
+      "weight": 2
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "First Citizen",
+      "weight": 2
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "LADY CAPULET",
+      "weight": 3
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "PRINCE",
+      "weight": 3
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "ROMEO",
+      "weight": 3
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "First Citizen",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "LADY MONTAGUE",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "BENVOLIO",
+      "weight": 2
+  },
+  {
+      "source": "PRINCE",
+      "target": "TYBALT",
+      "weight": 2
+  },
+  {
+      "source": "PRINCE",
+      "target": "First Citizen",
+      "weight": 2
+  },
+  {
+      "source": "PRINCE",
+      "target": "CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "PRINCE",
+      "target": "LADY CAPULET",
+      "weight": 3
+  },
+  {
+      "source": "PRINCE",
+      "target": "MONTAGUE",
+      "weight": 3
+  },
+  {
+      "source": "PRINCE",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "ROMEO",
+      "weight": 3
+  },
+  {
+      "source": "ROMEO",
+      "target": "SAMPSON",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "GREGORY",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "ABRAHAM",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "BENVOLIO",
+      "weight": 7
+  },
+  {
+      "source": "ROMEO",
+      "target": "TYBALT",
+      "weight": 3
+  },
+  {
+      "source": "ROMEO",
+      "target": "First Citizen",
+      "weight": 2
+  },
+  {
+      "source": "ROMEO",
+      "target": "CAPULET",
+      "weight": 5
+  },
+  {
+      "source": "ROMEO",
+      "target": "LADY CAPULET",
+      "weight": 4
+  },
+  {
+      "source": "ROMEO",
+      "target": "MONTAGUE",
+      "weight": 3
+  },
+  {
+      "source": "ROMEO",
+      "target": "LADY MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "PRINCE",
+      "weight": 3
+  },
+  {
+      "source": "CAPULET",
+      "target": "PARIS",
+      "weight": 4
+  },
+  {
+      "source": "CAPULET",
+      "target": "Servant",
+      "weight": 2
+  },
+  {
+      "source": "PARIS",
+      "target": "CAPULET",
+      "weight": 4
+  },
+  {
+      "source": "PARIS",
+      "target": "Servant",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "ROMEO",
+      "weight": 2
+  },
+  {
+      "source": "Servant",
+      "target": "CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "Servant",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Servant",
+      "target": "BENVOLIO",
+      "weight": 2
+  },
+  {
+      "source": "Servant",
+      "target": "ROMEO",
+      "weight": 2
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "Servant",
+      "weight": 2
+  },
+  {
+      "source": "ROMEO",
+      "target": "PARIS",
+      "weight": 2
+  },
+  {
+      "source": "ROMEO",
+      "target": "Servant",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Nurse",
+      "weight": 5
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "JULIET",
+      "weight": 5
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Servant",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "LADY CAPULET",
+      "weight": 5
+  },
+  {
+      "source": "Nurse",
+      "target": "JULIET",
+      "weight": 7
+  },
+  {
+      "source": "Nurse",
+      "target": "Servant",
+      "weight": 2
+  },
+  {
+      "source": "JULIET",
+      "target": "LADY CAPULET",
+      "weight": 5
+  },
+  {
+      "source": "JULIET",
+      "target": "Nurse",
+      "weight": 7
+  },
+  {
+      "source": "JULIET",
+      "target": "Servant",
+      "weight": 2
+  },
+  {
+      "source": "Servant",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Servant",
+      "target": "Nurse",
+      "weight": 2
+  },
+  {
+      "source": "Servant",
+      "target": "JULIET",
+      "weight": 2
+  },
+  {
+      "source": "ROMEO",
+      "target": "MERCUTIO",
+      "weight": 4
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "MERCUTIO",
+      "weight": 4
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "ROMEO",
+      "weight": 4
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "BENVOLIO",
+      "weight": 4
+  },
+  {
+      "source": "First Servant",
+      "target": "Second Servant",
+      "weight": 2
+  },
+  {
+      "source": "First Servant",
+      "target": "CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "First Servant",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "First Servant",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "First Servant",
+      "target": "Servant",
+      "weight": 1
+  },
+  {
+      "source": "First Servant",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "First Servant",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "First Servant",
+      "target": "Nurse",
+      "weight": 2
+  },
+  {
+      "source": "First Servant",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "Second Servant",
+      "target": "First Servant",
+      "weight": 2
+  },
+  {
+      "source": "Second Servant",
+      "target": "CAPULET",
+      "weight": 3
+  },
+  {
+      "source": "Second Servant",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "Second Servant",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "Second Servant",
+      "target": "Servant",
+      "weight": 1
+  },
+  {
+      "source": "Second Servant",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "Second Servant",
+      "target": "JULIET",
+      "weight": 2
+  },
+  {
+      "source": "Second Servant",
+      "target": "Nurse",
+      "weight": 3
+  },
+  {
+      "source": "Second Servant",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "First Servant",
+      "weight": 2
+  },
+  {
+      "source": "CAPULET",
+      "target": "Second Servant",
+      "weight": 3
+  },
+  {
+      "source": "CAPULET",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "JULIET",
+      "weight": 4
+  },
+  {
+      "source": "CAPULET",
+      "target": "Nurse",
+      "weight": 5
+  },
+  {
+      "source": "Second Capulet",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "Second Servant",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "Servant",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "Second Capulet",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "Second Servant",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "JULIET",
+      "weight": 5
+  },
+  {
+      "source": "ROMEO",
+      "target": "Nurse",
+      "weight": 5
+  },
+  {
+      "source": "Servant",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "Servant",
+      "target": "Second Servant",
+      "weight": 1
+  },
+  {
+      "source": "Servant",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "Servant",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "Second Servant",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "Servant",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "Second Servant",
+      "weight": 2
+  },
+  {
+      "source": "JULIET",
+      "target": "CAPULET",
+      "weight": 4
+  },
+  {
+      "source": "JULIET",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "ROMEO",
+      "weight": 5
+  },
+  {
+      "source": "JULIET",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "First Servant",
+      "weight": 2
+  },
+  {
+      "source": "Nurse",
+      "target": "Second Servant",
+      "weight": 3
+  },
+  {
+      "source": "Nurse",
+      "target": "CAPULET",
+      "weight": 5
+  },
+  {
+      "source": "Nurse",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "ROMEO",
+      "weight": 5
+  },
+  {
+      "source": "Nurse",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "BENVOLIO",
+      "weight": 2
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "Second Servant",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "Second Capulet",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "Nurse",
+      "weight": 2
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "ROMEO",
+      "weight": 4
+  },
+  {
+      "source": "ROMEO",
+      "target": "FRIAR LAURENCE",
+      "weight": 4
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "BENVOLIO",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "PETER",
+      "weight": 2
+  },
+  {
+      "source": "PETER",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "BENVOLIO",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "Nurse",
+      "weight": 2
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "JULIET",
+      "weight": 3
+  },
+  {
+      "source": "JULIET",
+      "target": "FRIAR LAURENCE",
+      "weight": 3
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "TYBALT",
+      "weight": 1
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "First Citizen",
+      "weight": 1
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "MERCUTIO",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "TYBALT",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "First Citizen",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "MERCUTIO",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "Nurse",
+      "weight": 2
+  },
+  {
+      "source": "Nurse",
+      "target": "FRIAR LAURENCE",
+      "weight": 2
+  },
+  {
+      "source": "PARIS",
+      "target": "LADY CAPULET",
+      "weight": 3
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "PARIS",
+      "weight": 3
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "PARIS",
+      "weight": 3
+  },
+  {
+      "source": "PARIS",
+      "target": "FRIAR LAURENCE",
+      "weight": 3
+  },
+  {
+      "source": "PARIS",
+      "target": "JULIET",
+      "weight": 2
+  },
+  {
+      "source": "JULIET",
+      "target": "PARIS",
+      "weight": 2
+  },
+  {
+      "source": "Second Servant",
+      "target": "LADY CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Second Servant",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "First Servant",
+      "weight": 1
+  },
+  {
+      "source": "First Servant",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "Nurse",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "FRIAR LAURENCE",
+      "weight": 2
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "FRIAR LAURENCE",
+      "weight": 2
+  },
+  {
+      "source": "CAPULET",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "LADY CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "CAPULET",
+      "weight": 2
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "First Musician",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "PETER",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "Second Musician",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "Musician",
+      "target": "Third Musician",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "Nurse",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "First Musician",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "PETER",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "Second Musician",
+      "weight": 1
+  },
+  {
+      "source": "Third Musician",
+      "target": "Musician",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "BALTHASAR",
+      "weight": 2
+  },
+  {
+      "source": "ROMEO",
+      "target": "Apothecary",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "ROMEO",
+      "weight": 2
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "Apothecary",
+      "weight": 1
+  },
+  {
+      "source": "Apothecary",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "Apothecary",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR JOHN",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "FRIAR JOHN",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "PARIS",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "PAGE",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "ROMEO",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "BALTHASAR",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "FRIAR LAURENCE",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "JULIET",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "First Watchman",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Second Watchman",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "ROMEO",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "PRINCE",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "LADY CAPULET",
+      "weight": 1
+  },
+  {
+      "source": "Third Watchman",
+      "target": "MONTAGUE",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "PRINCE",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "CAPULET",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "LADY CAPULET",
+      "target": "Third Watchman",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "PARIS",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "PAGE",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "BALTHASAR",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "FRIAR LAURENCE",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "JULIET",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "First Watchman",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "Second Watchman",
+      "weight": 1
+  },
+  {
+      "source": "MONTAGUE",
+      "target": "Third Watchman",
+      "weight": 1
+  }
+]

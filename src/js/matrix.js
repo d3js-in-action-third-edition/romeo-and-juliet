@@ -1,0 +1,96 @@
+import { select } from "d3-selection";
+import { scaleLinear } from "d3-scale";
+import { min, max } from "d3-array";
+
+export const drawMatrix = (nodes, edges) => {
+
+  // Order characters (nodes) by number of lines
+  nodes.sort((a, b) => b.totalLines - a.totalLines);
+  
+  // Create the data matrix
+  const edgeHash = {};
+  edges.forEach(edge => {
+    const id = `${edge.source}-${edge.target}`;
+    edgeHash[id] = edge;
+  });
+  console.log("edgeHash", edgeHash);
+
+  const matrix = [];
+  const itemWidth = 16;
+  const padding = 2;
+  nodes.forEach((charA, i) => {
+    nodes.forEach((charB, j) => {
+      if (charA !== charB) {
+        const id = `${charA.id}-${charB.id}`;
+        const item = {
+          id: id,
+          cx: i * (itemWidth + padding) + itemWidth / 2,
+          cy: j * (itemWidth + padding) + itemWidth / 2
+        };
+        if (edgeHash[id]) {
+          item["weight"] = edgeHash[id].weight;
+        }
+        matrix.push(item)
+      }
+    });
+  });
+  console.log("matrix", matrix);
+
+
+  // Dimensions
+  const innerWidth = nodes.length * (itemWidth + padding);
+  const innerHeight = nodes.length * (itemWidth + padding);
+  const margin = { top: 130, right: 0, bottom: 0, left: 130 };
+  const width = innerWidth + margin.right + margin.left;
+  const height = innerHeight + margin.top + margin.bottom;
+
+
+  // Append SVG container
+  const svg = select("#matrix")
+    .append("svg")
+      .attr("viewBox", `0 0 ${width} ${height}`)
+    .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  // Weight color scale
+  const minWeight = min(edges, d => d.weight);
+  const maxWeight = max(edges, d => d.weight);
+  const colorScale = scaleLinear()
+    .domain([minWeight, maxWeight])
+    .range(["#C3D2DB", "#364652"]);
+
+
+  // Append matrix dots
+  svg
+    .selectAll(".matrix-dot")
+    .data(matrix)
+    .join("circle")
+      .attr("class", "matrix-dot")
+      .attr("cx", d => d.cx)
+      .attr("cy", d => d.cy)
+      .attr("r", itemWidth / 2)
+      .attr("fill", d => d.weight ? colorScale(d.weight) : "white");
+
+  // Append labels
+  svg
+    .selectAll(".label-left")
+    .data(nodes)
+    .join("text")
+      .attr("class", "label-left")
+      .attr("x", -8)
+      .attr("y", (d, i) => i * (itemWidth + padding) + itemWidth / 2)
+      .attr("text-anchor", "end")
+      .attr("dominant-baseline", "middle")
+      .text(d => d.name)
+      .style("font-size", "13px");
+  svg
+    .selectAll(".label-top")
+    .data(nodes)
+    .join("text")
+      .attr("class", "label-top")
+      .attr("dominant-baseline", "middle")
+      .attr("transform", (d, i) => `translate(${i * (itemWidth + padding) + itemWidth / 2}, -8) rotate(-90)`)
+      .text(d => d.name)
+      .style("font-size", "13px");
+
+};

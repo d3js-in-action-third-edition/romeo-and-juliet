@@ -1,0 +1,261 @@
+[
+  {
+      "id": "PRINCE",
+      "name": "Prince Escalus",
+      "house": "Ruling house of Verona",
+      "importance": "primary",
+      "descrition": "Ruling Prince of Verona",
+      "totalLines": 76
+  },
+  {
+      "id": "PARIS",
+      "name": "Count Paris",
+      "house": "Ruling house of Verona",
+      "importance": "primary",
+      "descrition": "Kinsman of Escalus who wishes to marry Juliet.",
+      "totalLines": 70
+  },
+  {
+      "id": "MERCUTIO",
+      "name": "Mercutio",
+      "house": "Ruling house of Verona",
+      "importance": "primary",
+      "descrition": "Another kinsman of Escalus, a friend of Romeo.",
+      "totalLines": 261
+  },
+  {
+      "id": "PAGE",
+      "name": "Page",
+      "house": "Ruling house of Verona",
+      "importance": "secondary",
+      "totalLines": 9
+  },
+  {
+      "id": "CAPULET",
+      "name": "Capulet",
+      "house": "House of Capulet",
+      "importance": "primary",
+      "descrition": "Patriarch of the house of Capulet.",
+      "totalLines": 273
+  },
+  {
+      "id": "LADY CAPULET",
+      "name": "Lady Capulet",
+      "house": "House of Capulet",
+      "importance": "primary",
+      "descrition": "Matriarch of the house of Capulet.",
+      "totalLines": 115
+  },
+  {
+      "id": "JULIET",
+      "name": "Juliet Capulet",
+      "house": "House of Capulet",
+      "importance": "primary",
+      "descrition": "13-year-old daughter of Capulet, the play's female protagonist.",
+      "totalLines": 544
+  },
+  {
+      "id": "TYBALT",
+      "name": "Tybalt",
+      "house": "House of Capulet",
+      "importance": "primary",
+      "descrition": "Cousin of Juliet, the nephew of Lady Capulet.",
+      "totalLines": 36
+  },
+  {
+      "id": "Nurse",
+      "name": "The Nurse",
+      "house": "House of Capulet",
+      "importance": "primary",
+      "description": "Juliet's personal attendant and confidante.",
+      "totalLines": 281
+  },
+  {
+      "id": "PETER",
+      "name": "Peter",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "description": "Servant of the Capulet household.",
+      "totalLines": 33
+  },
+  {
+      "id": "SAMPSON",
+      "name": "Sampson",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "description": "Servant of the Capulet household.",
+      "totalLines": 31
+  },
+  {
+      "id": "GREGORY",
+      "name": "Gregory",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "description": "Servant of the Capulet household.",
+      "totalLines": 20
+  },
+  {
+      "id": "Second Capulet",
+      "name": "Second Capulet",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 3
+  },
+  {
+      "id": "Musician",
+      "name": "Musician",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 1
+  },
+  {
+      "id": "First Musician",
+      "name": "First Musician",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 9
+  },
+  {
+      "id": "Second Musician",
+      "name": "Second Musician",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 4
+  },
+  {
+      "id": "Servant",
+      "name": "Servant",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 23
+  },
+  {
+      "id": "First Servant",
+      "name": "First Servant",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 10
+  },
+  {
+      "id": "Second Servant",
+      "name": "Second Servant",
+      "house": "House of Capulet",
+      "importance": "secondary",
+      "totalLines": 12
+  },
+  {
+      "id": "MONTAGUE",
+      "name": "Montague",
+      "house": "House of Montague",
+      "importance": "primary",
+      "description": "Patriarch of the house of Montague.",
+      "totalLines": 41
+  },
+  {
+      "id": "LADY MONTAGUE",
+      "name": "Lady Montague",
+      "house": "House of Montague",
+      "importance": "primary",
+      "description": "Matriarch of the house of Montague.",
+      "totalLines": 3
+  },
+  {
+      "id": "ROMEO",
+      "name": "Romeo Montague",
+      "house": "House of Montague",
+      "importance": "primary",
+      "description": "Son of Montague, is the play's male protagonist.",
+      "totalLines": 613
+  },
+  {
+      "id": "BENVOLIO",
+      "name": "Benvolio",
+      "house": "House of Montague",
+      "importance": "primary",
+      "description": "Romeo's cousin and best friend.",
+      "totalLines": 160
+  },
+  {
+      "id": "BALTHASAR",
+      "name": "Balthasar",
+      "house": "House of Montague",
+      "importance": "secondary",
+      "description": "Servant of the Montague household.",
+      "totalLines": 32
+  },
+  {
+      "id": "ABRAHAM",
+      "name": "Abram",
+      "house": "House of Montague",
+      "importance": "secondary",
+      "description": "Servant of the Montague household.",
+      "totalLines": 5
+  },
+  {
+      "id": "FRIAR LAURENCE",
+      "name": "Friar Laurence",
+      "house": "Others",
+      "importance": "primary",
+      "description": "Franciscan friar and Romeo's confidant.",
+      "totalLines": 351
+  },
+  {
+      "id": "FRIAR JOHN",
+      "name": "Friar John",
+      "house": "Others",
+      "importance": "primary",
+      "description": "Sent to deliver Friar Laurence's letter to Romeo.",
+      "totalLines": 13
+  },
+  {
+      "id": "Apothecary",
+      "name": "Apothecary",
+      "house": "Others",
+      "importance": "primary",
+      "description": "Reluctantly sells Romeo poison.",
+      "totalLines": 7
+  },
+  {
+      "id": "Chorus",
+      "name": "Chorus",
+      "house": "Others",
+      "importance": "primary",
+      "description": "Reads a prologue to each of the first two acts.",
+      "totalLines": 29
+  },
+  {
+      "id": "First Citizen",
+      "name": "First Citizen",
+      "house": "Others",
+      "importance": "secondary",
+      "totalLines": 7
+  },
+  {
+      "id": "First Watchman",
+      "name": "First Watchman",
+      "house": "Others",
+      "importance": "secondary",
+      "totalLines": 19
+  },
+  {
+      "id": "Second Watchman",
+      "name": "Second Watchman",
+      "house": "Others",
+      "importance": "secondary",
+      "totalLines": 1
+  },
+  {
+      "id": "Third Watchman",
+      "name": "Third Watchman",
+      "house": "Others",
+      "importance": "secondary",
+      "totalLines": 3
+  },
+  {
+      "id": "Third Musician",
+      "name": "Third Musician",
+      "house": "Others",
+      "importance": "secondary",
+      "totalLines": 1
+  }
+]

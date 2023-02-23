@@ -1,11 +1,19 @@
 import { createLegend } from "./legend";
 import { loadData } from "./load-data";
-import { appendNodes } from "./nodes";
+// import { prepData } from "./prep-data";
+import { drawMatrix } from "./matrix";
+
+// import { appendNodes } from "./nodes";
 
 createLegend();
 
 // Load data
-const data = loadData();
+// prepData();
+const [nodes, edges] = loadData();
+
+// Draw the adjacency matrix
+drawMatrix(nodes, edges);
+
 
 // Append the nodes
-appendNodes(data);
+// appendNodes(data);
