@@ -23,7 +23,7 @@ export const characters = [
   { id: "romeo", name: "Romeo Montague", house: "House of Montague", importance: "primary", description: "Son of Montague, is the play's male protagonist." },
   { id: "benvolio", name: "Benvolio", house: "House of Montague", importance: "primary", description: "Romeo's cousin and best friend." },
   { id: "balthasar", name: "Balthasar", house: "House of Montague", importance: "secondary", description: "Servant of the Montague household." },
-  { id: "Abraham", name: "Abram", house: "House of Montague", importance: "secondary", description: "Servant of the Montague household." },
+  { id: "abraham", name: "Abram", house: "House of Montague", importance: "secondary", description: "Servant of the Montague household." },
   { id: "friar_laurence", name: "Friar Laurence", house: "Others", importance: "primary", description: "Franciscan friar and Romeo's confidant." },
   { id: "friar_john", name: "Friar John", house: "Others", importance: "primary", description: "Sent to deliver Friar Laurence's letter to Romeo." },
   { id: "apothecary", name: "Apothecary", house: "Others", importance: "primary", description: "Reluctantly sells Romeo poison." },

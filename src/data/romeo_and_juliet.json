@@ -490,7 +490,7 @@
         "Play": "Romeo and Juliet",
         "PlayerLinenumber": "26",
         "ActSceneLine": "1.1.40",
-        "Player": "Abraham",
+        "Player": "abraham",
         "PlayerLine": "Do you bite your thumb at us, sir?",
         "scene": "1.1"
     },
@@ -508,7 +508,7 @@
         "Play": "Romeo and Juliet",
         "PlayerLinenumber": "28",
         "ActSceneLine": "1.1.42",
-        "Player": "Abraham",
+        "Player": "abraham",
         "PlayerLine": "Do you bite your thumb at us, sir?",
         "scene": "1.1"
     },
@@ -571,7 +571,7 @@
         "Play": "Romeo and Juliet",
         "PlayerLinenumber": "33",
         "ActSceneLine": "1.1.49",
-        "Player": "Abraham",
+        "Player": "abraham",
         "PlayerLine": "Quarrel sir! no, sir.",
         "scene": "1.1"
     },
@@ -589,7 +589,7 @@
         "Play": "Romeo and Juliet",
         "PlayerLinenumber": "35",
         "ActSceneLine": "1.1.51",
-        "Player": "Abraham",
+        "Player": "abraham",
         "PlayerLine": "No better.",
         "scene": "1.1"
     },
@@ -625,7 +625,7 @@
         "Play": "Romeo and Juliet",
         "PlayerLinenumber": "39",
         "ActSceneLine": "1.1.55",
-        "Player": "Abraham",
+        "Player": "abraham",
         "PlayerLine": "You lie.",
         "scene": "1.1"
     },

@@ -30,11 +30,14 @@ export const prepData = () => {
       charEntered.push(character.id);
     }
 
-    if (!scenes.find(s => s.scene === d.scene)) {
-      scenes.push({
-        scene: d.scene,
-        firstLine: i
-      });
+    // if (!scenes.find(s => s.scene === d.scene)) {
+    //   scenes.push({
+    //     scene: d.scene,
+    //     firstLine: i
+    //   });
+    // }
+    if (!scenes.includes(d.scene)) {
+      scenes.push(d.scene);
     }
 
     totalLines += 1;
@@ -44,40 +47,40 @@ export const prepData = () => {
 
   // Create edge list
   console.log("scenes", scenes);
-  // const edges = [];
-  // scenes.forEach(scene => {
-  //   const lines = data.filter(d => d.scene === scene);
+  const edges = [];
+  scenes.forEach(scene => {
+    const lines = data.filter(d => d.scene === scene);
 
-  //   // console.log(scene, lines);
-  //   const sceneCharacters = [];
-  //   lines.forEach(l => {
-  //     const character = l["Player"];
-  //     if (!sceneCharacters.includes(character)) {
-  //       sceneCharacters.push(character);
-  //     }
-  //   });
-  //   // console.log(sceneCharacters);
+    // console.log(scene, lines);
+    const sceneCharacters = [];
+    lines.forEach(l => {
+      const character = l["Player"];
+      if (!sceneCharacters.includes(character)) {
+        sceneCharacters.push(character);
+      }
+    });
+    // console.log(sceneCharacters);
 
-  //   if (sceneCharacters.length > 1) {
-  //     sceneCharacters.forEach(source => {
-  //       sceneCharacters.forEach(target => {
-  //         if (source !== target) {
-  //           if (!edges.find(e => e.source === source && e.target === target)) {
-  //             edges.push({
-  //               source: source,
-  //               target: target,
-  //               weight: 1
-  //             });
-  //           } else {
-  //             const edge = edges.find(e => e.source === source && e.target === target);
-  //             edge.weight += 1;
-  //           }
-  //         }
-  //       });
-  //     });
-  //   }
-  // });
-  // console.log("edges", edges);
+    if (sceneCharacters.length > 1) {
+      sceneCharacters.forEach(source => {
+        sceneCharacters.forEach(target => {
+          if (source !== target) {
+            if (!edges.find(e => e.source === source && e.target === target)) {
+              edges.push({
+                source: source,
+                target: target,
+                weight: 1
+              });
+            } else {
+              const edge = edges.find(e => e.source === source && e.target === target);
+              edge.weight += 1;
+            }
+          }
+        });
+      });
+    }
+  });
+  console.log("edges original", edges);
 
   // return data;
 
