@@ -562,7 +562,7 @@ var _loadData = require("./load-data");
 // import { prepData } from "./prep-data";
 var _matrix = require("./matrix");
 var _arc = require("./arc");
-// import { appendNodes } from "./nodes";
+var _beeswarm = require("./beeswarm");
 (0, _legend.createLegend)();
 // Load data
 // prepData();
@@ -570,10 +570,11 @@ const [nodes, edges] = (0, _loadData.loadData)();
 // Draw the adjacency matrix
 (0, _matrix.drawMatrix)(nodes, edges);
 // Draw the arc diagram
-(0, _arc.drawArcDiagram)(nodes, edges); // Append the nodes
- // appendNodes(data);
+(0, _arc.drawArcDiagram)(nodes, edges);
+// Draw the beeswarm
+(0, _beeswarm.drawBeeswarm)(nodes);
 
-},{"./legend":"ieevi","./load-data":"9ZwCu","./matrix":"bhcXq","./arc":"cq48B"}],"ieevi":[function(require,module,exports) {
+},{"./legend":"ieevi","./load-data":"9ZwCu","./matrix":"bhcXq","./arc":"cq48B","./beeswarm":"kFA5m"}],"ieevi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createLegend", ()=>createLegend);
@@ -643,6 +644,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "characters", ()=>characters);
 parcelHelpers.export(exports, "houses", ()=>houses);
+parcelHelpers.export(exports, "scenes", ()=>scenes);
+parcelHelpers.export(exports, "totalLines", ()=>totalLines);
 const characters = [
     {
         id: "prince",
@@ -729,7 +732,7 @@ const characters = [
     },
     {
         id: "second_capulet",
-        name: "second_capulet",
+        name: "Second Capulet",
         house: "House of Capulet",
         importance: "secondary"
     },
@@ -859,7 +862,7 @@ const characters = [
     },
     {
         id: "third_watchman",
-        name: "third_watchman",
+        name: "Third Watchman",
         house: "Others",
         importance: "secondary"
     },
@@ -892,6 +895,113 @@ const houses = [
         order: 4
     }
 ];
+const scenes = [
+    {
+        "scene": "1.0",
+        "firstLine": 0
+    },
+    {
+        "scene": "1.1",
+        "firstLine": 15
+    },
+    {
+        "scene": "1.2",
+        "firstLine": 253
+    },
+    {
+        "scene": "1.3",
+        "firstLine": 356
+    },
+    {
+        "scene": "1.4",
+        "firstLine": 466
+    },
+    {
+        "scene": "1.5",
+        "firstLine": 586
+    },
+    {
+        "scene": "2.0",
+        "firstLine": 740
+    },
+    {
+        "scene": "2.1",
+        "firstLine": 754
+    },
+    {
+        "scene": "2.2",
+        "firstLine": 799
+    },
+    {
+        "scene": "2.3",
+        "firstLine": 1003
+    },
+    {
+        "scene": "2.4",
+        "firstLine": 1100
+    },
+    {
+        "scene": "2.5",
+        "firstLine": 1308
+    },
+    {
+        "scene": "2.6",
+        "firstLine": 1388
+    },
+    {
+        "scene": "3.1",
+        "firstLine": 1425
+    },
+    {
+        "scene": "3.2",
+        "firstLine": 1630
+    },
+    {
+        "scene": "3.3",
+        "firstLine": 1777
+    },
+    {
+        "scene": "3.4",
+        "firstLine": 1956
+    },
+    {
+        "scene": "3.5",
+        "firstLine": 1993
+    },
+    {
+        "scene": "4.1",
+        "firstLine": 2248
+    },
+    {
+        "scene": "4.2",
+        "firstLine": 2375
+    },
+    {
+        "scene": "4.3",
+        "firstLine": 2423
+    },
+    {
+        "scene": "4.4",
+        "firstLine": 2482
+    },
+    {
+        "scene": "4.5",
+        "firstLine": 2513
+    },
+    {
+        "scene": "5.1",
+        "firstLine": 2655
+    },
+    {
+        "scene": "5.2",
+        "firstLine": 2745
+    },
+    {
+        "scene": "5.3",
+        "firstLine": 2775
+    }
+];
+const totalLines = 3096;
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"gn9gd":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -4114,7 +4224,7 @@ const loadData = ()=>{
 };
 
 },{"823ddf4ed075553f":"aKcxm","565c4c39c009f488":"i3YVd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aKcxm":[function(require,module,exports) {
-module.exports = JSON.parse('[{"id":"prince","name":"Prince Escalus","house":"Ruling house of Verona","importance":"primary","descrition":"Ruling Prince of Verona","totalLines":76},{"id":"paris","name":"Count Paris","house":"Ruling house of Verona","importance":"primary","descrition":"Kinsman of Escalus who wishes to marry Juliet.","totalLines":70},{"id":"mercutio","name":"Mercutio","house":"Ruling house of Verona","importance":"primary","descrition":"Another kinsman of Escalus, a friend of Romeo.","totalLines":261},{"id":"page","name":"Page","house":"Ruling house of Verona","importance":"secondary","totalLines":9},{"id":"capulet","name":"Capulet","house":"House of Capulet","importance":"primary","descrition":"Patriarch of the house of Capulet.","totalLines":273},{"id":"lady_capulet","name":"Lady Capulet","house":"House of Capulet","importance":"primary","descrition":"Matriarch of the house of Capulet.","totalLines":115},{"id":"juliet","name":"Juliet Capulet","house":"House of Capulet","importance":"primary","descrition":"13-year-old daughter of Capulet, the play\'s female protagonist.","totalLines":544},{"id":"tybalt","name":"Tybalt","house":"House of Capulet","importance":"primary","descrition":"Cousin of Juliet, the nephew of Lady Capulet.","totalLines":36},{"id":"nurse","name":"The Nurse","house":"House of Capulet","importance":"primary","description":"Juliet\'s personal attendant and confidante.","totalLines":281},{"id":"peter","name":"Peter","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":33},{"id":"sampson","name":"Sampson","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":31},{"id":"gregory","name":"Gregory","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":20},{"id":"second_capulet","name":"Second Capulet","house":"House of Capulet","importance":"secondary","totalLines":3},{"id":"musician","name":"Musician","house":"House of Capulet","importance":"secondary","totalLines":1},{"id":"first_musician","name":"First Musician","house":"House of Capulet","importance":"secondary","totalLines":9},{"id":"second_musician","name":"Second Musician","house":"House of Capulet","importance":"secondary","totalLines":4},{"id":"servant","name":"Servant","house":"House of Capulet","importance":"secondary","totalLines":23},{"id":"first_servant","name":"First Servant","house":"House of Capulet","importance":"secondary","totalLines":10},{"id":"second_servant","name":"Second Servant","house":"House of Capulet","importance":"secondary","totalLines":12},{"id":"montague","name":"Montague","house":"House of Montague","importance":"primary","description":"Patriarch of the house of Montague.","totalLines":41},{"id":"lady_montague","name":"Lady Montague","house":"House of Montague","importance":"primary","description":"Matriarch of the house of Montague.","totalLines":3},{"id":"romeo","name":"Romeo Montague","house":"House of Montague","importance":"primary","description":"Son of Montague, is the play\'s male protagonist.","totalLines":613},{"id":"benvolio","name":"Benvolio","house":"House of Montague","importance":"primary","description":"Romeo\'s cousin and best friend.","totalLines":160},{"id":"balthasar","name":"Balthasar","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":32},{"id":"Abraham","name":"Abram","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":5},{"id":"friar_laurence","name":"Friar Laurence","house":"Others","importance":"primary","description":"Franciscan friar and Romeo\'s confidant.","totalLines":351},{"id":"friar_john","name":"Friar John","house":"Others","importance":"primary","description":"Sent to deliver Friar Laurence\'s letter to Romeo.","totalLines":13},{"id":"apothecary","name":"Apothecary","house":"Others","importance":"primary","description":"Reluctantly sells Romeo poison.","totalLines":7},{"id":"chorus","name":"Chorus","house":"Others","importance":"primary","description":"Reads a prologue to each of the first two acts.","totalLines":29},{"id":"first_citizen","name":"First Citizen","house":"Others","importance":"secondary","totalLines":7},{"id":"first_watchman","name":"First Watchman","house":"Others","importance":"secondary","totalLines":19},{"id":"second_watchman","name":"Second Watchman","house":"Others","importance":"secondary","totalLines":1},{"id":"third_watchman","name":"Third Watchman","house":"Others","importance":"secondary","totalLines":3},{"id":"third_musician","name":"Third Musician","house":"Others","importance":"secondary","totalLines":1}]');
+module.exports = JSON.parse('[{"id":"prince","name":"Prince Escalus","house":"Ruling house of Verona","importance":"primary","descrition":"Ruling Prince of Verona","totalLines":76,"firstLineNumber":88,"firstLine":"Rebellious subjects, enemies to peace,"},{"id":"paris","name":"Count Paris","house":"Ruling house of Verona","importance":"primary","descrition":"Kinsman of Escalus who wishes to marry Juliet.","totalLines":70,"firstLineNumber":256,"firstLine":"Of honourable reckoning are you both,"},{"id":"mercutio","name":"Mercutio","house":"Ruling house of Verona","importance":"primary","descrition":"Another kinsman of Escalus, a friend of Romeo.","totalLines":261,"firstLineNumber":478,"firstLine":"Nay, gentle Romeo, we must have you dance."},{"id":"page","name":"Page","house":"Ruling house of Verona","importance":"secondary","totalLines":9,"firstLineNumber":2784,"firstLine":"[Aside]  I am almost afraid to stand alone"},{"id":"capulet","name":"Capulet","house":"House of Capulet","importance":"primary","descrition":"Patriarch of the house of Capulet.","totalLines":273,"firstLineNumber":82,"firstLine":"What noise is this? Give me my long sword, ho!"},{"id":"lady_capulet","name":"Lady Capulet","house":"House of Capulet","importance":"primary","descrition":"Matriarch of the house of Capulet.","totalLines":115,"firstLineNumber":83,"firstLine":"A crutch, a crutch! why call you for a sword?"},{"id":"juliet","name":"Juliet Capulet","house":"House of Capulet","importance":"primary","descrition":"13-year-old daughter of Capulet, the play\'s female protagonist.","totalLines":544,"firstLineNumber":360,"firstLine":"How now! who calls?"},{"id":"tybalt","name":"Tybalt","house":"House of Capulet","importance":"primary","descrition":"Cousin of Juliet, the nephew of Lady Capulet.","totalLines":36,"firstLineNumber":73,"firstLine":"What, art thou drawn among these heartless hinds?"},{"id":"nurse","name":"The Nurse","house":"House of Capulet","importance":"primary","description":"Juliet\'s personal attendant and confidante.","totalLines":281,"firstLineNumber":357,"firstLine":"Now, by my maidenhead, at twelve year old,"},{"id":"peter","name":"Peter","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":33,"firstLineNumber":1198,"firstLine":"Anon!"},{"id":"sampson","name":"Sampson","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":31,"firstLineNumber":15,"firstLine":"Gregory, o\' my word, we\'ll not carry coals."},{"id":"gregory","name":"Gregory","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":20,"firstLineNumber":16,"firstLine":"No, for then we should be colliers."},{"id":"second_capulet","name":"Second Capulet","house":"House of Capulet","importance":"secondary","totalLines":3,"firstLineNumber":618,"firstLine":"By\'r lady, thirty years."},{"id":"musician","name":"Musician","house":"House of Capulet","importance":"secondary","totalLines":1,"firstLineNumber":2642,"firstLine":"Marry, sir, because silver hath a sweet sound."},{"id":"first_musician","name":"First Musician","house":"House of Capulet","importance":"secondary","totalLines":9,"firstLineNumber":2611,"firstLine":"Faith, we may put up our pipes, and be gone."},{"id":"second_musician","name":"Second Musician","house":"House of Capulet","importance":"secondary","totalLines":4,"firstLineNumber":2633,"firstLine":"Pray you, put up your dagger, and put out your wit."},{"id":"servant","name":"Servant","house":"House of Capulet","importance":"secondary","totalLines":23,"firstLineNumber":291,"firstLine":"Find them out whose names are written here! It is"},{"id":"first_servant","name":"First Servant","house":"House of Capulet","importance":"secondary","totalLines":10,"firstLineNumber":586,"firstLine":"Where\'s Potpan, that he helps not to take away? He"},{"id":"second_servant","name":"Second Servant","house":"House of Capulet","importance":"secondary","totalLines":12,"firstLineNumber":588,"firstLine":"When good manners shall lie all in one or two men\'s"},{"id":"montague","name":"Montague","house":"House of Montague","importance":"primary","description":"Patriarch of the house of Montague.","totalLines":41,"firstLineNumber":86,"firstLine":"Thou villain Capulet,--Hold me not, let me go."},{"id":"lady_montague","name":"Lady Montague","house":"House of Montague","importance":"primary","description":"Matriarch of the house of Montague.","totalLines":3,"firstLineNumber":87,"firstLine":"Thou shalt not stir a foot to seek a foe."},{"id":"romeo","name":"Romeo Montague","house":"House of Montague","importance":"primary","description":"Son of Montague, is the play\'s male protagonist.","totalLines":613,"firstLineNumber":167,"firstLine":"Is the day so young?"},{"id":"benvolio","name":"Benvolio","house":"House of Montague","importance":"primary","description":"Romeo\'s cousin and best friend.","totalLines":160,"firstLineNumber":71,"firstLine":"Part, fools!"},{"id":"balthasar","name":"Balthasar","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":32,"firstLineNumber":2672,"firstLine":"Then she is well, and nothing can be ill:"},{"id":"Abraham","name":"Abram","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":5,"firstLineNumber":54,"firstLine":"Do you bite your thumb at us, sir?"},{"id":"friar_laurence","name":"Friar Laurence","house":"Others","importance":"primary","description":"Franciscan friar and Romeo\'s confidant.","totalLines":351,"firstLineNumber":1003,"firstLine":"The grey-eyed morn smiles on the frowning night,"},{"id":"friar_john","name":"Friar John","house":"Others","importance":"primary","description":"Sent to deliver Friar Laurence\'s letter to Romeo.","totalLines":13,"firstLineNumber":2745,"firstLine":"Holy Franciscan friar! brother, ho!"},{"id":"apothecary","name":"Apothecary","house":"Others","importance":"primary","description":"Reluctantly sells Romeo poison.","totalLines":7,"firstLineNumber":2715,"firstLine":"Who calls so loud?"},{"id":"chorus","name":"Chorus","house":"Others","importance":"primary","description":"Reads a prologue to each of the first two acts.","totalLines":29,"firstLineNumber":0,"firstLine":"Two households, both alike in dignity,"},{"id":"first_citizen","name":"First Citizen","house":"Others","importance":"secondary","totalLines":7,"firstLineNumber":80,"firstLine":"Clubs, bills, and partisans! strike! beat them down!"},{"id":"first_watchman","name":"First Watchman","house":"Others","importance":"secondary","totalLines":19,"firstLineNumber":2950,"firstLine":"[Within]  Lead, boy: which way?"},{"id":"second_watchman","name":"Second Watchman","house":"Others","importance":"secondary","totalLines":1,"firstLineNumber":2965,"firstLine":"Here\'s Romeo\'s man, we found him in the churchyard."},{"id":"third_watchman","name":"Third Watchman","house":"Others","importance":"secondary","totalLines":3,"firstLineNumber":2967,"firstLine":"Here is a friar, that trembles, sighs and weeps:"},{"id":"third_musician","name":"Third Musician","house":"Others","importance":"secondary","totalLines":1,"firstLineNumber":2646,"firstLine":"Faith, I know not what to say."}]');
 
 },{}],"i3YVd":[function(require,module,exports) {
 module.exports = JSON.parse('[{"source":"sampson","target":"gregory","weight":1},{"source":"sampson","target":"Abraham","weight":1},{"source":"sampson","target":"benvolio","weight":1},{"source":"sampson","target":"tybalt","weight":1},{"source":"sampson","target":"first_citizen","weight":1},{"source":"sampson","target":"capulet","weight":1},{"source":"sampson","target":"lady_capulet","weight":1},{"source":"sampson","target":"montague","weight":1},{"source":"sampson","target":"lady_montague","weight":1},{"source":"sampson","target":"prince","weight":1},{"source":"sampson","target":"romeo","weight":1},{"source":"gregory","target":"sampson","weight":1},{"source":"gregory","target":"Abraham","weight":1},{"source":"gregory","target":"benvolio","weight":1},{"source":"gregory","target":"tybalt","weight":1},{"source":"gregory","target":"first_citizen","weight":1},{"source":"gregory","target":"capulet","weight":1},{"source":"gregory","target":"lady_capulet","weight":1},{"source":"gregory","target":"montague","weight":1},{"source":"gregory","target":"lady_montague","weight":1},{"source":"gregory","target":"prince","weight":1},{"source":"gregory","target":"romeo","weight":1},{"source":"Abraham","target":"sampson","weight":1},{"source":"Abraham","target":"gregory","weight":1},{"source":"Abraham","target":"benvolio","weight":1},{"source":"Abraham","target":"tybalt","weight":1},{"source":"Abraham","target":"first_citizen","weight":1},{"source":"Abraham","target":"capulet","weight":1},{"source":"Abraham","target":"lady_capulet","weight":1},{"source":"Abraham","target":"montague","weight":1},{"source":"Abraham","target":"lady_montague","weight":1},{"source":"Abraham","target":"prince","weight":1},{"source":"Abraham","target":"romeo","weight":1},{"source":"benvolio","target":"sampson","weight":1},{"source":"benvolio","target":"gregory","weight":1},{"source":"benvolio","target":"Abraham","weight":1},{"source":"benvolio","target":"tybalt","weight":3},{"source":"benvolio","target":"first_citizen","weight":2},{"source":"benvolio","target":"capulet","weight":3},{"source":"benvolio","target":"lady_capulet","weight":2},{"source":"benvolio","target":"montague","weight":2},{"source":"benvolio","target":"lady_montague","weight":1},{"source":"benvolio","target":"prince","weight":2},{"source":"benvolio","target":"romeo","weight":7},{"source":"tybalt","target":"sampson","weight":1},{"source":"tybalt","target":"gregory","weight":1},{"source":"tybalt","target":"Abraham","weight":1},{"source":"tybalt","target":"benvolio","weight":3},{"source":"tybalt","target":"first_citizen","weight":2},{"source":"tybalt","target":"capulet","weight":2},{"source":"tybalt","target":"lady_capulet","weight":2},{"source":"tybalt","target":"montague","weight":2},{"source":"tybalt","target":"lady_montague","weight":1},{"source":"tybalt","target":"prince","weight":2},{"source":"tybalt","target":"romeo","weight":3},{"source":"first_citizen","target":"sampson","weight":1},{"source":"first_citizen","target":"gregory","weight":1},{"source":"first_citizen","target":"Abraham","weight":1},{"source":"first_citizen","target":"benvolio","weight":2},{"source":"first_citizen","target":"tybalt","weight":2},{"source":"first_citizen","target":"capulet","weight":1},{"source":"first_citizen","target":"lady_capulet","weight":2},{"source":"first_citizen","target":"montague","weight":2},{"source":"first_citizen","target":"lady_montague","weight":1},{"source":"first_citizen","target":"prince","weight":2},{"source":"first_citizen","target":"romeo","weight":2},{"source":"capulet","target":"sampson","weight":1},{"source":"capulet","target":"gregory","weight":1},{"source":"capulet","target":"Abraham","weight":1},{"source":"capulet","target":"benvolio","weight":3},{"source":"capulet","target":"tybalt","weight":2},{"source":"capulet","target":"first_citizen","weight":1},{"source":"capulet","target":"lady_capulet","weight":7},{"source":"capulet","target":"montague","weight":2},{"source":"capulet","target":"lady_montague","weight":1},{"source":"capulet","target":"prince","weight":2},{"source":"capulet","target":"romeo","weight":5},{"source":"lady_capulet","target":"sampson","weight":1},{"source":"lady_capulet","target":"gregory","weight":1},{"source":"lady_capulet","target":"Abraham","weight":1},{"source":"lady_capulet","target":"benvolio","weight":2},{"source":"lady_capulet","target":"tybalt","weight":2},{"source":"lady_capulet","target":"first_citizen","weight":2},{"source":"lady_capulet","target":"capulet","weight":7},{"source":"lady_capulet","target":"montague","weight":3},{"source":"lady_capulet","target":"lady_montague","weight":1},{"source":"lady_capulet","target":"prince","weight":3},{"source":"lady_capulet","target":"romeo","weight":4},{"source":"montague","target":"sampson","weight":1},{"source":"montague","target":"gregory","weight":1},{"source":"montague","target":"Abraham","weight":1},{"source":"montague","target":"benvolio","weight":2},{"source":"montague","target":"tybalt","weight":2},{"source":"montague","target":"first_citizen","weight":2},{"source":"montague","target":"capulet","weight":2},{"source":"montague","target":"lady_capulet","weight":3},{"source":"montague","target":"lady_montague","weight":1},{"source":"montague","target":"prince","weight":3},{"source":"montague","target":"romeo","weight":3},{"source":"lady_montague","target":"sampson","weight":1},{"source":"lady_montague","target":"gregory","weight":1},{"source":"lady_montague","target":"Abraham","weight":1},{"source":"lady_montague","target":"benvolio","weight":1},{"source":"lady_montague","target":"tybalt","weight":1},{"source":"lady_montague","target":"first_citizen","weight":1},{"source":"lady_montague","target":"capulet","weight":1},{"source":"lady_montague","target":"lady_capulet","weight":1},{"source":"lady_montague","target":"montague","weight":1},{"source":"lady_montague","target":"prince","weight":1},{"source":"lady_montague","target":"romeo","weight":1},{"source":"prince","target":"sampson","weight":1},{"source":"prince","target":"gregory","weight":1},{"source":"prince","target":"Abraham","weight":1},{"source":"prince","target":"benvolio","weight":2},{"source":"prince","target":"tybalt","weight":2},{"source":"prince","target":"first_citizen","weight":2},{"source":"prince","target":"capulet","weight":2},{"source":"prince","target":"lady_capulet","weight":3},{"source":"prince","target":"montague","weight":3},{"source":"prince","target":"lady_montague","weight":1},{"source":"prince","target":"romeo","weight":3},{"source":"romeo","target":"sampson","weight":1},{"source":"romeo","target":"gregory","weight":1},{"source":"romeo","target":"Abraham","weight":1},{"source":"romeo","target":"benvolio","weight":7},{"source":"romeo","target":"tybalt","weight":3},{"source":"romeo","target":"first_citizen","weight":2},{"source":"romeo","target":"capulet","weight":5},{"source":"romeo","target":"lady_capulet","weight":4},{"source":"romeo","target":"montague","weight":3},{"source":"romeo","target":"lady_montague","weight":1},{"source":"romeo","target":"prince","weight":3},{"source":"capulet","target":"paris","weight":4},{"source":"capulet","target":"servant","weight":2},{"source":"paris","target":"capulet","weight":4},{"source":"paris","target":"servant","weight":1},{"source":"paris","target":"benvolio","weight":1},{"source":"paris","target":"romeo","weight":2},{"source":"servant","target":"capulet","weight":2},{"source":"servant","target":"paris","weight":1},{"source":"servant","target":"benvolio","weight":2},{"source":"servant","target":"romeo","weight":2},{"source":"benvolio","target":"paris","weight":1},{"source":"benvolio","target":"servant","weight":2},{"source":"romeo","target":"paris","weight":2},{"source":"romeo","target":"servant","weight":2},{"source":"lady_capulet","target":"nurse","weight":5},{"source":"lady_capulet","target":"juliet","weight":5},{"source":"lady_capulet","target":"servant","weight":1},{"source":"nurse","target":"lady_capulet","weight":5},{"source":"nurse","target":"juliet","weight":7},{"source":"nurse","target":"servant","weight":2},{"source":"juliet","target":"lady_capulet","weight":5},{"source":"juliet","target":"nurse","weight":7},{"source":"juliet","target":"servant","weight":2},{"source":"servant","target":"lady_capulet","weight":1},{"source":"servant","target":"nurse","weight":2},{"source":"servant","target":"juliet","weight":2},{"source":"romeo","target":"mercutio","weight":4},{"source":"benvolio","target":"mercutio","weight":4},{"source":"mercutio","target":"romeo","weight":4},{"source":"mercutio","target":"benvolio","weight":4},{"source":"first_servant","target":"second_servant","weight":2},{"source":"first_servant","target":"capulet","weight":2},{"source":"first_servant","target":"second_capulet","weight":1},{"source":"first_servant","target":"romeo","weight":1},{"source":"first_servant","target":"servant","weight":1},{"source":"first_servant","target":"tybalt","weight":1},{"source":"first_servant","target":"juliet","weight":1},{"source":"first_servant","target":"nurse","weight":2},{"source":"first_servant","target":"benvolio","weight":1},{"source":"second_servant","target":"first_servant","weight":2},{"source":"second_servant","target":"capulet","weight":3},{"source":"second_servant","target":"second_capulet","weight":1},{"source":"second_servant","target":"romeo","weight":1},{"source":"second_servant","target":"servant","weight":1},{"source":"second_servant","target":"tybalt","weight":1},{"source":"second_servant","target":"juliet","weight":2},{"source":"second_servant","target":"nurse","weight":3},{"source":"second_servant","target":"benvolio","weight":1},{"source":"capulet","target":"first_servant","weight":2},{"source":"capulet","target":"second_servant","weight":3},{"source":"capulet","target":"second_capulet","weight":1},{"source":"capulet","target":"juliet","weight":4},{"source":"capulet","target":"nurse","weight":5},{"source":"second_capulet","target":"first_servant","weight":1},{"source":"second_capulet","target":"second_servant","weight":1},{"source":"second_capulet","target":"capulet","weight":1},{"source":"second_capulet","target":"romeo","weight":1},{"source":"second_capulet","target":"servant","weight":1},{"source":"second_capulet","target":"tybalt","weight":1},{"source":"second_capulet","target":"juliet","weight":1},{"source":"second_capulet","target":"nurse","weight":1},{"source":"second_capulet","target":"benvolio","weight":1},{"source":"romeo","target":"first_servant","weight":1},{"source":"romeo","target":"second_servant","weight":1},{"source":"romeo","target":"second_capulet","weight":1},{"source":"romeo","target":"juliet","weight":5},{"source":"romeo","target":"nurse","weight":5},{"source":"servant","target":"first_servant","weight":1},{"source":"servant","target":"second_servant","weight":1},{"source":"servant","target":"second_capulet","weight":1},{"source":"servant","target":"tybalt","weight":1},{"source":"tybalt","target":"first_servant","weight":1},{"source":"tybalt","target":"second_servant","weight":1},{"source":"tybalt","target":"second_capulet","weight":1},{"source":"tybalt","target":"servant","weight":1},{"source":"tybalt","target":"juliet","weight":1},{"source":"tybalt","target":"nurse","weight":1},{"source":"juliet","target":"first_servant","weight":1},{"source":"juliet","target":"second_servant","weight":2},{"source":"juliet","target":"capulet","weight":4},{"source":"juliet","target":"second_capulet","weight":1},{"source":"juliet","target":"romeo","weight":5},{"source":"juliet","target":"tybalt","weight":1},{"source":"juliet","target":"benvolio","weight":1},{"source":"nurse","target":"first_servant","weight":2},{"source":"nurse","target":"second_servant","weight":3},{"source":"nurse","target":"capulet","weight":5},{"source":"nurse","target":"second_capulet","weight":1},{"source":"nurse","target":"romeo","weight":5},{"source":"nurse","target":"tybalt","weight":1},{"source":"nurse","target":"benvolio","weight":2},{"source":"benvolio","target":"first_servant","weight":1},{"source":"benvolio","target":"second_servant","weight":1},{"source":"benvolio","target":"second_capulet","weight":1},{"source":"benvolio","target":"juliet","weight":1},{"source":"benvolio","target":"nurse","weight":2},{"source":"friar_laurence","target":"romeo","weight":4},{"source":"romeo","target":"friar_laurence","weight":4},{"source":"mercutio","target":"nurse","weight":1},{"source":"mercutio","target":"peter","weight":1},{"source":"benvolio","target":"peter","weight":1},{"source":"romeo","target":"peter","weight":1},{"source":"nurse","target":"mercutio","weight":1},{"source":"nurse","target":"peter","weight":2},{"source":"peter","target":"mercutio","weight":1},{"source":"peter","target":"benvolio","weight":1},{"source":"peter","target":"romeo","weight":1},{"source":"peter","target":"nurse","weight":2},{"source":"friar_laurence","target":"juliet","weight":3},{"source":"juliet","target":"friar_laurence","weight":3},{"source":"mercutio","target":"tybalt","weight":1},{"source":"mercutio","target":"first_citizen","weight":1},{"source":"mercutio","target":"prince","weight":1},{"source":"mercutio","target":"lady_capulet","weight":1},{"source":"mercutio","target":"montague","weight":1},{"source":"tybalt","target":"mercutio","weight":1},{"source":"first_citizen","target":"mercutio","weight":1},{"source":"prince","target":"mercutio","weight":1},{"source":"lady_capulet","target":"mercutio","weight":1},{"source":"montague","target":"mercutio","weight":1},{"source":"friar_laurence","target":"nurse","weight":2},{"source":"nurse","target":"friar_laurence","weight":2},{"source":"paris","target":"lady_capulet","weight":3},{"source":"lady_capulet","target":"paris","weight":3},{"source":"friar_laurence","target":"paris","weight":3},{"source":"paris","target":"friar_laurence","weight":3},{"source":"paris","target":"juliet","weight":2},{"source":"juliet","target":"paris","weight":2},{"source":"second_servant","target":"lady_capulet","weight":2},{"source":"lady_capulet","target":"second_servant","weight":2},{"source":"lady_capulet","target":"first_servant","weight":1},{"source":"first_servant","target":"lady_capulet","weight":1},{"source":"nurse","target":"paris","weight":1},{"source":"nurse","target":"first_musician","weight":1},{"source":"nurse","target":"second_musician","weight":1},{"source":"nurse","target":"musician","weight":1},{"source":"nurse","target":"third_musician","weight":1},{"source":"lady_capulet","target":"friar_laurence","weight":2},{"source":"lady_capulet","target":"first_musician","weight":1},{"source":"lady_capulet","target":"peter","weight":1},{"source":"lady_capulet","target":"second_musician","weight":1},{"source":"lady_capulet","target":"musician","weight":1},{"source":"lady_capulet","target":"third_musician","weight":1},{"source":"capulet","target":"friar_laurence","weight":2},{"source":"capulet","target":"first_musician","weight":1},{"source":"capulet","target":"peter","weight":1},{"source":"capulet","target":"second_musician","weight":1},{"source":"capulet","target":"musician","weight":1},{"source":"capulet","target":"third_musician","weight":1},{"source":"friar_laurence","target":"lady_capulet","weight":2},{"source":"friar_laurence","target":"capulet","weight":2},{"source":"friar_laurence","target":"first_musician","weight":1},{"source":"friar_laurence","target":"peter","weight":1},{"source":"friar_laurence","target":"second_musician","weight":1},{"source":"friar_laurence","target":"musician","weight":1},{"source":"friar_laurence","target":"third_musician","weight":1},{"source":"paris","target":"nurse","weight":1},{"source":"paris","target":"first_musician","weight":1},{"source":"paris","target":"peter","weight":1},{"source":"paris","target":"second_musician","weight":1},{"source":"paris","target":"musician","weight":1},{"source":"paris","target":"third_musician","weight":1},{"source":"first_musician","target":"nurse","weight":1},{"source":"first_musician","target":"lady_capulet","weight":1},{"source":"first_musician","target":"capulet","weight":1},{"source":"first_musician","target":"friar_laurence","weight":1},{"source":"first_musician","target":"paris","weight":1},{"source":"first_musician","target":"peter","weight":1},{"source":"first_musician","target":"second_musician","weight":1},{"source":"first_musician","target":"musician","weight":1},{"source":"first_musician","target":"third_musician","weight":1},{"source":"peter","target":"lady_capulet","weight":1},{"source":"peter","target":"capulet","weight":1},{"source":"peter","target":"friar_laurence","weight":1},{"source":"peter","target":"paris","weight":1},{"source":"peter","target":"first_musician","weight":1},{"source":"peter","target":"second_musician","weight":1},{"source":"peter","target":"musician","weight":1},{"source":"peter","target":"third_musician","weight":1},{"source":"second_musician","target":"nurse","weight":1},{"source":"second_musician","target":"lady_capulet","weight":1},{"source":"second_musician","target":"capulet","weight":1},{"source":"second_musician","target":"friar_laurence","weight":1},{"source":"second_musician","target":"paris","weight":1},{"source":"second_musician","target":"first_musician","weight":1},{"source":"second_musician","target":"peter","weight":1},{"source":"second_musician","target":"musician","weight":1},{"source":"second_musician","target":"third_musician","weight":1},{"source":"musician","target":"nurse","weight":1},{"source":"musician","target":"lady_capulet","weight":1},{"source":"musician","target":"capulet","weight":1},{"source":"musician","target":"friar_laurence","weight":1},{"source":"musician","target":"paris","weight":1},{"source":"musician","target":"first_musician","weight":1},{"source":"musician","target":"peter","weight":1},{"source":"musician","target":"second_musician","weight":1},{"source":"musician","target":"third_musician","weight":1},{"source":"third_musician","target":"nurse","weight":1},{"source":"third_musician","target":"lady_capulet","weight":1},{"source":"third_musician","target":"capulet","weight":1},{"source":"third_musician","target":"friar_laurence","weight":1},{"source":"third_musician","target":"paris","weight":1},{"source":"third_musician","target":"first_musician","weight":1},{"source":"third_musician","target":"peter","weight":1},{"source":"third_musician","target":"second_musician","weight":1},{"source":"third_musician","target":"musician","weight":1},{"source":"romeo","target":"balthasar","weight":2},{"source":"romeo","target":"apothecary","weight":1},{"source":"balthasar","target":"romeo","weight":2},{"source":"balthasar","target":"apothecary","weight":1},{"source":"apothecary","target":"romeo","weight":1},{"source":"apothecary","target":"balthasar","weight":1},{"source":"friar_john","target":"friar_laurence","weight":1},{"source":"friar_laurence","target":"friar_john","weight":1},{"source":"paris","target":"page","weight":1},{"source":"paris","target":"balthasar","weight":1},{"source":"paris","target":"first_watchman","weight":1},{"source":"paris","target":"second_watchman","weight":1},{"source":"paris","target":"third_watchman","weight":1},{"source":"paris","target":"prince","weight":1},{"source":"paris","target":"montague","weight":1},{"source":"page","target":"paris","weight":1},{"source":"page","target":"romeo","weight":1},{"source":"page","target":"balthasar","weight":1},{"source":"page","target":"friar_laurence","weight":1},{"source":"page","target":"juliet","weight":1},{"source":"page","target":"first_watchman","weight":1},{"source":"page","target":"second_watchman","weight":1},{"source":"page","target":"third_watchman","weight":1},{"source":"page","target":"prince","weight":1},{"source":"page","target":"capulet","weight":1},{"source":"page","target":"lady_capulet","weight":1},{"source":"page","target":"montague","weight":1},{"source":"romeo","target":"page","weight":1},{"source":"romeo","target":"first_watchman","weight":1},{"source":"romeo","target":"second_watchman","weight":1},{"source":"romeo","target":"third_watchman","weight":1},{"source":"balthasar","target":"paris","weight":1},{"source":"balthasar","target":"page","weight":1},{"source":"balthasar","target":"friar_laurence","weight":1},{"source":"balthasar","target":"juliet","weight":1},{"source":"balthasar","target":"first_watchman","weight":1},{"source":"balthasar","target":"second_watchman","weight":1},{"source":"balthasar","target":"third_watchman","weight":1},{"source":"balthasar","target":"prince","weight":1},{"source":"balthasar","target":"capulet","weight":1},{"source":"balthasar","target":"lady_capulet","weight":1},{"source":"balthasar","target":"montague","weight":1},{"source":"friar_laurence","target":"page","weight":1},{"source":"friar_laurence","target":"balthasar","weight":1},{"source":"friar_laurence","target":"first_watchman","weight":1},{"source":"friar_laurence","target":"second_watchman","weight":1},{"source":"friar_laurence","target":"third_watchman","weight":1},{"source":"friar_laurence","target":"prince","weight":1},{"source":"friar_laurence","target":"montague","weight":1},{"source":"juliet","target":"page","weight":1},{"source":"juliet","target":"balthasar","weight":1},{"source":"juliet","target":"first_watchman","weight":1},{"source":"juliet","target":"second_watchman","weight":1},{"source":"juliet","target":"third_watchman","weight":1},{"source":"juliet","target":"prince","weight":1},{"source":"juliet","target":"montague","weight":1},{"source":"first_watchman","target":"paris","weight":1},{"source":"first_watchman","target":"page","weight":1},{"source":"first_watchman","target":"romeo","weight":1},{"source":"first_watchman","target":"balthasar","weight":1},{"source":"first_watchman","target":"friar_laurence","weight":1},{"source":"first_watchman","target":"juliet","weight":1},{"source":"first_watchman","target":"second_watchman","weight":1},{"source":"first_watchman","target":"third_watchman","weight":1},{"source":"first_watchman","target":"prince","weight":1},{"source":"first_watchman","target":"capulet","weight":1},{"source":"first_watchman","target":"lady_capulet","weight":1},{"source":"first_watchman","target":"montague","weight":1},{"source":"second_watchman","target":"paris","weight":1},{"source":"second_watchman","target":"page","weight":1},{"source":"second_watchman","target":"romeo","weight":1},{"source":"second_watchman","target":"balthasar","weight":1},{"source":"second_watchman","target":"friar_laurence","weight":1},{"source":"second_watchman","target":"juliet","weight":1},{"source":"second_watchman","target":"first_watchman","weight":1},{"source":"second_watchman","target":"third_watchman","weight":1},{"source":"second_watchman","target":"prince","weight":1},{"source":"second_watchman","target":"capulet","weight":1},{"source":"second_watchman","target":"lady_capulet","weight":1},{"source":"second_watchman","target":"montague","weight":1},{"source":"third_watchman","target":"paris","weight":1},{"source":"third_watchman","target":"page","weight":1},{"source":"third_watchman","target":"romeo","weight":1},{"source":"third_watchman","target":"balthasar","weight":1},{"source":"third_watchman","target":"friar_laurence","weight":1},{"source":"third_watchman","target":"juliet","weight":1},{"source":"third_watchman","target":"first_watchman","weight":1},{"source":"third_watchman","target":"second_watchman","weight":1},{"source":"third_watchman","target":"prince","weight":1},{"source":"third_watchman","target":"capulet","weight":1},{"source":"third_watchman","target":"lady_capulet","weight":1},{"source":"third_watchman","target":"montague","weight":1},{"source":"prince","target":"paris","weight":1},{"source":"prince","target":"page","weight":1},{"source":"prince","target":"balthasar","weight":1},{"source":"prince","target":"friar_laurence","weight":1},{"source":"prince","target":"juliet","weight":1},{"source":"prince","target":"first_watchman","weight":1},{"source":"prince","target":"second_watchman","weight":1},{"source":"prince","target":"third_watchman","weight":1},{"source":"capulet","target":"page","weight":1},{"source":"capulet","target":"balthasar","weight":1},{"source":"capulet","target":"first_watchman","weight":1},{"source":"capulet","target":"second_watchman","weight":1},{"source":"capulet","target":"third_watchman","weight":1},{"source":"lady_capulet","target":"page","weight":1},{"source":"lady_capulet","target":"balthasar","weight":1},{"source":"lady_capulet","target":"first_watchman","weight":1},{"source":"lady_capulet","target":"second_watchman","weight":1},{"source":"lady_capulet","target":"third_watchman","weight":1},{"source":"montague","target":"paris","weight":1},{"source":"montague","target":"page","weight":1},{"source":"montague","target":"balthasar","weight":1},{"source":"montague","target":"friar_laurence","weight":1},{"source":"montague","target":"juliet","weight":1},{"source":"montague","target":"first_watchman","weight":1},{"source":"montague","target":"second_watchman","weight":1},{"source":"montague","target":"third_watchman","weight":1}]');
@@ -6142,6 +6252,783 @@ function asin(x) {
     return x >= 1 ? halfPi : x <= -1 ? -halfPi : Math.asin(x);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}]},["fdTx9","1SICI"], "1SICI", "parcelRequire94c2")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"kFA5m":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "drawBeeswarm", ()=>drawBeeswarm);
+var _d3Force = require("d3-force");
+var _d3Selection = require("d3-selection");
+var _d3Array = require("d3-array");
+var _d3Scale = require("d3-scale");
+var _scales = require("./scales");
+var _helper = require("./helper");
+const drawBeeswarm = (nodes)=>{
+    const characters = JSON.parse(JSON.stringify(nodes));
+    console.log("characters", characters);
+    // Dimensions
+    const width = 1140;
+    const height = 400;
+    const margin = {
+        top: 0,
+        right: 100,
+        bottom: 0,
+        left: 100
+    };
+    const innerWidth = width - margin.right - margin.left;
+    const innerHeight = height - margin.top - margin.bottom;
+    // Horizontal scale
+    const xScale = (0, _d3Scale.scaleLinear)().domain([
+        0,
+        (0, _helper.totalLines)
+    ]).range([
+        0,
+        width
+    ]);
+    // Append SVG container
+    const svg = (0, _d3Selection.select)("#beeswarm").append("svg").attr("viewBox", `0 0 ${width} ${height}`)// .append("g")
+    //   .attr("transform", `translate(${width/2}, ${height/2})`);
+    .append("g").attr("transform", `translate(${margin.left}, ${height / 2})`);
+    // Append nodes
+    const maxLines = (0, _d3Array.max)(characters, (d)=>d.totalLines);
+    svg.selectAll(".beeswarm-circle").data(characters).join("circle").attr("class", "beeswarm-circle").attr("cx", (d)=>xScale(d.firstLineNumber)).attr("cy", 0).attr("r", (d)=>{
+        d["radius"] = (0, _scales.getRadius)(maxLines, d.totalLines);
+        return d.radius;
+    }).attr("fill", (d)=>(0, _scales.charColorScale)(d.house)).attr("stroke", "#FAFBFF").attr("stroke-width", 1);
+    // Set up the simulation
+    const updateNetwork = ()=>{
+        (0, _d3Selection.selectAll)(".beeswarm-circle").attr("cx", (d)=>d.x).attr("cy", (d)=>d.y);
+    };
+    // const simulation = forceSimulation()
+    //   .force("x", forceX() )
+    //   .nodes(characters)
+    //   .on("tick", updateNetwork);
+    // const simulation = forceSimulation()
+    //   .force("y", forceY() )
+    //   .nodes(characters)
+    //   .on("tick", updateNetwork);
+    // const simulation = forceSimulation()
+    //   .force("x", forceX().strength(0.001) )
+    //   .force("y", forceY().strength(0.001) )
+    //   .force("collide", forceCollide().radius(d => d.radius) )
+    //   .nodes(characters)
+    //   .on("tick", updateNetwork);
+    const simulation = (0, _d3Force.forceSimulation)().force("x", (0, _d3Force.forceX)((d)=>xScale(d.firstLineNumber)).strength(1)).force("y", (0, _d3Force.forceY)().strength(0.1)).force("collide", (0, _d3Force.forceCollide)().radius((d)=>d.radius)).nodes(characters).on("tick", updateNetwork);
+    // Append horizontal axis
+    svg.append("line").attr("x1", 0).attr("y1", 0).attr("x2", xScale((0, _helper.totalLines))).attr("y2", 0).attr("stroke", "#161B33").attr("stroke-width", 2);
+    svg.selectAll(".scene-tick").data((0, _helper.scenes)).join("line").attr("class", "scene-tick").attr("x1", (d)=>xScale(d.firstLine)).attr("y1", 0).attr("x2", (d)=>xScale(d.firstLine)).attr("y2", 8).attr("stroke", "#161B33");
+    const sceneLabels = [
+        "1.1",
+        "2.1",
+        "3.1",
+        "4.1",
+        "5.1"
+    ];
+    svg.selectAll(".scene-label").data((0, _helper.scenes).filter((s)=>sceneLabels.includes(s.scene))).join("text").attr("x", (d)=>xScale(d.firstLine)).attr("y", 28).attr("text-anchor", "middle").text((d)=>d.scene).style("font-size", "16px").style("font-weight", 500);
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","d3-force":"helua","d3-selection":"gn9gd","d3-array":"1yX2W","./scales":"NYsfE","d3-scale":"UQ8g3","./helper":"lVRAz"}],"helua":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "forceCenter", ()=>(0, _centerJsDefault.default));
+parcelHelpers.export(exports, "forceCollide", ()=>(0, _collideJsDefault.default));
+parcelHelpers.export(exports, "forceLink", ()=>(0, _linkJsDefault.default));
+parcelHelpers.export(exports, "forceManyBody", ()=>(0, _manyBodyJsDefault.default));
+parcelHelpers.export(exports, "forceRadial", ()=>(0, _radialJsDefault.default));
+parcelHelpers.export(exports, "forceSimulation", ()=>(0, _simulationJsDefault.default));
+parcelHelpers.export(exports, "forceX", ()=>(0, _xJsDefault.default));
+parcelHelpers.export(exports, "forceY", ()=>(0, _yJsDefault.default));
+var _centerJs = require("./center.js");
+var _centerJsDefault = parcelHelpers.interopDefault(_centerJs);
+var _collideJs = require("./collide.js");
+var _collideJsDefault = parcelHelpers.interopDefault(_collideJs);
+var _linkJs = require("./link.js");
+var _linkJsDefault = parcelHelpers.interopDefault(_linkJs);
+var _manyBodyJs = require("./manyBody.js");
+var _manyBodyJsDefault = parcelHelpers.interopDefault(_manyBodyJs);
+var _radialJs = require("./radial.js");
+var _radialJsDefault = parcelHelpers.interopDefault(_radialJs);
+var _simulationJs = require("./simulation.js");
+var _simulationJsDefault = parcelHelpers.interopDefault(_simulationJs);
+var _xJs = require("./x.js");
+var _xJsDefault = parcelHelpers.interopDefault(_xJs);
+var _yJs = require("./y.js");
+var _yJsDefault = parcelHelpers.interopDefault(_yJs);
+
+},{"./center.js":false,"./collide.js":"34dOa","./link.js":false,"./manyBody.js":false,"./radial.js":false,"./simulation.js":"FYZiY","./x.js":"g7Dub","./y.js":"84MbS","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"34dOa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Quadtree = require("d3-quadtree");
+var _constantJs = require("./constant.js");
+var _constantJsDefault = parcelHelpers.interopDefault(_constantJs);
+var _jiggleJs = require("./jiggle.js");
+var _jiggleJsDefault = parcelHelpers.interopDefault(_jiggleJs);
+function x(d) {
+    return d.x + d.vx;
+}
+function y(d) {
+    return d.y + d.vy;
+}
+exports.default = function(radius) {
+    var nodes, radii, random, strength = 1, iterations = 1;
+    if (typeof radius !== "function") radius = (0, _constantJsDefault.default)(radius == null ? 1 : +radius);
+    function force() {
+        var i, n = nodes.length, tree, node, xi, yi, ri, ri2;
+        for(var k = 0; k < iterations; ++k){
+            tree = (0, _d3Quadtree.quadtree)(nodes, x, y).visitAfter(prepare);
+            for(i = 0; i < n; ++i){
+                node = nodes[i];
+                ri = radii[node.index], ri2 = ri * ri;
+                xi = node.x + node.vx;
+                yi = node.y + node.vy;
+                tree.visit(apply);
+            }
+        }
+        function apply(quad, x0, y0, x1, y1) {
+            var data = quad.data, rj = quad.r, r = ri + rj;
+            if (data) {
+                if (data.index > node.index) {
+                    var x = xi - data.x - data.vx, y = yi - data.y - data.vy, l = x * x + y * y;
+                    if (l < r * r) {
+                        if (x === 0) x = (0, _jiggleJsDefault.default)(random), l += x * x;
+                        if (y === 0) y = (0, _jiggleJsDefault.default)(random), l += y * y;
+                        l = (r - (l = Math.sqrt(l))) / l * strength;
+                        node.vx += (x *= l) * (r = (rj *= rj) / (ri2 + rj));
+                        node.vy += (y *= l) * r;
+                        data.vx -= x * (r = 1 - r);
+                        data.vy -= y * r;
+                    }
+                }
+                return;
+            }
+            return x0 > xi + r || x1 < xi - r || y0 > yi + r || y1 < yi - r;
+        }
+    }
+    function prepare(quad) {
+        if (quad.data) return quad.r = radii[quad.data.index];
+        for(var i = quad.r = 0; i < 4; ++i)if (quad[i] && quad[i].r > quad.r) quad.r = quad[i].r;
+    }
+    function initialize() {
+        if (!nodes) return;
+        var i, n = nodes.length, node;
+        radii = new Array(n);
+        for(i = 0; i < n; ++i)node = nodes[i], radii[node.index] = +radius(node, i, nodes);
+    }
+    force.initialize = function(_nodes, _random) {
+        nodes = _nodes;
+        random = _random;
+        initialize();
+    };
+    force.iterations = function(_) {
+        return arguments.length ? (iterations = +_, force) : iterations;
+    };
+    force.strength = function(_) {
+        return arguments.length ? (strength = +_, force) : strength;
+    };
+    force.radius = function(_) {
+        return arguments.length ? (radius = typeof _ === "function" ? _ : (0, _constantJsDefault.default)(+_), initialize(), force) : radius;
+    };
+    return force;
+};
+
+},{"d3-quadtree":"ep5gF","./constant.js":"bqryx","./jiggle.js":"72pY7","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ep5gF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "quadtree", ()=>(0, _quadtreeJsDefault.default));
+var _quadtreeJs = require("./quadtree.js");
+var _quadtreeJsDefault = parcelHelpers.interopDefault(_quadtreeJs);
+
+},{"./quadtree.js":"iV7KR","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"iV7KR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _addJs = require("./add.js");
+var _addJsDefault = parcelHelpers.interopDefault(_addJs);
+var _coverJs = require("./cover.js");
+var _coverJsDefault = parcelHelpers.interopDefault(_coverJs);
+var _dataJs = require("./data.js");
+var _dataJsDefault = parcelHelpers.interopDefault(_dataJs);
+var _extentJs = require("./extent.js");
+var _extentJsDefault = parcelHelpers.interopDefault(_extentJs);
+var _findJs = require("./find.js");
+var _findJsDefault = parcelHelpers.interopDefault(_findJs);
+var _removeJs = require("./remove.js");
+var _removeJsDefault = parcelHelpers.interopDefault(_removeJs);
+var _rootJs = require("./root.js");
+var _rootJsDefault = parcelHelpers.interopDefault(_rootJs);
+var _sizeJs = require("./size.js");
+var _sizeJsDefault = parcelHelpers.interopDefault(_sizeJs);
+var _visitJs = require("./visit.js");
+var _visitJsDefault = parcelHelpers.interopDefault(_visitJs);
+var _visitAfterJs = require("./visitAfter.js");
+var _visitAfterJsDefault = parcelHelpers.interopDefault(_visitAfterJs);
+var _xJs = require("./x.js");
+var _xJsDefault = parcelHelpers.interopDefault(_xJs);
+var _yJs = require("./y.js");
+var _yJsDefault = parcelHelpers.interopDefault(_yJs);
+function quadtree(nodes, x, y) {
+    var tree = new Quadtree(x == null ? (0, _xJs.defaultX) : x, y == null ? (0, _yJs.defaultY) : y, NaN, NaN, NaN, NaN);
+    return nodes == null ? tree : tree.addAll(nodes);
+}
+exports.default = quadtree;
+function Quadtree(x, y, x0, y0, x1, y1) {
+    this._x = x;
+    this._y = y;
+    this._x0 = x0;
+    this._y0 = y0;
+    this._x1 = x1;
+    this._y1 = y1;
+    this._root = undefined;
+}
+function leaf_copy(leaf) {
+    var copy = {
+        data: leaf.data
+    }, next = copy;
+    while(leaf = leaf.next)next = next.next = {
+        data: leaf.data
+    };
+    return copy;
+}
+var treeProto = quadtree.prototype = Quadtree.prototype;
+treeProto.copy = function() {
+    var copy = new Quadtree(this._x, this._y, this._x0, this._y0, this._x1, this._y1), node = this._root, nodes, child;
+    if (!node) return copy;
+    if (!node.length) return copy._root = leaf_copy(node), copy;
+    nodes = [
+        {
+            source: node,
+            target: copy._root = new Array(4)
+        }
+    ];
+    while(node = nodes.pop()){
+        for(var i = 0; i < 4; ++i)if (child = node.source[i]) {
+            if (child.length) nodes.push({
+                source: child,
+                target: node.target[i] = new Array(4)
+            });
+            else node.target[i] = leaf_copy(child);
+        }
+    }
+    return copy;
+};
+treeProto.add = (0, _addJsDefault.default);
+treeProto.addAll = (0, _addJs.addAll);
+treeProto.cover = (0, _coverJsDefault.default);
+treeProto.data = (0, _dataJsDefault.default);
+treeProto.extent = (0, _extentJsDefault.default);
+treeProto.find = (0, _findJsDefault.default);
+treeProto.remove = (0, _removeJsDefault.default);
+treeProto.removeAll = (0, _removeJs.removeAll);
+treeProto.root = (0, _rootJsDefault.default);
+treeProto.size = (0, _sizeJsDefault.default);
+treeProto.visit = (0, _visitJsDefault.default);
+treeProto.visitAfter = (0, _visitAfterJsDefault.default);
+treeProto.x = (0, _xJsDefault.default);
+treeProto.y = (0, _yJsDefault.default);
+
+},{"./add.js":"bsac5","./cover.js":"gENfN","./data.js":"2uGAx","./extent.js":"9ojS1","./find.js":"4K0hP","./remove.js":"5QHxT","./root.js":"ggTIx","./size.js":"eQnwx","./visit.js":"6DZG9","./visitAfter.js":"c8U2L","./x.js":"iNLfi","./y.js":"8yxIq","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"bsac5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "addAll", ()=>addAll);
+exports.default = function(d) {
+    const x = +this._x.call(null, d), y = +this._y.call(null, d);
+    return add(this.cover(x, y), x, y, d);
+};
+function add(tree, x, y, d) {
+    if (isNaN(x) || isNaN(y)) return tree; // ignore invalid points
+    var parent, node = tree._root, leaf = {
+        data: d
+    }, x0 = tree._x0, y0 = tree._y0, x1 = tree._x1, y1 = tree._y1, xm, ym, xp, yp, right, bottom, i, j;
+    // If the tree is empty, initialize the root as a leaf.
+    if (!node) return tree._root = leaf, tree;
+    // Find the existing leaf for the new point, or add it.
+    while(node.length){
+        if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm;
+        else x1 = xm;
+        if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym;
+        else y1 = ym;
+        if (parent = node, !(node = node[i = bottom << 1 | right])) return parent[i] = leaf, tree;
+    }
+    // Is the new point is exactly coincident with the existing point?
+    xp = +tree._x.call(null, node.data);
+    yp = +tree._y.call(null, node.data);
+    if (x === xp && y === yp) return leaf.next = node, parent ? parent[i] = leaf : tree._root = leaf, tree;
+    // Otherwise, split the leaf node until the old and new point are separated.
+    do {
+        parent = parent ? parent[i] = new Array(4) : tree._root = new Array(4);
+        if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm;
+        else x1 = xm;
+        if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym;
+        else y1 = ym;
+    }while ((i = bottom << 1 | right) === (j = (yp >= ym) << 1 | xp >= xm));
+    return parent[j] = node, parent[i] = leaf, tree;
+}
+function addAll(data) {
+    var d, i, n = data.length, x, y, xz = new Array(n), yz = new Array(n), x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    // Compute the points and their extent.
+    for(i = 0; i < n; ++i){
+        if (isNaN(x = +this._x.call(null, d = data[i])) || isNaN(y = +this._y.call(null, d))) continue;
+        xz[i] = x;
+        yz[i] = y;
+        if (x < x0) x0 = x;
+        if (x > x1) x1 = x;
+        if (y < y0) y0 = y;
+        if (y > y1) y1 = y;
+    }
+    // If there were no (valid) points, abort.
+    if (x0 > x1 || y0 > y1) return this;
+    // Expand the tree to cover the new points.
+    this.cover(x0, y0).cover(x1, y1);
+    // Add the new points.
+    for(i = 0; i < n; ++i)add(this, xz[i], yz[i], data[i]);
+    return this;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"gENfN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function(x, y) {
+    if (isNaN(x = +x) || isNaN(y = +y)) return this; // ignore invalid points
+    var x0 = this._x0, y0 = this._y0, x1 = this._x1, y1 = this._y1;
+    // If the quadtree has no extent, initialize them.
+    // Integer extent are necessary so that if we later double the extent,
+    // the existing quadrant boundaries don’t change due to floating point error!
+    if (isNaN(x0)) {
+        x1 = (x0 = Math.floor(x)) + 1;
+        y1 = (y0 = Math.floor(y)) + 1;
+    } else {
+        var z = x1 - x0 || 1, node = this._root, parent, i;
+        while(x0 > x || x >= x1 || y0 > y || y >= y1){
+            i = (y < y0) << 1 | x < x0;
+            parent = new Array(4), parent[i] = node, node = parent, z *= 2;
+            switch(i){
+                case 0:
+                    x1 = x0 + z, y1 = y0 + z;
+                    break;
+                case 1:
+                    x0 = x1 - z, y1 = y0 + z;
+                    break;
+                case 2:
+                    x1 = x0 + z, y0 = y1 - z;
+                    break;
+                case 3:
+                    x0 = x1 - z, y0 = y1 - z;
+                    break;
+            }
+        }
+        if (this._root && this._root.length) this._root = node;
+    }
+    this._x0 = x0;
+    this._y0 = y0;
+    this._x1 = x1;
+    this._y1 = y1;
+    return this;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"2uGAx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function() {
+    var data = [];
+    this.visit(function(node) {
+        if (!node.length) do data.push(node.data);
+        while (node = node.next);
+    });
+    return data;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9ojS1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function(_) {
+    return arguments.length ? this.cover(+_[0][0], +_[0][1]).cover(+_[1][0], +_[1][1]) : isNaN(this._x0) ? undefined : [
+        [
+            this._x0,
+            this._y0
+        ],
+        [
+            this._x1,
+            this._y1
+        ]
+    ];
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"4K0hP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _quadJs = require("./quad.js");
+var _quadJsDefault = parcelHelpers.interopDefault(_quadJs);
+exports.default = function(x, y, radius) {
+    var data, x0 = this._x0, y0 = this._y0, x1, y1, x2, y2, x3 = this._x1, y3 = this._y1, quads = [], node = this._root, q, i;
+    if (node) quads.push(new (0, _quadJsDefault.default)(node, x0, y0, x3, y3));
+    if (radius == null) radius = Infinity;
+    else {
+        x0 = x - radius, y0 = y - radius;
+        x3 = x + radius, y3 = y + radius;
+        radius *= radius;
+    }
+    while(q = quads.pop()){
+        // Stop searching if this quadrant can’t contain a closer node.
+        if (!(node = q.node) || (x1 = q.x0) > x3 || (y1 = q.y0) > y3 || (x2 = q.x1) < x0 || (y2 = q.y1) < y0) continue;
+        // Bisect the current quadrant.
+        if (node.length) {
+            var xm = (x1 + x2) / 2, ym = (y1 + y2) / 2;
+            quads.push(new (0, _quadJsDefault.default)(node[3], xm, ym, x2, y2), new (0, _quadJsDefault.default)(node[2], x1, ym, xm, y2), new (0, _quadJsDefault.default)(node[1], xm, y1, x2, ym), new (0, _quadJsDefault.default)(node[0], x1, y1, xm, ym));
+            // Visit the closest quadrant first.
+            if (i = (y >= ym) << 1 | x >= xm) {
+                q = quads[quads.length - 1];
+                quads[quads.length - 1] = quads[quads.length - 1 - i];
+                quads[quads.length - 1 - i] = q;
+            }
+        } else {
+            var dx = x - +this._x.call(null, node.data), dy = y - +this._y.call(null, node.data), d2 = dx * dx + dy * dy;
+            if (d2 < radius) {
+                var d = Math.sqrt(radius = d2);
+                x0 = x - d, y0 = y - d;
+                x3 = x + d, y3 = y + d;
+                data = node.data;
+            }
+        }
+    }
+    return data;
+};
+
+},{"./quad.js":"9uc40","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9uc40":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function(node, x0, y0, x1, y1) {
+    this.node = node;
+    this.x0 = x0;
+    this.y0 = y0;
+    this.x1 = x1;
+    this.y1 = y1;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"5QHxT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "removeAll", ()=>removeAll);
+exports.default = function(d) {
+    if (isNaN(x = +this._x.call(null, d)) || isNaN(y = +this._y.call(null, d))) return this; // ignore invalid points
+    var parent, node = this._root, retainer, previous, next, x0 = this._x0, y0 = this._y0, x1 = this._x1, y1 = this._y1, x, y, xm, ym, right, bottom, i, j;
+    // If the tree is empty, initialize the root as a leaf.
+    if (!node) return this;
+    // Find the leaf node for the point.
+    // While descending, also retain the deepest parent with a non-removed sibling.
+    if (node.length) while(true){
+        if (right = x >= (xm = (x0 + x1) / 2)) x0 = xm;
+        else x1 = xm;
+        if (bottom = y >= (ym = (y0 + y1) / 2)) y0 = ym;
+        else y1 = ym;
+        if (!(parent = node, node = node[i = bottom << 1 | right])) return this;
+        if (!node.length) break;
+        if (parent[i + 1 & 3] || parent[i + 2 & 3] || parent[i + 3 & 3]) retainer = parent, j = i;
+    }
+    // Find the point to remove.
+    while(node.data !== d)if (!(previous = node, node = node.next)) return this;
+    if (next = node.next) delete node.next;
+    // If there are multiple coincident points, remove just the point.
+    if (previous) return next ? previous.next = next : delete previous.next, this;
+    // If this is the root point, remove it.
+    if (!parent) return this._root = next, this;
+    // Remove this leaf.
+    next ? parent[i] = next : delete parent[i];
+    // If the parent now contains exactly one leaf, collapse superfluous parents.
+    if ((node = parent[0] || parent[1] || parent[2] || parent[3]) && node === (parent[3] || parent[2] || parent[1] || parent[0]) && !node.length) {
+        if (retainer) retainer[j] = node;
+        else this._root = node;
+    }
+    return this;
+};
+function removeAll(data) {
+    for(var i = 0, n = data.length; i < n; ++i)this.remove(data[i]);
+    return this;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ggTIx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function() {
+    return this._root;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"eQnwx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function() {
+    var size = 0;
+    this.visit(function(node) {
+        if (!node.length) do ++size;
+        while (node = node.next);
+    });
+    return size;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"6DZG9":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _quadJs = require("./quad.js");
+var _quadJsDefault = parcelHelpers.interopDefault(_quadJs);
+exports.default = function(callback) {
+    var quads = [], q, node = this._root, child, x0, y0, x1, y1;
+    if (node) quads.push(new (0, _quadJsDefault.default)(node, this._x0, this._y0, this._x1, this._y1));
+    while(q = quads.pop())if (!callback(node = q.node, x0 = q.x0, y0 = q.y0, x1 = q.x1, y1 = q.y1) && node.length) {
+        var xm = (x0 + x1) / 2, ym = (y0 + y1) / 2;
+        if (child = node[3]) quads.push(new (0, _quadJsDefault.default)(child, xm, ym, x1, y1));
+        if (child = node[2]) quads.push(new (0, _quadJsDefault.default)(child, x0, ym, xm, y1));
+        if (child = node[1]) quads.push(new (0, _quadJsDefault.default)(child, xm, y0, x1, ym));
+        if (child = node[0]) quads.push(new (0, _quadJsDefault.default)(child, x0, y0, xm, ym));
+    }
+    return this;
+};
+
+},{"./quad.js":"9uc40","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"c8U2L":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _quadJs = require("./quad.js");
+var _quadJsDefault = parcelHelpers.interopDefault(_quadJs);
+exports.default = function(callback) {
+    var quads = [], next = [], q;
+    if (this._root) quads.push(new (0, _quadJsDefault.default)(this._root, this._x0, this._y0, this._x1, this._y1));
+    while(q = quads.pop()){
+        var node = q.node;
+        if (node.length) {
+            var child, x0 = q.x0, y0 = q.y0, x1 = q.x1, y1 = q.y1, xm = (x0 + x1) / 2, ym = (y0 + y1) / 2;
+            if (child = node[0]) quads.push(new (0, _quadJsDefault.default)(child, x0, y0, xm, ym));
+            if (child = node[1]) quads.push(new (0, _quadJsDefault.default)(child, xm, y0, x1, ym));
+            if (child = node[2]) quads.push(new (0, _quadJsDefault.default)(child, x0, ym, xm, y1));
+            if (child = node[3]) quads.push(new (0, _quadJsDefault.default)(child, xm, ym, x1, y1));
+        }
+        next.push(q);
+    }
+    while(q = next.pop())callback(q.node, q.x0, q.y0, q.x1, q.y1);
+    return this;
+};
+
+},{"./quad.js":"9uc40","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"iNLfi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "defaultX", ()=>defaultX);
+function defaultX(d) {
+    return d[0];
+}
+exports.default = function(_) {
+    return arguments.length ? (this._x = _, this) : this._x;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"8yxIq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "defaultY", ()=>defaultY);
+function defaultY(d) {
+    return d[1];
+}
+exports.default = function(_) {
+    return arguments.length ? (this._y = _, this) : this._y;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"bqryx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function(x) {
+    return function() {
+        return x;
+    };
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"72pY7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function(random) {
+    return (random() - 0.5) * 1e-6;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"FYZiY":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "x", ()=>x);
+parcelHelpers.export(exports, "y", ()=>y);
+var _d3Dispatch = require("d3-dispatch");
+var _d3Timer = require("d3-timer");
+var _lcgJs = require("./lcg.js");
+var _lcgJsDefault = parcelHelpers.interopDefault(_lcgJs);
+function x(d) {
+    return d.x;
+}
+function y(d) {
+    return d.y;
+}
+var initialRadius = 10, initialAngle = Math.PI * (3 - Math.sqrt(5));
+exports.default = function(nodes) {
+    var simulation, alpha = 1, alphaMin = 0.001, alphaDecay = 1 - Math.pow(alphaMin, 1 / 300), alphaTarget = 0, velocityDecay = 0.6, forces = new Map(), stepper = (0, _d3Timer.timer)(step), event = (0, _d3Dispatch.dispatch)("tick", "end"), random = (0, _lcgJsDefault.default)();
+    if (nodes == null) nodes = [];
+    function step() {
+        tick();
+        event.call("tick", simulation);
+        if (alpha < alphaMin) {
+            stepper.stop();
+            event.call("end", simulation);
+        }
+    }
+    function tick(iterations) {
+        var i, n = nodes.length, node;
+        if (iterations === undefined) iterations = 1;
+        for(var k = 0; k < iterations; ++k){
+            alpha += (alphaTarget - alpha) * alphaDecay;
+            forces.forEach(function(force) {
+                force(alpha);
+            });
+            for(i = 0; i < n; ++i){
+                node = nodes[i];
+                if (node.fx == null) node.x += node.vx *= velocityDecay;
+                else node.x = node.fx, node.vx = 0;
+                if (node.fy == null) node.y += node.vy *= velocityDecay;
+                else node.y = node.fy, node.vy = 0;
+            }
+        }
+        return simulation;
+    }
+    function initializeNodes() {
+        for(var i = 0, n = nodes.length, node; i < n; ++i){
+            node = nodes[i], node.index = i;
+            if (node.fx != null) node.x = node.fx;
+            if (node.fy != null) node.y = node.fy;
+            if (isNaN(node.x) || isNaN(node.y)) {
+                var radius = initialRadius * Math.sqrt(0.5 + i), angle = i * initialAngle;
+                node.x = radius * Math.cos(angle);
+                node.y = radius * Math.sin(angle);
+            }
+            if (isNaN(node.vx) || isNaN(node.vy)) node.vx = node.vy = 0;
+        }
+    }
+    function initializeForce(force) {
+        if (force.initialize) force.initialize(nodes, random);
+        return force;
+    }
+    initializeNodes();
+    return simulation = {
+        tick: tick,
+        restart: function() {
+            return stepper.restart(step), simulation;
+        },
+        stop: function() {
+            return stepper.stop(), simulation;
+        },
+        nodes: function(_) {
+            return arguments.length ? (nodes = _, initializeNodes(), forces.forEach(initializeForce), simulation) : nodes;
+        },
+        alpha: function(_) {
+            return arguments.length ? (alpha = +_, simulation) : alpha;
+        },
+        alphaMin: function(_) {
+            return arguments.length ? (alphaMin = +_, simulation) : alphaMin;
+        },
+        alphaDecay: function(_) {
+            return arguments.length ? (alphaDecay = +_, simulation) : +alphaDecay;
+        },
+        alphaTarget: function(_) {
+            return arguments.length ? (alphaTarget = +_, simulation) : alphaTarget;
+        },
+        velocityDecay: function(_) {
+            return arguments.length ? (velocityDecay = 1 - _, simulation) : 1 - velocityDecay;
+        },
+        randomSource: function(_) {
+            return arguments.length ? (random = _, forces.forEach(initializeForce), simulation) : random;
+        },
+        force: function(name, _) {
+            return arguments.length > 1 ? (_ == null ? forces.delete(name) : forces.set(name, initializeForce(_)), simulation) : forces.get(name);
+        },
+        find: function(x, y, radius) {
+            var i = 0, n = nodes.length, dx, dy, d2, node, closest;
+            if (radius == null) radius = Infinity;
+            else radius *= radius;
+            for(i = 0; i < n; ++i){
+                node = nodes[i];
+                dx = x - node.x;
+                dy = y - node.y;
+                d2 = dx * dx + dy * dy;
+                if (d2 < radius) closest = node, radius = d2;
+            }
+            return closest;
+        },
+        on: function(name, _) {
+            return arguments.length > 1 ? (event.on(name, _), simulation) : event.on(name);
+        }
+    };
+};
+
+},{"d3-dispatch":"5WtHO","d3-timer":"7TEss","./lcg.js":"6H1cG","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"6H1cG":[function(require,module,exports) {
+// https://en.wikipedia.org/wiki/Linear_congruential_generator#Parameters_in_common_use
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const a = 1664525;
+const c = 1013904223;
+const m = 4294967296; // 2^32
+exports.default = function() {
+    let s = 1;
+    return ()=>(s = (a * s + c) % m) / m;
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"g7Dub":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _constantJs = require("./constant.js");
+var _constantJsDefault = parcelHelpers.interopDefault(_constantJs);
+exports.default = function(x) {
+    var strength = (0, _constantJsDefault.default)(0.1), nodes, strengths, xz;
+    if (typeof x !== "function") x = (0, _constantJsDefault.default)(x == null ? 0 : +x);
+    function force(alpha) {
+        for(var i = 0, n = nodes.length, node; i < n; ++i)node = nodes[i], node.vx += (xz[i] - node.x) * strengths[i] * alpha;
+    }
+    function initialize() {
+        if (!nodes) return;
+        var i, n = nodes.length;
+        strengths = new Array(n);
+        xz = new Array(n);
+        for(i = 0; i < n; ++i)strengths[i] = isNaN(xz[i] = +x(nodes[i], i, nodes)) ? 0 : +strength(nodes[i], i, nodes);
+    }
+    force.initialize = function(_) {
+        nodes = _;
+        initialize();
+    };
+    force.strength = function(_) {
+        return arguments.length ? (strength = typeof _ === "function" ? _ : (0, _constantJsDefault.default)(+_), initialize(), force) : strength;
+    };
+    force.x = function(_) {
+        return arguments.length ? (x = typeof _ === "function" ? _ : (0, _constantJsDefault.default)(+_), initialize(), force) : x;
+    };
+    return force;
+};
+
+},{"./constant.js":"bqryx","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"84MbS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _constantJs = require("./constant.js");
+var _constantJsDefault = parcelHelpers.interopDefault(_constantJs);
+exports.default = function(y) {
+    var strength = (0, _constantJsDefault.default)(0.1), nodes, strengths, yz;
+    if (typeof y !== "function") y = (0, _constantJsDefault.default)(y == null ? 0 : +y);
+    function force(alpha) {
+        for(var i = 0, n = nodes.length, node; i < n; ++i)node = nodes[i], node.vy += (yz[i] - node.y) * strengths[i] * alpha;
+    }
+    function initialize() {
+        if (!nodes) return;
+        var i, n = nodes.length;
+        strengths = new Array(n);
+        yz = new Array(n);
+        for(i = 0; i < n; ++i)strengths[i] = isNaN(yz[i] = +y(nodes[i], i, nodes)) ? 0 : +strength(nodes[i], i, nodes);
+    }
+    force.initialize = function(_) {
+        nodes = _;
+        initialize();
+    };
+    force.strength = function(_) {
+        return arguments.length ? (strength = typeof _ === "function" ? _ : (0, _constantJsDefault.default)(+_), initialize(), force) : strength;
+    };
+    force.y = function(_) {
+        return arguments.length ? (y = typeof _ === "function" ? _ : (0, _constantJsDefault.default)(+_), initialize(), force) : y;
+    };
+    return force;
+};
+
+},{"./constant.js":"bqryx","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}]},["fdTx9","1SICI"], "1SICI", "parcelRequire94c2")
 
 //# sourceMappingURL=index.18dbc454.js.map

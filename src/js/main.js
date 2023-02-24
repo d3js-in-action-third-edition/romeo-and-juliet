@@ -3,8 +3,7 @@ import { loadData } from "./load-data";
 // import { prepData } from "./prep-data";
 import { drawMatrix } from "./matrix";
 import { drawArcDiagram } from "./arc";
-
-// import { appendNodes } from "./nodes";
+import { drawBeeswarm } from "./beeswarm";
 
 createLegend();
 
@@ -18,6 +17,5 @@ drawMatrix(nodes, edges);
 // Draw the arc diagram
 drawArcDiagram(nodes, edges);
 
-
-// Append the nodes
-// appendNodes(data);
+// Draw the beeswarm
+drawBeeswarm(nodes);

@@ -11,7 +11,7 @@ export const characters = [
   { id: "peter", name: "Peter", house: "House of Capulet", importance: "secondary", description: "Servant of the Capulet household." },
   { id: "sampson", name: "Sampson", house: "House of Capulet", importance: "secondary", description: "Servant of the Capulet household." },
   { id: "gregory", name: "Gregory", house: "House of Capulet", importance: "secondary", description: "Servant of the Capulet household." },
-  { id: "second_capulet", name: "second_capulet", house: "House of Capulet", importance: "secondary" },
+  { id: "second_capulet", name: "Second Capulet", house: "House of Capulet", importance: "secondary" },
   { id: "musician", name: "Musician", house: "House of Capulet", importance: "secondary" },
   { id: "first_musician", name: "First Musician", house: "House of Capulet", importance: "secondary" },
   { id: "second_musician", name: "Second Musician", house: "House of Capulet", importance: "secondary" },
@@ -31,7 +31,7 @@ export const characters = [
   { id: "first_citizen", name: "First Citizen", house: "Others", importance: "secondary" },
   { id: "first_watchman", name: "First Watchman", house: "Others", importance: "secondary" },
   { id: "second_watchman", name: "Second Watchman", house: "Others", importance: "secondary" },
-  { id: "third_watchman", name: "third_watchman", house: "Others", importance: "secondary" },
+  { id: "third_watchman", name: "Third Watchman", house: "Others", importance: "secondary" },
   { id: "third_musician", name: "Third Musician", house: "Others", importance: "secondary" },
 ];
 
@@ -41,3 +41,112 @@ export const houses = [
   { house: "House of Montague", color: "#5b8e7d", order: 3 },
   { house: "Others", color: "#474973", order: 4 },
 ];
+
+export const scenes = [
+  {
+      "scene": "1.0",
+      "firstLine": 0
+  },
+  {
+      "scene": "1.1",
+      "firstLine": 15
+  },
+  {
+      "scene": "1.2",
+      "firstLine": 253
+  },
+  {
+      "scene": "1.3",
+      "firstLine": 356
+  },
+  {
+      "scene": "1.4",
+      "firstLine": 466
+  },
+  {
+      "scene": "1.5",
+      "firstLine": 586
+  },
+  {
+      "scene": "2.0",
+      "firstLine": 740
+  },
+  {
+      "scene": "2.1",
+      "firstLine": 754
+  },
+  {
+      "scene": "2.2",
+      "firstLine": 799
+  },
+  {
+      "scene": "2.3",
+      "firstLine": 1003
+  },
+  {
+      "scene": "2.4",
+      "firstLine": 1100
+  },
+  {
+      "scene": "2.5",
+      "firstLine": 1308
+  },
+  {
+      "scene": "2.6",
+      "firstLine": 1388
+  },
+  {
+      "scene": "3.1",
+      "firstLine": 1425
+  },
+  {
+      "scene": "3.2",
+      "firstLine": 1630
+  },
+  {
+      "scene": "3.3",
+      "firstLine": 1777
+  },
+  {
+      "scene": "3.4",
+      "firstLine": 1956
+  },
+  {
+      "scene": "3.5",
+      "firstLine": 1993
+  },
+  {
+      "scene": "4.1",
+      "firstLine": 2248
+  },
+  {
+      "scene": "4.2",
+      "firstLine": 2375
+  },
+  {
+      "scene": "4.3",
+      "firstLine": 2423
+  },
+  {
+      "scene": "4.4",
+      "firstLine": 2482
+  },
+  {
+      "scene": "4.5",
+      "firstLine": 2513
+  },
+  {
+      "scene": "5.1",
+      "firstLine": 2655
+  },
+  {
+      "scene": "5.2",
+      "firstLine": 2745
+  },
+  {
+      "scene": "5.3",
+      "firstLine": 2775
+  }
+];
+
+export const totalLines = 3096;
