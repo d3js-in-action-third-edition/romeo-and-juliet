@@ -52,3 +52,15 @@
   margin-top: 3px;
   font-size: 1.6rem;
 }
+.matrix-tooltip {
+  margin-top: 20px;
+  font-size: 2rem;
+}
+.matrix-tooltip.hidden {
+  opacity: 0;
+}
+.matrix-tooltip-charA,
+.matrix-tooltip-charB,
+.matrix-tooltip-scenes {
+  font-weight: 700;
+}

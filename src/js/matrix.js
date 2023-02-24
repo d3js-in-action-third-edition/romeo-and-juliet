@@ -1,6 +1,7 @@
-import { select } from "d3-selection";
+import { select, selectAll } from "d3-selection";
 import { scaleLinear } from "d3-scale";
 import { min, max, range } from "d3-array";
+import { transition } from "d3-transition";
 
 export const drawMatrix = (nodes, edges) => {
 
@@ -24,13 +25,15 @@ export const drawMatrix = (nodes, edges) => {
         const id = `${charA.id}-${charB.id}`;
         const item = {
           id: id,
+          source: charA.id,
+          target: charB.id,
           cx: i * (itemWidth + padding) + itemWidth / 2,
           cy: j * (itemWidth + padding) + itemWidth / 2
         };
         if (edgeHash[id]) {
           item["weight"] = edgeHash[id].weight;
+          matrix.push(item)
         }
-        matrix.push(item)
       }
     });
   });
@@ -110,5 +113,41 @@ export const drawMatrix = (nodes, edges) => {
     .append("div")
       .attr("class", "legend-color-label")
       .text(d => d);
+
+
+  // Interaction - Mouse over dot
+  selectAll(".matrix-dot")
+    .on("mouseenter", (e, d) => {
+      const t = transition()
+        .duration(150);
+      
+      selectAll(".matrix-dot")
+        .transition(t)
+        .attr("fill-opacity", dot => dot.id === d.id ? 1 : 0.1);
+
+      selectAll(".label-top")
+        .transition(t)
+        .style("opacity", label => label.id === d.source ? 1 : 0.1);
+
+      selectAll(".label-left")
+        .transition(t)
+        .style("opacity", label => label.id === d.target ? 1 : 0.1);
+
+      const charA = nodes.find(char => char.id === d.source).name;
+      const charB = nodes.find(char => char.id === d.target).name;
+      select(".matrix-tooltip-charA").text(charA);
+      select(".matrix-tooltip-charB").text(charB);
+      select(".matrix-tooltip-scenes").text(d.weight);
+      select(".matrix-tooltip").classed("hidden", false);
+    })
+    .on("mouseleave", (e, d) => {
+      selectAll(".matrix-dot")
+        .attr("fill-opacity", 1);
+
+      selectAll(".label-top, .label-left")
+        .style("opacity", 1);
+
+      select(".matrix-tooltip").classed("hidden", true);
+    });
 
 };

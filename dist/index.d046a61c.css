@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Libre+Baskerville&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Libre+Baskerville&display=swap";
 html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
@@ -11,7 +11,7 @@ html {
 
 body {
   color: #161b33;
-  background-color: #fff;
+  background-color: #fafbff;
   margin: 0;
   font-family: Inter, sans-serif;
   font-size: 1.8rem;

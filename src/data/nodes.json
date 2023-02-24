@@ -1,6 +1,6 @@
 [
   {
-      "id": "PRINCE",
+      "id": "prince",
       "name": "Prince Escalus",
       "house": "Ruling house of Verona",
       "importance": "primary",
@@ -8,7 +8,7 @@
       "totalLines": 76
   },
   {
-      "id": "PARIS",
+      "id": "paris",
       "name": "Count Paris",
       "house": "Ruling house of Verona",
       "importance": "primary",
@@ -16,7 +16,7 @@
       "totalLines": 70
   },
   {
-      "id": "MERCUTIO",
+      "id": "mercutio",
       "name": "Mercutio",
       "house": "Ruling house of Verona",
       "importance": "primary",
@@ -24,14 +24,14 @@
       "totalLines": 261
   },
   {
-      "id": "PAGE",
+      "id": "page",
       "name": "Page",
       "house": "Ruling house of Verona",
       "importance": "secondary",
       "totalLines": 9
   },
   {
-      "id": "CAPULET",
+      "id": "capulet",
       "name": "Capulet",
       "house": "House of Capulet",
       "importance": "primary",
@@ -39,7 +39,7 @@
       "totalLines": 273
   },
   {
-      "id": "LADY CAPULET",
+      "id": "lady_capulet",
       "name": "Lady Capulet",
       "house": "House of Capulet",
       "importance": "primary",
@@ -47,7 +47,7 @@
       "totalLines": 115
   },
   {
-      "id": "JULIET",
+      "id": "juliet",
       "name": "Juliet Capulet",
       "house": "House of Capulet",
       "importance": "primary",
@@ -55,7 +55,7 @@
       "totalLines": 544
   },
   {
-      "id": "TYBALT",
+      "id": "tybalt",
       "name": "Tybalt",
       "house": "House of Capulet",
       "importance": "primary",
@@ -63,7 +63,7 @@
       "totalLines": 36
   },
   {
-      "id": "Nurse",
+      "id": "nurse",
       "name": "The Nurse",
       "house": "House of Capulet",
       "importance": "primary",
@@ -71,7 +71,7 @@
       "totalLines": 281
   },
   {
-      "id": "PETER",
+      "id": "peter",
       "name": "Peter",
       "house": "House of Capulet",
       "importance": "secondary",
@@ -79,7 +79,7 @@
       "totalLines": 33
   },
   {
-      "id": "SAMPSON",
+      "id": "sampson",
       "name": "Sampson",
       "house": "House of Capulet",
       "importance": "secondary",
@@ -87,7 +87,7 @@
       "totalLines": 31
   },
   {
-      "id": "GREGORY",
+      "id": "gregory",
       "name": "Gregory",
       "house": "House of Capulet",
       "importance": "secondary",
@@ -95,56 +95,56 @@
       "totalLines": 20
   },
   {
-      "id": "Second Capulet",
-      "name": "Second Capulet",
+      "id": "second_capulet",
+      "name": "second_capulet",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 3
   },
   {
-      "id": "Musician",
+      "id": "musician",
       "name": "Musician",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 1
   },
   {
-      "id": "First Musician",
+      "id": "first_musician",
       "name": "First Musician",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 9
   },
   {
-      "id": "Second Musician",
+      "id": "second_musician",
       "name": "Second Musician",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 4
   },
   {
-      "id": "Servant",
+      "id": "servant",
       "name": "Servant",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 23
   },
   {
-      "id": "First Servant",
+      "id": "first_servant",
       "name": "First Servant",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 10
   },
   {
-      "id": "Second Servant",
+      "id": "second_servant",
       "name": "Second Servant",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 12
   },
   {
-      "id": "MONTAGUE",
+      "id": "montague",
       "name": "Montague",
       "house": "House of Montague",
       "importance": "primary",
@@ -152,7 +152,7 @@
       "totalLines": 41
   },
   {
-      "id": "LADY MONTAGUE",
+      "id": "lady_montague",
       "name": "Lady Montague",
       "house": "House of Montague",
       "importance": "primary",
@@ -160,7 +160,7 @@
       "totalLines": 3
   },
   {
-      "id": "ROMEO",
+      "id": "romeo",
       "name": "Romeo Montague",
       "house": "House of Montague",
       "importance": "primary",
@@ -168,7 +168,7 @@
       "totalLines": 613
   },
   {
-      "id": "BENVOLIO",
+      "id": "benvolio",
       "name": "Benvolio",
       "house": "House of Montague",
       "importance": "primary",
@@ -176,7 +176,7 @@
       "totalLines": 160
   },
   {
-      "id": "BALTHASAR",
+      "id": "balthasar",
       "name": "Balthasar",
       "house": "House of Montague",
       "importance": "secondary",
@@ -184,7 +184,7 @@
       "totalLines": 32
   },
   {
-      "id": "ABRAHAM",
+      "id": "Abraham",
       "name": "Abram",
       "house": "House of Montague",
       "importance": "secondary",
@@ -192,7 +192,7 @@
       "totalLines": 5
   },
   {
-      "id": "FRIAR LAURENCE",
+      "id": "friar_laurence",
       "name": "Friar Laurence",
       "house": "Others",
       "importance": "primary",
@@ -200,7 +200,7 @@
       "totalLines": 351
   },
   {
-      "id": "FRIAR JOHN",
+      "id": "friar_john",
       "name": "Friar John",
       "house": "Others",
       "importance": "primary",
@@ -208,7 +208,7 @@
       "totalLines": 13
   },
   {
-      "id": "Apothecary",
+      "id": "apothecary",
       "name": "Apothecary",
       "house": "Others",
       "importance": "primary",
@@ -216,7 +216,7 @@
       "totalLines": 7
   },
   {
-      "id": "Chorus",
+      "id": "chorus",
       "name": "Chorus",
       "house": "Others",
       "importance": "primary",
@@ -224,35 +224,35 @@
       "totalLines": 29
   },
   {
-      "id": "First Citizen",
+      "id": "first_citizen",
       "name": "First Citizen",
       "house": "Others",
       "importance": "secondary",
       "totalLines": 7
   },
   {
-      "id": "First Watchman",
+      "id": "first_watchman",
       "name": "First Watchman",
       "house": "Others",
       "importance": "secondary",
       "totalLines": 19
   },
   {
-      "id": "Second Watchman",
+      "id": "second_watchman",
       "name": "Second Watchman",
       "house": "Others",
       "importance": "secondary",
       "totalLines": 1
   },
   {
-      "id": "Third Watchman",
+      "id": "third_watchman",
       "name": "Third Watchman",
       "house": "Others",
       "importance": "secondary",
       "totalLines": 3
   },
   {
-      "id": "Third Musician",
+      "id": "third_musician",
       "name": "Third Musician",
       "house": "Others",
       "importance": "secondary",
