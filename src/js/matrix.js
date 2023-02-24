@@ -1,7 +1,7 @@
 import { select, selectAll } from "d3-selection";
-import { scaleLinear } from "d3-scale";
 import { min, max, range } from "d3-array";
 import { transition } from "d3-transition";
+import { getEdgeColor } from "./scales";
 
 export const drawMatrix = (nodes, edges) => {
 
@@ -55,15 +55,9 @@ export const drawMatrix = (nodes, edges) => {
     .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Weight color scale
+  // Append matrix dots
   const minWeight = min(edges, d => d.weight);
   const maxWeight = max(edges, d => d.weight);
-  const colorScale = scaleLinear()
-    .domain([minWeight, maxWeight])
-    .range(["#C3D2DB", "#364652"]);
-
-
-  // Append matrix dots
   svg
     .selectAll(".matrix-dot")
     .data(matrix)
@@ -72,7 +66,7 @@ export const drawMatrix = (nodes, edges) => {
       .attr("cx", d => d.cx)
       .attr("cy", d => d.cy)
       .attr("r", itemWidth / 2)
-      .attr("fill", d => d.weight ? colorScale(d.weight) : "white");
+      .attr("fill", d => d.weight ? getEdgeColor(minWeight, maxWeight, d.weight) : "white");
 
   // Append labels
   svg
@@ -108,7 +102,7 @@ export const drawMatrix = (nodes, edges) => {
   legend
     .append("div")
       .attr("class", "legend-color-circle")
-      .style("background-color", d => colorScale(d));
+      .style("background-color", d => getEdgeColor(minWeight, maxWeight, d));
   legend
     .append("div")
       .attr("class", "legend-color-label")

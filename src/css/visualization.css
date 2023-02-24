@@ -3,26 +3,25 @@
   margin: 0 auto;
 }
 
-/* Legend */
-#legend ul {
+/* Color Legend */
+.legend-houses ul {
   margin: 0;
   padding-left: 0;
   list-style: none;
 }
-#legend li {
+.legend-houses li {
   margin: 3px 0;
 }
-#legend span {
+.legend-houses span {
   display: inline-block;
 }
-#legend .color-container {
+.legend-house-color {
   position: relative;
   top: 1px;
   width: 15px;
   height: 15px;
   margin-right: 7px;
   border-radius: 50%;
-  border: 3px solid;
 }
 
 /* Adjacency matrix legend */

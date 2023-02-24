@@ -2,6 +2,7 @@ import { createLegend } from "./legend";
 import { loadData } from "./load-data";
 // import { prepData } from "./prep-data";
 import { drawMatrix } from "./matrix";
+import { drawArcDiagram } from "./arc";
 
 // import { appendNodes } from "./nodes";
 
@@ -13,6 +14,9 @@ const [nodes, edges] = loadData();
 
 // Draw the adjacency matrix
 drawMatrix(nodes, edges);
+
+// Draw the arc diagram
+drawArcDiagram(nodes, edges);
 
 
 // Append the nodes

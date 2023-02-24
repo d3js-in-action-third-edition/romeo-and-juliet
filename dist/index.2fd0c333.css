@@ -3,24 +3,23 @@
   margin: 0 auto;
 }
 
-#legend ul {
+.legend-houses ul {
   margin: 0;
   padding-left: 0;
   list-style: none;
 }
 
-#legend li {
+.legend-houses li {
   margin: 3px 0;
 }
 
-#legend span {
+.legend-houses span {
   display: inline-block;
 }
 
-#legend .color-container {
+.legend-house-color {
   width: 15px;
   height: 15px;
-  border: 3px solid;
   border-radius: 50%;
   margin-right: 7px;
   position: relative;

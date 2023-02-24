@@ -96,7 +96,7 @@
   },
   {
       "id": "second_capulet",
-      "name": "second_capulet",
+      "name": "Second Capulet",
       "house": "House of Capulet",
       "importance": "secondary",
       "totalLines": 3

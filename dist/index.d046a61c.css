@@ -88,12 +88,12 @@ a {
   color: #222323;
   text-decoration: none;
   transition: box-shadow .2s ease-out;
-  box-shadow: inset 0 -5px #4749734d;
+  box-shadow: inset 0 -5px #3646524d;
 }
 
 a:hover, a:focus {
   transition-timing-function: ease-in;
-  box-shadow: inset 0 -18px #4749734d;
+  box-shadow: inset 0 -18px #3646524d;
 }
 
 .source {
