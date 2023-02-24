@@ -579,13 +579,36 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createLegend", ()=>createLegend);
 var _d3Selection = require("d3-selection");
 var _helper = require("./helper");
+var _scales = require("./scales");
 const createLegend = ()=>{
+    // Houses
     const housesLegend = (0, _d3Selection.select)(".legend-houses").append("ul").selectAll(".legend-house").data((0, _helper.houses)).join("li").attr("class", "legend-house");
     housesLegend.append("span").attr("class", "legend-house-color").style("background-color", (d)=>d.color);
     housesLegend.append("span").attr("class", "legend-house-label").text((d)=>d.house);
+    // Circle radius
+    const linesMax = 600;
+    const linesMedium = 200;
+    const linesMin = 30;
+    const maxRadius = (0, _scales.getRadius)(linesMax, linesMax);
+    const mediumRadius = (0, _scales.getRadius)(linesMax, linesMedium);
+    const minRadius = (0, _scales.getRadius)(linesMax, linesMin);
+    const legendRadius = (0, _d3Selection.select)(".legend-radius").append("svg").attr("width", 260).attr("height", 200).append("g").attr("transform", "translate(1, 10)");
+    const legendCircles = legendRadius.append("g").attr("fill", "transparent").attr("stroke", "#272626");
+    legendCircles.append("circle").attr("cx", maxRadius).attr("cy", maxRadius).attr("r", maxRadius);
+    legendCircles.append("circle").attr("cx", maxRadius).attr("cy", 2 * maxRadius - mediumRadius).attr("r", mediumRadius);
+    legendCircles.append("circle").attr("cx", maxRadius).attr("cy", 2 * maxRadius - minRadius).attr("r", minRadius);
+    const linesLength = 100;
+    const legendLines = legendRadius.append("g").attr("stroke", "#272626").attr("stroke-dasharray", "6 4");
+    legendLines.append("line").attr("x1", maxRadius).attr("y1", 0).attr("x2", maxRadius + linesLength).attr("y2", 0);
+    legendLines.append("line").attr("x1", maxRadius).attr("y1", 2 * maxRadius - 2 * mediumRadius).attr("x2", maxRadius + linesLength).attr("y2", 2 * maxRadius - 2 * mediumRadius);
+    legendLines.append("line").attr("x1", maxRadius).attr("y1", 2 * maxRadius - 2 * minRadius).attr("x2", maxRadius + linesLength).attr("y2", 2 * maxRadius - 2 * minRadius);
+    const labels = legendRadius.append("g").attr("fill", "#272626").attr("dominant-baseline", "middle");
+    labels.append("text").attr("x", maxRadius + linesLength + 5).attr("y", 0).text(linesMax);
+    labels.append("text").attr("x", maxRadius + linesLength + 5).attr("y", 2 * maxRadius - 2 * mediumRadius).text(linesMedium);
+    labels.append("text").attr("x", maxRadius + linesLength + 5).attr("y", 2 * maxRadius - 2 * minRadius).text(linesMin);
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","./helper":"lVRAz","d3-selection":"gn9gd"}],"fD7H8":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","./helper":"lVRAz","d3-selection":"gn9gd","./scales":"NYsfE"}],"fD7H8":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1930,112 +1953,166 @@ exports.default = function(selector) {
     ], (0, _indexJs.root));
 };
 
-},{"./array.js":"9WejU","./selection/index.js":"fK3Dl","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9ZwCu":[function(require,module,exports) {
+},{"./array.js":"9WejU","./selection/index.js":"fK3Dl","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"NYsfE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "loadData", ()=>loadData);
-const loadData = ()=>{
-    const nodes = require("823ddf4ed075553f");
-    const edges = require("565c4c39c009f488");
-    console.log("nodes", nodes);
-    console.log("edges", edges);
-    return [
-        nodes,
-        edges
-    ];
+parcelHelpers.export(exports, "getRadius", ()=>getRadius);
+parcelHelpers.export(exports, "charColorScale", ()=>charColorScale);
+parcelHelpers.export(exports, "getEdgeColor", ()=>getEdgeColor);
+var _d3Scale = require("d3-scale");
+var _helper = require("./helper");
+const getRadius = (maxLines, lines)=>{
+    const radialScale = (0, _d3Scale.scaleRadial)().domain([
+        0,
+        maxLines
+    ]).range([
+        0,
+        60
+    ]);
+    return radialScale(lines);
+};
+const charColorScale = (0, _d3Scale.scaleOrdinal)().domain((0, _helper.houses).map((h)=>h.house)).range((0, _helper.houses).map((h)=>h.color));
+const getEdgeColor = (minWeight, maxWeight, weight)=>{
+    const edgeColorScale = (0, _d3Scale.scaleLinear)().domain([
+        minWeight,
+        maxWeight
+    ]).range([
+        "#C3D2DB",
+        "#364652"
+    ]);
+    return edgeColorScale(weight);
 };
 
-},{"823ddf4ed075553f":"aKcxm","565c4c39c009f488":"i3YVd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aKcxm":[function(require,module,exports) {
-module.exports = JSON.parse('[{"id":"prince","name":"Prince Escalus","house":"Ruling house of Verona","importance":"primary","descrition":"Ruling Prince of Verona","totalLines":76},{"id":"paris","name":"Count Paris","house":"Ruling house of Verona","importance":"primary","descrition":"Kinsman of Escalus who wishes to marry Juliet.","totalLines":70},{"id":"mercutio","name":"Mercutio","house":"Ruling house of Verona","importance":"primary","descrition":"Another kinsman of Escalus, a friend of Romeo.","totalLines":261},{"id":"page","name":"Page","house":"Ruling house of Verona","importance":"secondary","totalLines":9},{"id":"capulet","name":"Capulet","house":"House of Capulet","importance":"primary","descrition":"Patriarch of the house of Capulet.","totalLines":273},{"id":"lady_capulet","name":"Lady Capulet","house":"House of Capulet","importance":"primary","descrition":"Matriarch of the house of Capulet.","totalLines":115},{"id":"juliet","name":"Juliet Capulet","house":"House of Capulet","importance":"primary","descrition":"13-year-old daughter of Capulet, the play\'s female protagonist.","totalLines":544},{"id":"tybalt","name":"Tybalt","house":"House of Capulet","importance":"primary","descrition":"Cousin of Juliet, the nephew of Lady Capulet.","totalLines":36},{"id":"nurse","name":"The Nurse","house":"House of Capulet","importance":"primary","description":"Juliet\'s personal attendant and confidante.","totalLines":281},{"id":"peter","name":"Peter","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":33},{"id":"sampson","name":"Sampson","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":31},{"id":"gregory","name":"Gregory","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":20},{"id":"second_capulet","name":"Second Capulet","house":"House of Capulet","importance":"secondary","totalLines":3},{"id":"musician","name":"Musician","house":"House of Capulet","importance":"secondary","totalLines":1},{"id":"first_musician","name":"First Musician","house":"House of Capulet","importance":"secondary","totalLines":9},{"id":"second_musician","name":"Second Musician","house":"House of Capulet","importance":"secondary","totalLines":4},{"id":"servant","name":"Servant","house":"House of Capulet","importance":"secondary","totalLines":23},{"id":"first_servant","name":"First Servant","house":"House of Capulet","importance":"secondary","totalLines":10},{"id":"second_servant","name":"Second Servant","house":"House of Capulet","importance":"secondary","totalLines":12},{"id":"montague","name":"Montague","house":"House of Montague","importance":"primary","description":"Patriarch of the house of Montague.","totalLines":41},{"id":"lady_montague","name":"Lady Montague","house":"House of Montague","importance":"primary","description":"Matriarch of the house of Montague.","totalLines":3},{"id":"romeo","name":"Romeo Montague","house":"House of Montague","importance":"primary","description":"Son of Montague, is the play\'s male protagonist.","totalLines":613},{"id":"benvolio","name":"Benvolio","house":"House of Montague","importance":"primary","description":"Romeo\'s cousin and best friend.","totalLines":160},{"id":"balthasar","name":"Balthasar","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":32},{"id":"Abraham","name":"Abram","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":5},{"id":"friar_laurence","name":"Friar Laurence","house":"Others","importance":"primary","description":"Franciscan friar and Romeo\'s confidant.","totalLines":351},{"id":"friar_john","name":"Friar John","house":"Others","importance":"primary","description":"Sent to deliver Friar Laurence\'s letter to Romeo.","totalLines":13},{"id":"apothecary","name":"Apothecary","house":"Others","importance":"primary","description":"Reluctantly sells Romeo poison.","totalLines":7},{"id":"chorus","name":"Chorus","house":"Others","importance":"primary","description":"Reads a prologue to each of the first two acts.","totalLines":29},{"id":"first_citizen","name":"First Citizen","house":"Others","importance":"secondary","totalLines":7},{"id":"first_watchman","name":"First Watchman","house":"Others","importance":"secondary","totalLines":19},{"id":"second_watchman","name":"Second Watchman","house":"Others","importance":"secondary","totalLines":1},{"id":"third_watchman","name":"Third Watchman","house":"Others","importance":"secondary","totalLines":3},{"id":"third_musician","name":"Third Musician","house":"Others","importance":"secondary","totalLines":1}]');
-
-},{}],"i3YVd":[function(require,module,exports) {
-module.exports = JSON.parse('[{"source":"sampson","target":"gregory","weight":1},{"source":"sampson","target":"Abraham","weight":1},{"source":"sampson","target":"benvolio","weight":1},{"source":"sampson","target":"tybalt","weight":1},{"source":"sampson","target":"first_citizen","weight":1},{"source":"sampson","target":"capulet","weight":1},{"source":"sampson","target":"lady_capulet","weight":1},{"source":"sampson","target":"montague","weight":1},{"source":"sampson","target":"lady_montague","weight":1},{"source":"sampson","target":"prince","weight":1},{"source":"sampson","target":"romeo","weight":1},{"source":"gregory","target":"sampson","weight":1},{"source":"gregory","target":"Abraham","weight":1},{"source":"gregory","target":"benvolio","weight":1},{"source":"gregory","target":"tybalt","weight":1},{"source":"gregory","target":"first_citizen","weight":1},{"source":"gregory","target":"capulet","weight":1},{"source":"gregory","target":"lady_capulet","weight":1},{"source":"gregory","target":"montague","weight":1},{"source":"gregory","target":"lady_montague","weight":1},{"source":"gregory","target":"prince","weight":1},{"source":"gregory","target":"romeo","weight":1},{"source":"Abraham","target":"sampson","weight":1},{"source":"Abraham","target":"gregory","weight":1},{"source":"Abraham","target":"benvolio","weight":1},{"source":"Abraham","target":"tybalt","weight":1},{"source":"Abraham","target":"first_citizen","weight":1},{"source":"Abraham","target":"capulet","weight":1},{"source":"Abraham","target":"lady_capulet","weight":1},{"source":"Abraham","target":"montague","weight":1},{"source":"Abraham","target":"lady_montague","weight":1},{"source":"Abraham","target":"prince","weight":1},{"source":"Abraham","target":"romeo","weight":1},{"source":"benvolio","target":"sampson","weight":1},{"source":"benvolio","target":"gregory","weight":1},{"source":"benvolio","target":"Abraham","weight":1},{"source":"benvolio","target":"tybalt","weight":3},{"source":"benvolio","target":"first_citizen","weight":2},{"source":"benvolio","target":"capulet","weight":3},{"source":"benvolio","target":"lady_capulet","weight":2},{"source":"benvolio","target":"montague","weight":2},{"source":"benvolio","target":"lady_montague","weight":1},{"source":"benvolio","target":"prince","weight":2},{"source":"benvolio","target":"romeo","weight":7},{"source":"tybalt","target":"sampson","weight":1},{"source":"tybalt","target":"gregory","weight":1},{"source":"tybalt","target":"Abraham","weight":1},{"source":"tybalt","target":"benvolio","weight":3},{"source":"tybalt","target":"first_citizen","weight":2},{"source":"tybalt","target":"capulet","weight":2},{"source":"tybalt","target":"lady_capulet","weight":2},{"source":"tybalt","target":"montague","weight":2},{"source":"tybalt","target":"lady_montague","weight":1},{"source":"tybalt","target":"prince","weight":2},{"source":"tybalt","target":"romeo","weight":3},{"source":"first_citizen","target":"sampson","weight":1},{"source":"first_citizen","target":"gregory","weight":1},{"source":"first_citizen","target":"Abraham","weight":1},{"source":"first_citizen","target":"benvolio","weight":2},{"source":"first_citizen","target":"tybalt","weight":2},{"source":"first_citizen","target":"capulet","weight":1},{"source":"first_citizen","target":"lady_capulet","weight":2},{"source":"first_citizen","target":"montague","weight":2},{"source":"first_citizen","target":"lady_montague","weight":1},{"source":"first_citizen","target":"prince","weight":2},{"source":"first_citizen","target":"romeo","weight":2},{"source":"capulet","target":"sampson","weight":1},{"source":"capulet","target":"gregory","weight":1},{"source":"capulet","target":"Abraham","weight":1},{"source":"capulet","target":"benvolio","weight":3},{"source":"capulet","target":"tybalt","weight":2},{"source":"capulet","target":"first_citizen","weight":1},{"source":"capulet","target":"lady_capulet","weight":7},{"source":"capulet","target":"montague","weight":2},{"source":"capulet","target":"lady_montague","weight":1},{"source":"capulet","target":"prince","weight":2},{"source":"capulet","target":"romeo","weight":5},{"source":"lady_capulet","target":"sampson","weight":1},{"source":"lady_capulet","target":"gregory","weight":1},{"source":"lady_capulet","target":"Abraham","weight":1},{"source":"lady_capulet","target":"benvolio","weight":2},{"source":"lady_capulet","target":"tybalt","weight":2},{"source":"lady_capulet","target":"first_citizen","weight":2},{"source":"lady_capulet","target":"capulet","weight":7},{"source":"lady_capulet","target":"montague","weight":3},{"source":"lady_capulet","target":"lady_montague","weight":1},{"source":"lady_capulet","target":"prince","weight":3},{"source":"lady_capulet","target":"romeo","weight":4},{"source":"montague","target":"sampson","weight":1},{"source":"montague","target":"gregory","weight":1},{"source":"montague","target":"Abraham","weight":1},{"source":"montague","target":"benvolio","weight":2},{"source":"montague","target":"tybalt","weight":2},{"source":"montague","target":"first_citizen","weight":2},{"source":"montague","target":"capulet","weight":2},{"source":"montague","target":"lady_capulet","weight":3},{"source":"montague","target":"lady_montague","weight":1},{"source":"montague","target":"prince","weight":3},{"source":"montague","target":"romeo","weight":3},{"source":"lady_montague","target":"sampson","weight":1},{"source":"lady_montague","target":"gregory","weight":1},{"source":"lady_montague","target":"Abraham","weight":1},{"source":"lady_montague","target":"benvolio","weight":1},{"source":"lady_montague","target":"tybalt","weight":1},{"source":"lady_montague","target":"first_citizen","weight":1},{"source":"lady_montague","target":"capulet","weight":1},{"source":"lady_montague","target":"lady_capulet","weight":1},{"source":"lady_montague","target":"montague","weight":1},{"source":"lady_montague","target":"prince","weight":1},{"source":"lady_montague","target":"romeo","weight":1},{"source":"prince","target":"sampson","weight":1},{"source":"prince","target":"gregory","weight":1},{"source":"prince","target":"Abraham","weight":1},{"source":"prince","target":"benvolio","weight":2},{"source":"prince","target":"tybalt","weight":2},{"source":"prince","target":"first_citizen","weight":2},{"source":"prince","target":"capulet","weight":2},{"source":"prince","target":"lady_capulet","weight":3},{"source":"prince","target":"montague","weight":3},{"source":"prince","target":"lady_montague","weight":1},{"source":"prince","target":"romeo","weight":3},{"source":"romeo","target":"sampson","weight":1},{"source":"romeo","target":"gregory","weight":1},{"source":"romeo","target":"Abraham","weight":1},{"source":"romeo","target":"benvolio","weight":7},{"source":"romeo","target":"tybalt","weight":3},{"source":"romeo","target":"first_citizen","weight":2},{"source":"romeo","target":"capulet","weight":5},{"source":"romeo","target":"lady_capulet","weight":4},{"source":"romeo","target":"montague","weight":3},{"source":"romeo","target":"lady_montague","weight":1},{"source":"romeo","target":"prince","weight":3},{"source":"capulet","target":"paris","weight":4},{"source":"capulet","target":"servant","weight":2},{"source":"paris","target":"capulet","weight":4},{"source":"paris","target":"servant","weight":1},{"source":"paris","target":"benvolio","weight":1},{"source":"paris","target":"romeo","weight":2},{"source":"servant","target":"capulet","weight":2},{"source":"servant","target":"paris","weight":1},{"source":"servant","target":"benvolio","weight":2},{"source":"servant","target":"romeo","weight":2},{"source":"benvolio","target":"paris","weight":1},{"source":"benvolio","target":"servant","weight":2},{"source":"romeo","target":"paris","weight":2},{"source":"romeo","target":"servant","weight":2},{"source":"lady_capulet","target":"nurse","weight":5},{"source":"lady_capulet","target":"juliet","weight":5},{"source":"lady_capulet","target":"servant","weight":1},{"source":"nurse","target":"lady_capulet","weight":5},{"source":"nurse","target":"juliet","weight":7},{"source":"nurse","target":"servant","weight":2},{"source":"juliet","target":"lady_capulet","weight":5},{"source":"juliet","target":"nurse","weight":7},{"source":"juliet","target":"servant","weight":2},{"source":"servant","target":"lady_capulet","weight":1},{"source":"servant","target":"nurse","weight":2},{"source":"servant","target":"juliet","weight":2},{"source":"romeo","target":"mercutio","weight":4},{"source":"benvolio","target":"mercutio","weight":4},{"source":"mercutio","target":"romeo","weight":4},{"source":"mercutio","target":"benvolio","weight":4},{"source":"first_servant","target":"second_servant","weight":2},{"source":"first_servant","target":"capulet","weight":2},{"source":"first_servant","target":"second_capulet","weight":1},{"source":"first_servant","target":"romeo","weight":1},{"source":"first_servant","target":"servant","weight":1},{"source":"first_servant","target":"tybalt","weight":1},{"source":"first_servant","target":"juliet","weight":1},{"source":"first_servant","target":"nurse","weight":2},{"source":"first_servant","target":"benvolio","weight":1},{"source":"second_servant","target":"first_servant","weight":2},{"source":"second_servant","target":"capulet","weight":3},{"source":"second_servant","target":"second_capulet","weight":1},{"source":"second_servant","target":"romeo","weight":1},{"source":"second_servant","target":"servant","weight":1},{"source":"second_servant","target":"tybalt","weight":1},{"source":"second_servant","target":"juliet","weight":2},{"source":"second_servant","target":"nurse","weight":3},{"source":"second_servant","target":"benvolio","weight":1},{"source":"capulet","target":"first_servant","weight":2},{"source":"capulet","target":"second_servant","weight":3},{"source":"capulet","target":"second_capulet","weight":1},{"source":"capulet","target":"juliet","weight":4},{"source":"capulet","target":"nurse","weight":5},{"source":"second_capulet","target":"first_servant","weight":1},{"source":"second_capulet","target":"second_servant","weight":1},{"source":"second_capulet","target":"capulet","weight":1},{"source":"second_capulet","target":"romeo","weight":1},{"source":"second_capulet","target":"servant","weight":1},{"source":"second_capulet","target":"tybalt","weight":1},{"source":"second_capulet","target":"juliet","weight":1},{"source":"second_capulet","target":"nurse","weight":1},{"source":"second_capulet","target":"benvolio","weight":1},{"source":"romeo","target":"first_servant","weight":1},{"source":"romeo","target":"second_servant","weight":1},{"source":"romeo","target":"second_capulet","weight":1},{"source":"romeo","target":"juliet","weight":5},{"source":"romeo","target":"nurse","weight":5},{"source":"servant","target":"first_servant","weight":1},{"source":"servant","target":"second_servant","weight":1},{"source":"servant","target":"second_capulet","weight":1},{"source":"servant","target":"tybalt","weight":1},{"source":"tybalt","target":"first_servant","weight":1},{"source":"tybalt","target":"second_servant","weight":1},{"source":"tybalt","target":"second_capulet","weight":1},{"source":"tybalt","target":"servant","weight":1},{"source":"tybalt","target":"juliet","weight":1},{"source":"tybalt","target":"nurse","weight":1},{"source":"juliet","target":"first_servant","weight":1},{"source":"juliet","target":"second_servant","weight":2},{"source":"juliet","target":"capulet","weight":4},{"source":"juliet","target":"second_capulet","weight":1},{"source":"juliet","target":"romeo","weight":5},{"source":"juliet","target":"tybalt","weight":1},{"source":"juliet","target":"benvolio","weight":1},{"source":"nurse","target":"first_servant","weight":2},{"source":"nurse","target":"second_servant","weight":3},{"source":"nurse","target":"capulet","weight":5},{"source":"nurse","target":"second_capulet","weight":1},{"source":"nurse","target":"romeo","weight":5},{"source":"nurse","target":"tybalt","weight":1},{"source":"nurse","target":"benvolio","weight":2},{"source":"benvolio","target":"first_servant","weight":1},{"source":"benvolio","target":"second_servant","weight":1},{"source":"benvolio","target":"second_capulet","weight":1},{"source":"benvolio","target":"juliet","weight":1},{"source":"benvolio","target":"nurse","weight":2},{"source":"friar_laurence","target":"romeo","weight":4},{"source":"romeo","target":"friar_laurence","weight":4},{"source":"mercutio","target":"nurse","weight":1},{"source":"mercutio","target":"peter","weight":1},{"source":"benvolio","target":"peter","weight":1},{"source":"romeo","target":"peter","weight":1},{"source":"nurse","target":"mercutio","weight":1},{"source":"nurse","target":"peter","weight":2},{"source":"peter","target":"mercutio","weight":1},{"source":"peter","target":"benvolio","weight":1},{"source":"peter","target":"romeo","weight":1},{"source":"peter","target":"nurse","weight":2},{"source":"friar_laurence","target":"juliet","weight":3},{"source":"juliet","target":"friar_laurence","weight":3},{"source":"mercutio","target":"tybalt","weight":1},{"source":"mercutio","target":"first_citizen","weight":1},{"source":"mercutio","target":"prince","weight":1},{"source":"mercutio","target":"lady_capulet","weight":1},{"source":"mercutio","target":"montague","weight":1},{"source":"tybalt","target":"mercutio","weight":1},{"source":"first_citizen","target":"mercutio","weight":1},{"source":"prince","target":"mercutio","weight":1},{"source":"lady_capulet","target":"mercutio","weight":1},{"source":"montague","target":"mercutio","weight":1},{"source":"friar_laurence","target":"nurse","weight":2},{"source":"nurse","target":"friar_laurence","weight":2},{"source":"paris","target":"lady_capulet","weight":3},{"source":"lady_capulet","target":"paris","weight":3},{"source":"friar_laurence","target":"paris","weight":3},{"source":"paris","target":"friar_laurence","weight":3},{"source":"paris","target":"juliet","weight":2},{"source":"juliet","target":"paris","weight":2},{"source":"second_servant","target":"lady_capulet","weight":2},{"source":"lady_capulet","target":"second_servant","weight":2},{"source":"lady_capulet","target":"first_servant","weight":1},{"source":"first_servant","target":"lady_capulet","weight":1},{"source":"nurse","target":"paris","weight":1},{"source":"nurse","target":"first_musician","weight":1},{"source":"nurse","target":"second_musician","weight":1},{"source":"nurse","target":"musician","weight":1},{"source":"nurse","target":"third_musician","weight":1},{"source":"lady_capulet","target":"friar_laurence","weight":2},{"source":"lady_capulet","target":"first_musician","weight":1},{"source":"lady_capulet","target":"peter","weight":1},{"source":"lady_capulet","target":"second_musician","weight":1},{"source":"lady_capulet","target":"musician","weight":1},{"source":"lady_capulet","target":"third_musician","weight":1},{"source":"capulet","target":"friar_laurence","weight":2},{"source":"capulet","target":"first_musician","weight":1},{"source":"capulet","target":"peter","weight":1},{"source":"capulet","target":"second_musician","weight":1},{"source":"capulet","target":"musician","weight":1},{"source":"capulet","target":"third_musician","weight":1},{"source":"friar_laurence","target":"lady_capulet","weight":2},{"source":"friar_laurence","target":"capulet","weight":2},{"source":"friar_laurence","target":"first_musician","weight":1},{"source":"friar_laurence","target":"peter","weight":1},{"source":"friar_laurence","target":"second_musician","weight":1},{"source":"friar_laurence","target":"musician","weight":1},{"source":"friar_laurence","target":"third_musician","weight":1},{"source":"paris","target":"nurse","weight":1},{"source":"paris","target":"first_musician","weight":1},{"source":"paris","target":"peter","weight":1},{"source":"paris","target":"second_musician","weight":1},{"source":"paris","target":"musician","weight":1},{"source":"paris","target":"third_musician","weight":1},{"source":"first_musician","target":"nurse","weight":1},{"source":"first_musician","target":"lady_capulet","weight":1},{"source":"first_musician","target":"capulet","weight":1},{"source":"first_musician","target":"friar_laurence","weight":1},{"source":"first_musician","target":"paris","weight":1},{"source":"first_musician","target":"peter","weight":1},{"source":"first_musician","target":"second_musician","weight":1},{"source":"first_musician","target":"musician","weight":1},{"source":"first_musician","target":"third_musician","weight":1},{"source":"peter","target":"lady_capulet","weight":1},{"source":"peter","target":"capulet","weight":1},{"source":"peter","target":"friar_laurence","weight":1},{"source":"peter","target":"paris","weight":1},{"source":"peter","target":"first_musician","weight":1},{"source":"peter","target":"second_musician","weight":1},{"source":"peter","target":"musician","weight":1},{"source":"peter","target":"third_musician","weight":1},{"source":"second_musician","target":"nurse","weight":1},{"source":"second_musician","target":"lady_capulet","weight":1},{"source":"second_musician","target":"capulet","weight":1},{"source":"second_musician","target":"friar_laurence","weight":1},{"source":"second_musician","target":"paris","weight":1},{"source":"second_musician","target":"first_musician","weight":1},{"source":"second_musician","target":"peter","weight":1},{"source":"second_musician","target":"musician","weight":1},{"source":"second_musician","target":"third_musician","weight":1},{"source":"musician","target":"nurse","weight":1},{"source":"musician","target":"lady_capulet","weight":1},{"source":"musician","target":"capulet","weight":1},{"source":"musician","target":"friar_laurence","weight":1},{"source":"musician","target":"paris","weight":1},{"source":"musician","target":"first_musician","weight":1},{"source":"musician","target":"peter","weight":1},{"source":"musician","target":"second_musician","weight":1},{"source":"musician","target":"third_musician","weight":1},{"source":"third_musician","target":"nurse","weight":1},{"source":"third_musician","target":"lady_capulet","weight":1},{"source":"third_musician","target":"capulet","weight":1},{"source":"third_musician","target":"friar_laurence","weight":1},{"source":"third_musician","target":"paris","weight":1},{"source":"third_musician","target":"first_musician","weight":1},{"source":"third_musician","target":"peter","weight":1},{"source":"third_musician","target":"second_musician","weight":1},{"source":"third_musician","target":"musician","weight":1},{"source":"romeo","target":"balthasar","weight":2},{"source":"romeo","target":"apothecary","weight":1},{"source":"balthasar","target":"romeo","weight":2},{"source":"balthasar","target":"apothecary","weight":1},{"source":"apothecary","target":"romeo","weight":1},{"source":"apothecary","target":"balthasar","weight":1},{"source":"friar_john","target":"friar_laurence","weight":1},{"source":"friar_laurence","target":"friar_john","weight":1},{"source":"paris","target":"page","weight":1},{"source":"paris","target":"balthasar","weight":1},{"source":"paris","target":"first_watchman","weight":1},{"source":"paris","target":"second_watchman","weight":1},{"source":"paris","target":"third_watchman","weight":1},{"source":"paris","target":"prince","weight":1},{"source":"paris","target":"montague","weight":1},{"source":"page","target":"paris","weight":1},{"source":"page","target":"romeo","weight":1},{"source":"page","target":"balthasar","weight":1},{"source":"page","target":"friar_laurence","weight":1},{"source":"page","target":"juliet","weight":1},{"source":"page","target":"first_watchman","weight":1},{"source":"page","target":"second_watchman","weight":1},{"source":"page","target":"third_watchman","weight":1},{"source":"page","target":"prince","weight":1},{"source":"page","target":"capulet","weight":1},{"source":"page","target":"lady_capulet","weight":1},{"source":"page","target":"montague","weight":1},{"source":"romeo","target":"page","weight":1},{"source":"romeo","target":"first_watchman","weight":1},{"source":"romeo","target":"second_watchman","weight":1},{"source":"romeo","target":"third_watchman","weight":1},{"source":"balthasar","target":"paris","weight":1},{"source":"balthasar","target":"page","weight":1},{"source":"balthasar","target":"friar_laurence","weight":1},{"source":"balthasar","target":"juliet","weight":1},{"source":"balthasar","target":"first_watchman","weight":1},{"source":"balthasar","target":"second_watchman","weight":1},{"source":"balthasar","target":"third_watchman","weight":1},{"source":"balthasar","target":"prince","weight":1},{"source":"balthasar","target":"capulet","weight":1},{"source":"balthasar","target":"lady_capulet","weight":1},{"source":"balthasar","target":"montague","weight":1},{"source":"friar_laurence","target":"page","weight":1},{"source":"friar_laurence","target":"balthasar","weight":1},{"source":"friar_laurence","target":"first_watchman","weight":1},{"source":"friar_laurence","target":"second_watchman","weight":1},{"source":"friar_laurence","target":"third_watchman","weight":1},{"source":"friar_laurence","target":"prince","weight":1},{"source":"friar_laurence","target":"montague","weight":1},{"source":"juliet","target":"page","weight":1},{"source":"juliet","target":"balthasar","weight":1},{"source":"juliet","target":"first_watchman","weight":1},{"source":"juliet","target":"second_watchman","weight":1},{"source":"juliet","target":"third_watchman","weight":1},{"source":"juliet","target":"prince","weight":1},{"source":"juliet","target":"montague","weight":1},{"source":"first_watchman","target":"paris","weight":1},{"source":"first_watchman","target":"page","weight":1},{"source":"first_watchman","target":"romeo","weight":1},{"source":"first_watchman","target":"balthasar","weight":1},{"source":"first_watchman","target":"friar_laurence","weight":1},{"source":"first_watchman","target":"juliet","weight":1},{"source":"first_watchman","target":"second_watchman","weight":1},{"source":"first_watchman","target":"third_watchman","weight":1},{"source":"first_watchman","target":"prince","weight":1},{"source":"first_watchman","target":"capulet","weight":1},{"source":"first_watchman","target":"lady_capulet","weight":1},{"source":"first_watchman","target":"montague","weight":1},{"source":"second_watchman","target":"paris","weight":1},{"source":"second_watchman","target":"page","weight":1},{"source":"second_watchman","target":"romeo","weight":1},{"source":"second_watchman","target":"balthasar","weight":1},{"source":"second_watchman","target":"friar_laurence","weight":1},{"source":"second_watchman","target":"juliet","weight":1},{"source":"second_watchman","target":"first_watchman","weight":1},{"source":"second_watchman","target":"third_watchman","weight":1},{"source":"second_watchman","target":"prince","weight":1},{"source":"second_watchman","target":"capulet","weight":1},{"source":"second_watchman","target":"lady_capulet","weight":1},{"source":"second_watchman","target":"montague","weight":1},{"source":"third_watchman","target":"paris","weight":1},{"source":"third_watchman","target":"page","weight":1},{"source":"third_watchman","target":"romeo","weight":1},{"source":"third_watchman","target":"balthasar","weight":1},{"source":"third_watchman","target":"friar_laurence","weight":1},{"source":"third_watchman","target":"juliet","weight":1},{"source":"third_watchman","target":"first_watchman","weight":1},{"source":"third_watchman","target":"second_watchman","weight":1},{"source":"third_watchman","target":"prince","weight":1},{"source":"third_watchman","target":"capulet","weight":1},{"source":"third_watchman","target":"lady_capulet","weight":1},{"source":"third_watchman","target":"montague","weight":1},{"source":"prince","target":"paris","weight":1},{"source":"prince","target":"page","weight":1},{"source":"prince","target":"balthasar","weight":1},{"source":"prince","target":"friar_laurence","weight":1},{"source":"prince","target":"juliet","weight":1},{"source":"prince","target":"first_watchman","weight":1},{"source":"prince","target":"second_watchman","weight":1},{"source":"prince","target":"third_watchman","weight":1},{"source":"capulet","target":"page","weight":1},{"source":"capulet","target":"balthasar","weight":1},{"source":"capulet","target":"first_watchman","weight":1},{"source":"capulet","target":"second_watchman","weight":1},{"source":"capulet","target":"third_watchman","weight":1},{"source":"lady_capulet","target":"page","weight":1},{"source":"lady_capulet","target":"balthasar","weight":1},{"source":"lady_capulet","target":"first_watchman","weight":1},{"source":"lady_capulet","target":"second_watchman","weight":1},{"source":"lady_capulet","target":"third_watchman","weight":1},{"source":"montague","target":"paris","weight":1},{"source":"montague","target":"page","weight":1},{"source":"montague","target":"balthasar","weight":1},{"source":"montague","target":"friar_laurence","weight":1},{"source":"montague","target":"juliet","weight":1},{"source":"montague","target":"first_watchman","weight":1},{"source":"montague","target":"second_watchman","weight":1},{"source":"montague","target":"third_watchman","weight":1}]');
-
-},{}],"bhcXq":[function(require,module,exports) {
+},{"d3-scale":"UQ8g3","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"UQ8g3":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "drawMatrix", ()=>drawMatrix);
-var _d3Selection = require("d3-selection");
+parcelHelpers.export(exports, "scaleBand", ()=>(0, _bandJsDefault.default));
+parcelHelpers.export(exports, "scalePoint", ()=>(0, _bandJs.point));
+parcelHelpers.export(exports, "scaleIdentity", ()=>(0, _identityJsDefault.default));
+parcelHelpers.export(exports, "scaleLinear", ()=>(0, _linearJsDefault.default));
+parcelHelpers.export(exports, "scaleLog", ()=>(0, _logJsDefault.default));
+parcelHelpers.export(exports, "scaleSymlog", ()=>(0, _symlogJsDefault.default));
+parcelHelpers.export(exports, "scaleOrdinal", ()=>(0, _ordinalJsDefault.default));
+parcelHelpers.export(exports, "scaleImplicit", ()=>(0, _ordinalJs.implicit));
+parcelHelpers.export(exports, "scalePow", ()=>(0, _powJsDefault.default));
+parcelHelpers.export(exports, "scaleSqrt", ()=>(0, _powJs.sqrt));
+parcelHelpers.export(exports, "scaleRadial", ()=>(0, _radialJsDefault.default));
+parcelHelpers.export(exports, "scaleQuantile", ()=>(0, _quantileJsDefault.default));
+parcelHelpers.export(exports, "scaleQuantize", ()=>(0, _quantizeJsDefault.default));
+parcelHelpers.export(exports, "scaleThreshold", ()=>(0, _thresholdJsDefault.default));
+parcelHelpers.export(exports, "scaleTime", ()=>(0, _timeJsDefault.default));
+parcelHelpers.export(exports, "scaleUtc", ()=>(0, _utcTimeJsDefault.default));
+parcelHelpers.export(exports, "scaleSequential", ()=>(0, _sequentialJsDefault.default));
+parcelHelpers.export(exports, "scaleSequentialLog", ()=>(0, _sequentialJs.sequentialLog));
+parcelHelpers.export(exports, "scaleSequentialPow", ()=>(0, _sequentialJs.sequentialPow));
+parcelHelpers.export(exports, "scaleSequentialSqrt", ()=>(0, _sequentialJs.sequentialSqrt));
+parcelHelpers.export(exports, "scaleSequentialSymlog", ()=>(0, _sequentialJs.sequentialSymlog));
+parcelHelpers.export(exports, "scaleSequentialQuantile", ()=>(0, _sequentialQuantileJsDefault.default));
+parcelHelpers.export(exports, "scaleDiverging", ()=>(0, _divergingJsDefault.default));
+parcelHelpers.export(exports, "scaleDivergingLog", ()=>(0, _divergingJs.divergingLog));
+parcelHelpers.export(exports, "scaleDivergingPow", ()=>(0, _divergingJs.divergingPow));
+parcelHelpers.export(exports, "scaleDivergingSqrt", ()=>(0, _divergingJs.divergingSqrt));
+parcelHelpers.export(exports, "scaleDivergingSymlog", ()=>(0, _divergingJs.divergingSymlog));
+parcelHelpers.export(exports, "tickFormat", ()=>(0, _tickFormatJsDefault.default));
+var _bandJs = require("./band.js");
+var _bandJsDefault = parcelHelpers.interopDefault(_bandJs);
+var _identityJs = require("./identity.js");
+var _identityJsDefault = parcelHelpers.interopDefault(_identityJs);
+var _linearJs = require("./linear.js");
+var _linearJsDefault = parcelHelpers.interopDefault(_linearJs);
+var _logJs = require("./log.js");
+var _logJsDefault = parcelHelpers.interopDefault(_logJs);
+var _symlogJs = require("./symlog.js");
+var _symlogJsDefault = parcelHelpers.interopDefault(_symlogJs);
+var _ordinalJs = require("./ordinal.js");
+var _ordinalJsDefault = parcelHelpers.interopDefault(_ordinalJs);
+var _powJs = require("./pow.js");
+var _powJsDefault = parcelHelpers.interopDefault(_powJs);
+var _radialJs = require("./radial.js");
+var _radialJsDefault = parcelHelpers.interopDefault(_radialJs);
+var _quantileJs = require("./quantile.js");
+var _quantileJsDefault = parcelHelpers.interopDefault(_quantileJs);
+var _quantizeJs = require("./quantize.js");
+var _quantizeJsDefault = parcelHelpers.interopDefault(_quantizeJs);
+var _thresholdJs = require("./threshold.js");
+var _thresholdJsDefault = parcelHelpers.interopDefault(_thresholdJs);
+var _timeJs = require("./time.js");
+var _timeJsDefault = parcelHelpers.interopDefault(_timeJs);
+var _utcTimeJs = require("./utcTime.js");
+var _utcTimeJsDefault = parcelHelpers.interopDefault(_utcTimeJs);
+var _sequentialJs = require("./sequential.js");
+var _sequentialJsDefault = parcelHelpers.interopDefault(_sequentialJs);
+var _sequentialQuantileJs = require("./sequentialQuantile.js");
+var _sequentialQuantileJsDefault = parcelHelpers.interopDefault(_sequentialQuantileJs);
+var _divergingJs = require("./diverging.js");
+var _divergingJsDefault = parcelHelpers.interopDefault(_divergingJs);
+var _tickFormatJs = require("./tickFormat.js");
+var _tickFormatJsDefault = parcelHelpers.interopDefault(_tickFormatJs);
+
+},{"./band.js":false,"./identity.js":false,"./linear.js":"lob4K","./log.js":false,"./symlog.js":false,"./ordinal.js":"hNjKg","./pow.js":false,"./radial.js":"8e44u","./quantile.js":false,"./quantize.js":false,"./threshold.js":false,"./time.js":false,"./utcTime.js":false,"./sequential.js":false,"./sequentialQuantile.js":false,"./diverging.js":false,"./tickFormat.js":"ahQef","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lob4K":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "linearish", ()=>linearish);
 var _d3Array = require("d3-array");
-var _d3Transition = require("d3-transition");
-var _scales = require("./scales");
-const drawMatrix = (nodes, edges)=>{
-    // Order characters (nodes) by number of lines
-    nodes.sort((a, b)=>b.totalLines - a.totalLines);
-    // Create the data matrix
-    const edgeHash = {};
-    edges.forEach((edge)=>{
-        const id = `${edge.source}-${edge.target}`;
-        edgeHash[id] = edge;
-    });
-    console.log("edgeHash", edgeHash);
-    const matrix = [];
-    const itemWidth = 16;
-    const padding = 2;
-    nodes.forEach((charA, i)=>{
-        nodes.forEach((charB, j)=>{
-            if (charA !== charB) {
-                const id = `${charA.id}-${charB.id}`;
-                const item = {
-                    id: id,
-                    source: charA.id,
-                    target: charB.id,
-                    cx: i * (itemWidth + padding) + itemWidth / 2,
-                    cy: j * (itemWidth + padding) + itemWidth / 2
-                };
-                if (edgeHash[id]) {
-                    item["weight"] = edgeHash[id].weight;
-                    matrix.push(item);
-                }
-            }
-        });
-    });
-    console.log("matrix", matrix);
-    // Dimensions
-    const innerWidth = nodes.length * (itemWidth + padding);
-    const innerHeight = nodes.length * (itemWidth + padding);
-    const margin = {
-        top: 130,
-        right: 0,
-        bottom: 0,
-        left: 130
+var _continuousJs = require("./continuous.js");
+var _continuousJsDefault = parcelHelpers.interopDefault(_continuousJs);
+var _initJs = require("./init.js");
+var _tickFormatJs = require("./tickFormat.js");
+var _tickFormatJsDefault = parcelHelpers.interopDefault(_tickFormatJs);
+function linearish(scale) {
+    var domain = scale.domain;
+    scale.ticks = function(count) {
+        var d = domain();
+        return (0, _d3Array.ticks)(d[0], d[d.length - 1], count == null ? 10 : count);
     };
-    const width = innerWidth + margin.right + margin.left;
-    const height = innerHeight + margin.top + margin.bottom;
-    // Append SVG container
-    const svg = (0, _d3Selection.select)("#matrix").append("svg").attr("viewBox", `0 0 ${width} ${height}`).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
-    // Append matrix dots
-    const minWeight = (0, _d3Array.min)(edges, (d)=>d.weight);
-    const maxWeight = (0, _d3Array.max)(edges, (d)=>d.weight);
-    svg.selectAll(".matrix-dot").data(matrix).join("circle").attr("class", "matrix-dot").attr("cx", (d)=>d.cx).attr("cy", (d)=>d.cy).attr("r", itemWidth / 2).attr("fill", (d)=>d.weight ? (0, _scales.getEdgeColor)(minWeight, maxWeight, d.weight) : "white");
-    // Append labels
-    svg.selectAll(".label-left").data(nodes).join("text").attr("class", "label-left").attr("x", -8).attr("y", (d, i)=>i * (itemWidth + padding) + itemWidth / 2).attr("text-anchor", "end").attr("dominant-baseline", "middle").text((d)=>d.name).style("font-size", "13px");
-    svg.selectAll(".label-top").data(nodes).join("text").attr("class", "label-top").attr("dominant-baseline", "middle").attr("transform", (d, i)=>`translate(${i * (itemWidth + padding) + itemWidth / 2}, -8) rotate(-90)`).text((d)=>d.name).style("font-size", "13px");
-    // Add legend
-    const weights = (0, _d3Array.range)(minWeight, maxWeight + 1);
-    const legend = (0, _d3Selection.select)(".matrix-legend").append("ul").selectAll(".legend-color").data(weights).join("li").attr("class", "legend-color");
-    legend.append("div").attr("class", "legend-color-circle").style("background-color", (d)=>(0, _scales.getEdgeColor)(minWeight, maxWeight, d));
-    legend.append("div").attr("class", "legend-color-label").text((d)=>d);
-    // Interaction - Mouse over dot
-    (0, _d3Selection.selectAll)(".matrix-dot").on("mouseenter", (e, d)=>{
-        const t = (0, _d3Transition.transition)().duration(150);
-        (0, _d3Selection.selectAll)(".matrix-dot").transition(t).attr("fill-opacity", (dot)=>dot.id === d.id ? 1 : 0.1);
-        (0, _d3Selection.selectAll)(".label-top").transition(t).style("opacity", (label)=>label.id === d.source ? 1 : 0.1);
-        (0, _d3Selection.selectAll)(".label-left").transition(t).style("opacity", (label)=>label.id === d.target ? 1 : 0.1);
-        const charA = nodes.find((char)=>char.id === d.source).name;
-        const charB = nodes.find((char)=>char.id === d.target).name;
-        (0, _d3Selection.select)(".matrix-tooltip-charA").text(charA);
-        (0, _d3Selection.select)(".matrix-tooltip-charB").text(charB);
-        (0, _d3Selection.select)(".matrix-tooltip-scenes").text(d.weight);
-        (0, _d3Selection.select)(".matrix-tooltip").classed("hidden", false);
-    }).on("mouseleave", (e, d)=>{
-        (0, _d3Selection.selectAll)(".matrix-dot").attr("fill-opacity", 1);
-        (0, _d3Selection.selectAll)(".label-top, .label-left").style("opacity", 1);
-        (0, _d3Selection.select)(".matrix-tooltip").classed("hidden", true);
-    });
-};
+    scale.tickFormat = function(count, specifier) {
+        var d = domain();
+        return (0, _tickFormatJsDefault.default)(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
+    };
+    scale.nice = function(count) {
+        if (count == null) count = 10;
+        var d = domain();
+        var i0 = 0;
+        var i1 = d.length - 1;
+        var start = d[i0];
+        var stop = d[i1];
+        var prestep;
+        var step;
+        var maxIter = 10;
+        if (stop < start) {
+            step = start, start = stop, stop = step;
+            step = i0, i0 = i1, i1 = step;
+        }
+        while(maxIter-- > 0){
+            step = (0, _d3Array.tickIncrement)(start, stop, count);
+            if (step === prestep) {
+                d[i0] = start;
+                d[i1] = stop;
+                return domain(d);
+            } else if (step > 0) {
+                start = Math.floor(start / step) * step;
+                stop = Math.ceil(stop / step) * step;
+            } else if (step < 0) {
+                start = Math.ceil(start * step) / step;
+                stop = Math.floor(stop * step) / step;
+            } else break;
+            prestep = step;
+        }
+        return scale;
+    };
+    return scale;
+}
+function linear() {
+    var scale = (0, _continuousJsDefault.default)();
+    scale.copy = function() {
+        return (0, _continuousJs.copy)(scale, linear());
+    };
+    (0, _initJs.initRange).apply(scale, arguments);
+    return linearish(scale);
+}
+exports.default = linear;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","d3-selection":"gn9gd","d3-array":"1yX2W","d3-transition":"4lorl","./scales":"NYsfE"}],"1yX2W":[function(require,module,exports) {
+},{"d3-array":"1yX2W","./continuous.js":"1LsCM","./init.js":"kp8lc","./tickFormat.js":"ahQef","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1yX2W":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "bisect", ()=>(0, _bisectJsDefault.default));
@@ -2518,588 +2595,110 @@ function keyof(value) {
     return value !== null && typeof value === "object" ? value.valueOf() : value;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"4lorl":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1LsCM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "transition", ()=>(0, _indexJsDefault.default));
-parcelHelpers.export(exports, "active", ()=>(0, _activeJsDefault.default));
-parcelHelpers.export(exports, "interrupt", ()=>(0, _interruptJsDefault.default));
-var _indexJs = require("./selection/index.js");
-var _indexJs1 = require("./transition/index.js");
-var _indexJsDefault = parcelHelpers.interopDefault(_indexJs1);
-var _activeJs = require("./active.js");
-var _activeJsDefault = parcelHelpers.interopDefault(_activeJs);
-var _interruptJs = require("./interrupt.js");
-var _interruptJsDefault = parcelHelpers.interopDefault(_interruptJs);
-
-},{"./selection/index.js":"heX1u","./transition/index.js":"h2Srb","./active.js":false,"./interrupt.js":"j3g05","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"heX1u":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _d3Selection = require("d3-selection");
-var _interruptJs = require("./interrupt.js");
-var _interruptJsDefault = parcelHelpers.interopDefault(_interruptJs);
-var _transitionJs = require("./transition.js");
-var _transitionJsDefault = parcelHelpers.interopDefault(_transitionJs);
-(0, _d3Selection.selection).prototype.interrupt = (0, _interruptJsDefault.default);
-(0, _d3Selection.selection).prototype.transition = (0, _transitionJsDefault.default);
-
-},{"d3-selection":"gn9gd","./interrupt.js":"ecsW0","./transition.js":"aZzEX","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ecsW0":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _interruptJs = require("../interrupt.js");
-var _interruptJsDefault = parcelHelpers.interopDefault(_interruptJs);
-exports.default = function(name) {
-    return this.each(function() {
-        (0, _interruptJsDefault.default)(this, name);
-    });
-};
-
-},{"../interrupt.js":"j3g05","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"j3g05":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./transition/schedule.js");
-exports.default = function(node, name) {
-    var schedules = node.__transition, schedule, active, empty = true, i;
-    if (!schedules) return;
-    name = name == null ? null : name + "";
-    for(i in schedules){
-        if ((schedule = schedules[i]).name !== name) {
-            empty = false;
-            continue;
-        }
-        active = schedule.state > (0, _scheduleJs.STARTING) && schedule.state < (0, _scheduleJs.ENDING);
-        schedule.state = (0, _scheduleJs.ENDED);
-        schedule.timer.stop();
-        schedule.on.call(active ? "interrupt" : "cancel", node, node.__data__, schedule.index, schedule.group);
-        delete schedules[i];
-    }
-    if (empty) delete node.__transition;
-};
-
-},{"./transition/schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"de74c":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "CREATED", ()=>CREATED);
-parcelHelpers.export(exports, "SCHEDULED", ()=>SCHEDULED);
-parcelHelpers.export(exports, "STARTING", ()=>STARTING);
-parcelHelpers.export(exports, "STARTED", ()=>STARTED);
-parcelHelpers.export(exports, "RUNNING", ()=>RUNNING);
-parcelHelpers.export(exports, "ENDING", ()=>ENDING);
-parcelHelpers.export(exports, "ENDED", ()=>ENDED);
-parcelHelpers.export(exports, "init", ()=>init);
-parcelHelpers.export(exports, "set", ()=>set);
-parcelHelpers.export(exports, "get", ()=>get);
-var _d3Dispatch = require("d3-dispatch");
-var _d3Timer = require("d3-timer");
-var emptyOn = (0, _d3Dispatch.dispatch)("start", "end", "cancel", "interrupt");
-var emptyTween = [];
-var CREATED = 0;
-var SCHEDULED = 1;
-var STARTING = 2;
-var STARTED = 3;
-var RUNNING = 4;
-var ENDING = 5;
-var ENDED = 6;
-exports.default = function(node, name, id, index, group, timing) {
-    var schedules = node.__transition;
-    if (!schedules) node.__transition = {};
-    else if (id in schedules) return;
-    create(node, id, {
-        name: name,
-        index: index,
-        group: group,
-        on: emptyOn,
-        tween: emptyTween,
-        time: timing.time,
-        delay: timing.delay,
-        duration: timing.duration,
-        ease: timing.ease,
-        timer: null,
-        state: CREATED
-    });
-};
-function init(node, id) {
-    var schedule = get(node, id);
-    if (schedule.state > CREATED) throw new Error("too late; already scheduled");
-    return schedule;
-}
-function set(node, id) {
-    var schedule = get(node, id);
-    if (schedule.state > STARTED) throw new Error("too late; already running");
-    return schedule;
-}
-function get(node, id) {
-    var schedule = node.__transition;
-    if (!schedule || !(schedule = schedule[id])) throw new Error("transition not found");
-    return schedule;
-}
-function create(node, id, self) {
-    var schedules = node.__transition, tween;
-    // Initialize the self timer when the transition is created.
-    // Note the actual delay is not known until the first callback!
-    schedules[id] = self;
-    self.timer = (0, _d3Timer.timer)(schedule, 0, self.time);
-    function schedule(elapsed) {
-        self.state = SCHEDULED;
-        self.timer.restart(start, self.delay, self.time);
-        // If the elapsed delay is less than our first sleep, start immediately.
-        if (self.delay <= elapsed) start(elapsed - self.delay);
-    }
-    function start(elapsed) {
-        var i, j, n, o;
-        // If the state is not SCHEDULED, then we previously errored on start.
-        if (self.state !== SCHEDULED) return stop();
-        for(i in schedules){
-            o = schedules[i];
-            if (o.name !== self.name) continue;
-            // While this element already has a starting transition during this frame,
-            // defer starting an interrupting transition until that transition has a
-            // chance to tick (and possibly end); see d3/d3-transition#54!
-            if (o.state === STARTED) return (0, _d3Timer.timeout)(start);
-            // Interrupt the active transition, if any.
-            if (o.state === RUNNING) {
-                o.state = ENDED;
-                o.timer.stop();
-                o.on.call("interrupt", node, node.__data__, o.index, o.group);
-                delete schedules[i];
-            } else if (+i < id) {
-                o.state = ENDED;
-                o.timer.stop();
-                o.on.call("cancel", node, node.__data__, o.index, o.group);
-                delete schedules[i];
-            }
-        }
-        // Defer the first tick to end of the current frame; see d3/d3#1576.
-        // Note the transition may be canceled after start and before the first tick!
-        // Note this must be scheduled before the start event; see d3/d3-transition#16!
-        // Assuming this is successful, subsequent callbacks go straight to tick.
-        (0, _d3Timer.timeout)(function() {
-            if (self.state === STARTED) {
-                self.state = RUNNING;
-                self.timer.restart(tick, self.delay, self.time);
-                tick(elapsed);
-            }
-        });
-        // Dispatch the start event.
-        // Note this must be done before the tween are initialized.
-        self.state = STARTING;
-        self.on.call("start", node, node.__data__, self.index, self.group);
-        if (self.state !== STARTING) return; // interrupted
-        self.state = STARTED;
-        // Initialize the tween, deleting null tween.
-        tween = new Array(n = self.tween.length);
-        for(i = 0, j = -1; i < n; ++i)if (o = self.tween[i].value.call(node, node.__data__, self.index, self.group)) tween[++j] = o;
-        tween.length = j + 1;
-    }
-    function tick(elapsed) {
-        var t = elapsed < self.duration ? self.ease.call(null, elapsed / self.duration) : (self.timer.restart(stop), self.state = ENDING, 1), i = -1, n = tween.length;
-        while(++i < n)tween[i].call(node, t);
-        // Dispatch the end event.
-        if (self.state === ENDING) {
-            self.on.call("end", node, node.__data__, self.index, self.group);
-            stop();
-        }
-    }
-    function stop() {
-        self.state = ENDED;
-        self.timer.stop();
-        delete schedules[id];
-        for(var i in schedules)return; // eslint-disable-line no-unused-vars
-        delete node.__transition;
-    }
-}
-
-},{"d3-dispatch":"5WtHO","d3-timer":"7TEss","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"5WtHO":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "dispatch", ()=>(0, _dispatchJsDefault.default));
-var _dispatchJs = require("./dispatch.js");
-var _dispatchJsDefault = parcelHelpers.interopDefault(_dispatchJs);
-
-},{"./dispatch.js":"8Hmyd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"8Hmyd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var noop = {
-    value: ()=>{}
-};
-function dispatch() {
-    for(var i = 0, n = arguments.length, _ = {}, t; i < n; ++i){
-        if (!(t = arguments[i] + "") || t in _ || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
-        _[t] = [];
-    }
-    return new Dispatch(_);
-}
-function Dispatch(_) {
-    this._ = _;
-}
-function parseTypenames(typenames, types) {
-    return typenames.trim().split(/^|\s+/).map(function(t) {
-        var name = "", i = t.indexOf(".");
-        if (i >= 0) name = t.slice(i + 1), t = t.slice(0, i);
-        if (t && !types.hasOwnProperty(t)) throw new Error("unknown type: " + t);
-        return {
-            type: t,
-            name: name
-        };
-    });
-}
-Dispatch.prototype = dispatch.prototype = {
-    constructor: Dispatch,
-    on: function(typename, callback) {
-        var _ = this._, T = parseTypenames(typename + "", _), t, i = -1, n = T.length;
-        // If no callback was specified, return the callback of the given type and name.
-        if (arguments.length < 2) {
-            while(++i < n)if ((t = (typename = T[i]).type) && (t = get(_[t], typename.name))) return t;
-            return;
-        }
-        // If a type was specified, set the callback for the given type and name.
-        // Otherwise, if a null callback was specified, remove callbacks of the given name.
-        if (callback != null && typeof callback !== "function") throw new Error("invalid callback: " + callback);
-        while(++i < n){
-            if (t = (typename = T[i]).type) _[t] = set(_[t], typename.name, callback);
-            else if (callback == null) for(t in _)_[t] = set(_[t], typename.name, null);
-        }
-        return this;
-    },
-    copy: function() {
-        var copy = {}, _ = this._;
-        for(var t in _)copy[t] = _[t].slice();
-        return new Dispatch(copy);
-    },
-    call: function(type, that) {
-        if ((n = arguments.length - 2) > 0) for(var args = new Array(n), i = 0, n, t; i < n; ++i)args[i] = arguments[i + 2];
-        if (!this._.hasOwnProperty(type)) throw new Error("unknown type: " + type);
-        for(t = this._[type], i = 0, n = t.length; i < n; ++i)t[i].value.apply(that, args);
-    },
-    apply: function(type, that, args) {
-        if (!this._.hasOwnProperty(type)) throw new Error("unknown type: " + type);
-        for(var t = this._[type], i = 0, n = t.length; i < n; ++i)t[i].value.apply(that, args);
-    }
-};
-function get(type, name) {
-    for(var i = 0, n = type.length, c; i < n; ++i){
-        if ((c = type[i]).name === name) return c.value;
-    }
-}
-function set(type, name, callback) {
-    for(var i = 0, n = type.length; i < n; ++i)if (type[i].name === name) {
-        type[i] = noop, type = type.slice(0, i).concat(type.slice(i + 1));
-        break;
-    }
-    if (callback != null) type.push({
-        name: name,
-        value: callback
-    });
-    return type;
-}
-exports.default = dispatch;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"7TEss":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "now", ()=>(0, _timerJs.now));
-parcelHelpers.export(exports, "timer", ()=>(0, _timerJs.timer));
-parcelHelpers.export(exports, "timerFlush", ()=>(0, _timerJs.timerFlush));
-parcelHelpers.export(exports, "timeout", ()=>(0, _timeoutJsDefault.default));
-parcelHelpers.export(exports, "interval", ()=>(0, _intervalJsDefault.default));
-var _timerJs = require("./timer.js");
-var _timeoutJs = require("./timeout.js");
-var _timeoutJsDefault = parcelHelpers.interopDefault(_timeoutJs);
-var _intervalJs = require("./interval.js");
-var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
-
-},{"./timer.js":"bfF2F","./timeout.js":"ioM7O","./interval.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"bfF2F":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "now", ()=>now);
-parcelHelpers.export(exports, "Timer", ()=>Timer);
-parcelHelpers.export(exports, "timer", ()=>timer);
-parcelHelpers.export(exports, "timerFlush", ()=>timerFlush);
-var frame = 0, timeout = 0, interval = 0, pokeDelay = 1000, taskHead, taskTail, clockLast = 0, clockNow = 0, clockSkew = 0, clock = typeof performance === "object" && performance.now ? performance : Date, setFrame = typeof window === "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(f) {
-    setTimeout(f, 17);
-};
-function now() {
-    return clockNow || (setFrame(clearNow), clockNow = clock.now() + clockSkew);
-}
-function clearNow() {
-    clockNow = 0;
-}
-function Timer() {
-    this._call = this._time = this._next = null;
-}
-Timer.prototype = timer.prototype = {
-    constructor: Timer,
-    restart: function(callback, delay, time) {
-        if (typeof callback !== "function") throw new TypeError("callback is not a function");
-        time = (time == null ? now() : +time) + (delay == null ? 0 : +delay);
-        if (!this._next && taskTail !== this) {
-            if (taskTail) taskTail._next = this;
-            else taskHead = this;
-            taskTail = this;
-        }
-        this._call = callback;
-        this._time = time;
-        sleep();
-    },
-    stop: function() {
-        if (this._call) {
-            this._call = null;
-            this._time = Infinity;
-            sleep();
-        }
-    }
-};
-function timer(callback, delay, time) {
-    var t = new Timer;
-    t.restart(callback, delay, time);
-    return t;
-}
-function timerFlush() {
-    now(); // Get the current time, if not already set.
-    ++frame; // Pretend we’ve set an alarm, if we haven’t already.
-    var t = taskHead, e;
-    while(t){
-        if ((e = clockNow - t._time) >= 0) t._call.call(undefined, e);
-        t = t._next;
-    }
-    --frame;
-}
-function wake() {
-    clockNow = (clockLast = clock.now()) + clockSkew;
-    frame = timeout = 0;
-    try {
-        timerFlush();
-    } finally{
-        frame = 0;
-        nap();
-        clockNow = 0;
-    }
-}
-function poke() {
-    var now = clock.now(), delay = now - clockLast;
-    if (delay > pokeDelay) clockSkew -= delay, clockLast = now;
-}
-function nap() {
-    var t0, t1 = taskHead, t2, time = Infinity;
-    while(t1)if (t1._call) {
-        if (time > t1._time) time = t1._time;
-        t0 = t1, t1 = t1._next;
-    } else {
-        t2 = t1._next, t1._next = null;
-        t1 = t0 ? t0._next = t2 : taskHead = t2;
-    }
-    taskTail = t0;
-    sleep(time);
-}
-function sleep(time) {
-    if (frame) return; // Soonest alarm already set, or will be.
-    if (timeout) timeout = clearTimeout(timeout);
-    var delay = time - clockNow; // Strictly less than if we recomputed clockNow.
-    if (delay > 24) {
-        if (time < Infinity) timeout = setTimeout(wake, time - clock.now() - clockSkew);
-        if (interval) interval = clearInterval(interval);
-    } else {
-        if (!interval) clockLast = clock.now(), interval = setInterval(poke, pokeDelay);
-        frame = 1, setFrame(wake);
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ioM7O":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _timerJs = require("./timer.js");
-exports.default = function(callback, delay, time) {
-    var t = new (0, _timerJs.Timer);
-    delay = delay == null ? 0 : +delay;
-    t.restart((elapsed)=>{
-        t.stop();
-        callback(elapsed + delay);
-    }, delay, time);
-    return t;
-};
-
-},{"./timer.js":"bfF2F","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aZzEX":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _indexJs = require("../transition/index.js");
-var _scheduleJs = require("../transition/schedule.js");
-var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
-var _d3Ease = require("d3-ease");
-var _d3Timer = require("d3-timer");
-var defaultTiming = {
-    time: null,
-    delay: 0,
-    duration: 250,
-    ease: (0, _d3Ease.easeCubicInOut)
-};
-function inherit(node, id) {
-    var timing;
-    while(!(timing = node.__transition) || !(timing = timing[id])){
-        if (!(node = node.parentNode)) throw new Error(`transition ${id} not found`);
-    }
-    return timing;
-}
-exports.default = function(name) {
-    var id, timing;
-    if (name instanceof (0, _indexJs.Transition)) id = name._id, name = name._name;
-    else id = (0, _indexJs.newId)(), (timing = defaultTiming).time = (0, _d3Timer.now)(), name = name == null ? null : name + "";
-    for(var groups = this._groups, m = groups.length, j = 0; j < m; ++j){
-        for(var group = groups[j], n = group.length, node, i = 0; i < n; ++i)if (node = group[i]) (0, _scheduleJsDefault.default)(node, name, id, i, group, timing || inherit(node, id));
-    }
-    return new (0, _indexJs.Transition)(groups, this._parents, name, id);
-};
-
-},{"../transition/index.js":"h2Srb","../transition/schedule.js":"de74c","d3-ease":"8sCNl","d3-timer":"7TEss","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"h2Srb":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Transition", ()=>Transition);
-parcelHelpers.export(exports, "newId", ()=>newId);
-var _d3Selection = require("d3-selection");
-var _attrJs = require("./attr.js");
-var _attrJsDefault = parcelHelpers.interopDefault(_attrJs);
-var _attrTweenJs = require("./attrTween.js");
-var _attrTweenJsDefault = parcelHelpers.interopDefault(_attrTweenJs);
-var _delayJs = require("./delay.js");
-var _delayJsDefault = parcelHelpers.interopDefault(_delayJs);
-var _durationJs = require("./duration.js");
-var _durationJsDefault = parcelHelpers.interopDefault(_durationJs);
-var _easeJs = require("./ease.js");
-var _easeJsDefault = parcelHelpers.interopDefault(_easeJs);
-var _easeVaryingJs = require("./easeVarying.js");
-var _easeVaryingJsDefault = parcelHelpers.interopDefault(_easeVaryingJs);
-var _filterJs = require("./filter.js");
-var _filterJsDefault = parcelHelpers.interopDefault(_filterJs);
-var _mergeJs = require("./merge.js");
-var _mergeJsDefault = parcelHelpers.interopDefault(_mergeJs);
-var _onJs = require("./on.js");
-var _onJsDefault = parcelHelpers.interopDefault(_onJs);
-var _removeJs = require("./remove.js");
-var _removeJsDefault = parcelHelpers.interopDefault(_removeJs);
-var _selectJs = require("./select.js");
-var _selectJsDefault = parcelHelpers.interopDefault(_selectJs);
-var _selectAllJs = require("./selectAll.js");
-var _selectAllJsDefault = parcelHelpers.interopDefault(_selectAllJs);
-var _selectionJs = require("./selection.js");
-var _selectionJsDefault = parcelHelpers.interopDefault(_selectionJs);
-var _styleJs = require("./style.js");
-var _styleJsDefault = parcelHelpers.interopDefault(_styleJs);
-var _styleTweenJs = require("./styleTween.js");
-var _styleTweenJsDefault = parcelHelpers.interopDefault(_styleTweenJs);
-var _textJs = require("./text.js");
-var _textJsDefault = parcelHelpers.interopDefault(_textJs);
-var _textTweenJs = require("./textTween.js");
-var _textTweenJsDefault = parcelHelpers.interopDefault(_textTweenJs);
-var _transitionJs = require("./transition.js");
-var _transitionJsDefault = parcelHelpers.interopDefault(_transitionJs);
-var _tweenJs = require("./tween.js");
-var _tweenJsDefault = parcelHelpers.interopDefault(_tweenJs);
-var _endJs = require("./end.js");
-var _endJsDefault = parcelHelpers.interopDefault(_endJs);
-var id = 0;
-function Transition(groups, parents, name, id) {
-    this._groups = groups;
-    this._parents = parents;
-    this._name = name;
-    this._id = id;
-}
-function transition(name) {
-    return (0, _d3Selection.selection)().transition(name);
-}
-exports.default = transition;
-function newId() {
-    return ++id;
-}
-var selection_prototype = (0, _d3Selection.selection).prototype;
-Transition.prototype = transition.prototype = {
-    constructor: Transition,
-    select: (0, _selectJsDefault.default),
-    selectAll: (0, _selectAllJsDefault.default),
-    selectChild: selection_prototype.selectChild,
-    selectChildren: selection_prototype.selectChildren,
-    filter: (0, _filterJsDefault.default),
-    merge: (0, _mergeJsDefault.default),
-    selection: (0, _selectionJsDefault.default),
-    transition: (0, _transitionJsDefault.default),
-    call: selection_prototype.call,
-    nodes: selection_prototype.nodes,
-    node: selection_prototype.node,
-    size: selection_prototype.size,
-    empty: selection_prototype.empty,
-    each: selection_prototype.each,
-    on: (0, _onJsDefault.default),
-    attr: (0, _attrJsDefault.default),
-    attrTween: (0, _attrTweenJsDefault.default),
-    style: (0, _styleJsDefault.default),
-    styleTween: (0, _styleTweenJsDefault.default),
-    text: (0, _textJsDefault.default),
-    textTween: (0, _textTweenJsDefault.default),
-    remove: (0, _removeJsDefault.default),
-    tween: (0, _tweenJsDefault.default),
-    delay: (0, _delayJsDefault.default),
-    duration: (0, _durationJsDefault.default),
-    ease: (0, _easeJsDefault.default),
-    easeVarying: (0, _easeVaryingJsDefault.default),
-    end: (0, _endJsDefault.default),
-    [Symbol.iterator]: selection_prototype[Symbol.iterator]
-};
-
-},{"d3-selection":"gn9gd","./attr.js":"9UgA3","./attrTween.js":"1hMpn","./delay.js":"2BzOF","./duration.js":"ei298","./ease.js":"lCGHM","./easeVarying.js":"aju4f","./filter.js":"d3Uia","./merge.js":"9odBi","./on.js":"3XrBC","./remove.js":"aZLkz","./select.js":"bgUUX","./selectAll.js":"lqPi4","./selection.js":"iWTRA","./style.js":"44QDP","./styleTween.js":"42AvL","./text.js":"6mGEx","./textTween.js":"kqC5z","./transition.js":"50tVR","./tween.js":"1Kbbg","./end.js":"ev0ir","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9UgA3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "identity", ()=>identity);
+parcelHelpers.export(exports, "copy", ()=>copy);
+parcelHelpers.export(exports, "transformer", ()=>transformer);
+var _d3Array = require("d3-array");
 var _d3Interpolate = require("d3-interpolate");
-var _d3Selection = require("d3-selection");
-var _tweenJs = require("./tween.js");
-var _interpolateJs = require("./interpolate.js");
-var _interpolateJsDefault = parcelHelpers.interopDefault(_interpolateJs);
-function attrRemove(name) {
-    return function() {
-        this.removeAttribute(name);
+var _constantJs = require("./constant.js");
+var _constantJsDefault = parcelHelpers.interopDefault(_constantJs);
+var _numberJs = require("./number.js");
+var _numberJsDefault = parcelHelpers.interopDefault(_numberJs);
+var unit = [
+    0,
+    1
+];
+function identity(x) {
+    return x;
+}
+function normalize(a, b) {
+    return (b -= a = +a) ? function(x) {
+        return (x - a) / b;
+    } : (0, _constantJsDefault.default)(isNaN(b) ? NaN : 0.5);
+}
+function clamper(a, b) {
+    var t;
+    if (a > b) t = a, a = b, b = t;
+    return function(x) {
+        return Math.max(a, Math.min(b, x));
     };
 }
-function attrRemoveNS(fullname) {
-    return function() {
-        this.removeAttributeNS(fullname.space, fullname.local);
+// normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+// interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
+function bimap(domain, range, interpolate) {
+    var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
+    if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);
+    else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
+    return function(x) {
+        return r0(d0(x));
     };
 }
-function attrConstant(name, interpolate, value1) {
-    var string00, string1 = value1 + "", interpolate0;
-    return function() {
-        var string0 = this.getAttribute(name);
-        return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
+function polymap(domain, range, interpolate) {
+    var j = Math.min(domain.length, range.length) - 1, d = new Array(j), r = new Array(j), i = -1;
+    // Reverse descending domains.
+    if (domain[j] < domain[0]) {
+        domain = domain.slice().reverse();
+        range = range.slice().reverse();
+    }
+    while(++i < j){
+        d[i] = normalize(domain[i], domain[i + 1]);
+        r[i] = interpolate(range[i], range[i + 1]);
+    }
+    return function(x) {
+        var i = (0, _d3Array.bisect)(domain, x, 1, j) - 1;
+        return r[i](d[i](x));
     };
 }
-function attrConstantNS(fullname, interpolate, value1) {
-    var string00, string1 = value1 + "", interpolate0;
-    return function() {
-        var string0 = this.getAttributeNS(fullname.space, fullname.local);
-        return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
+function copy(source, target) {
+    return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp()).unknown(source.unknown());
+}
+function transformer() {
+    var domain = unit, range = unit, interpolate = (0, _d3Interpolate.interpolate), transform, untransform, unknown, clamp = identity, piecewise, output, input;
+    function rescale() {
+        var n = Math.min(domain.length, range.length);
+        if (clamp !== identity) clamp = clamper(domain[0], domain[n - 1]);
+        piecewise = n > 2 ? polymap : bimap;
+        output = input = null;
+        return scale;
+    }
+    function scale(x) {
+        return x == null || isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate)))(transform(clamp(x)));
+    }
+    scale.invert = function(y) {
+        return clamp(untransform((input || (input = piecewise(range, domain.map(transform), (0, _d3Interpolate.interpolateNumber))))(y)));
+    };
+    scale.domain = function(_) {
+        return arguments.length ? (domain = Array.from(_, (0, _numberJsDefault.default)), rescale()) : domain.slice();
+    };
+    scale.range = function(_) {
+        return arguments.length ? (range = Array.from(_), rescale()) : range.slice();
+    };
+    scale.rangeRound = function(_) {
+        return range = Array.from(_), interpolate = (0, _d3Interpolate.interpolateRound), rescale();
+    };
+    scale.clamp = function(_) {
+        return arguments.length ? (clamp = _ ? true : identity, rescale()) : clamp !== identity;
+    };
+    scale.interpolate = function(_) {
+        return arguments.length ? (interpolate = _, rescale()) : interpolate;
+    };
+    scale.unknown = function(_) {
+        return arguments.length ? (unknown = _, scale) : unknown;
+    };
+    return function(t, u) {
+        transform = t, untransform = u;
+        return rescale();
     };
 }
-function attrFunction(name, interpolate, value) {
-    var string00, string10, interpolate0;
-    return function() {
-        var string0, value1 = value(this), string1;
-        if (value1 == null) return void this.removeAttribute(name);
-        string0 = this.getAttribute(name);
-        string1 = value1 + "";
-        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
-    };
+function continuous() {
+    return transformer()(identity, identity);
 }
-function attrFunctionNS(fullname, interpolate, value) {
-    var string00, string10, interpolate0;
-    return function() {
-        var string0, value1 = value(this), string1;
-        if (value1 == null) return void this.removeAttributeNS(fullname.space, fullname.local);
-        string0 = this.getAttributeNS(fullname.space, fullname.local);
-        string1 = value1 + "";
-        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
-    };
-}
-exports.default = function(name, value) {
-    var fullname = (0, _d3Selection.namespace)(name), i = fullname === "transform" ? (0, _d3Interpolate.interpolateTransformSvg) : (0, _interpolateJsDefault.default);
-    return this.attrTween(name, typeof value === "function" ? (fullname.local ? attrFunctionNS : attrFunction)(fullname, i, (0, _tweenJs.tweenValue)(this, "attr." + name, value)) : value == null ? (fullname.local ? attrRemoveNS : attrRemove)(fullname) : (fullname.local ? attrConstantNS : attrConstant)(fullname, i, value));
-};
+exports.default = continuous;
 
-},{"d3-interpolate":"6jJyi","d3-selection":"gn9gd","./tween.js":"1Kbbg","./interpolate.js":"69lgs","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"6jJyi":[function(require,module,exports) {
+},{"d3-array":"1yX2W","d3-interpolate":"6jJyi","./constant.js":"kIv0D","./number.js":"k9Lyx","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"6jJyi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "interpolate", ()=>(0, _valueJsDefault.default));
@@ -3942,819 +3541,7 @@ exports.default = function(a, b, c, d, e, f) {
     };
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1Kbbg":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "tweenValue", ()=>tweenValue);
-var _scheduleJs = require("./schedule.js");
-function tweenRemove(id, name) {
-    var tween0, tween1;
-    return function() {
-        var schedule = (0, _scheduleJs.set)(this, id), tween = schedule.tween;
-        // If this node shared tween with the previous node,
-        // just assign the updated shared tween and we’re done!
-        // Otherwise, copy-on-write.
-        if (tween !== tween0) {
-            tween1 = tween0 = tween;
-            for(var i = 0, n = tween1.length; i < n; ++i)if (tween1[i].name === name) {
-                tween1 = tween1.slice();
-                tween1.splice(i, 1);
-                break;
-            }
-        }
-        schedule.tween = tween1;
-    };
-}
-function tweenFunction(id, name, value) {
-    var tween0, tween1;
-    if (typeof value !== "function") throw new Error;
-    return function() {
-        var schedule = (0, _scheduleJs.set)(this, id), tween = schedule.tween;
-        // If this node shared tween with the previous node,
-        // just assign the updated shared tween and we’re done!
-        // Otherwise, copy-on-write.
-        if (tween !== tween0) {
-            tween1 = (tween0 = tween).slice();
-            for(var t = {
-                name: name,
-                value: value
-            }, i = 0, n = tween1.length; i < n; ++i)if (tween1[i].name === name) {
-                tween1[i] = t;
-                break;
-            }
-            if (i === n) tween1.push(t);
-        }
-        schedule.tween = tween1;
-    };
-}
-exports.default = function(name, value) {
-    var id = this._id;
-    name += "";
-    if (arguments.length < 2) {
-        var tween = (0, _scheduleJs.get)(this.node(), id).tween;
-        for(var i = 0, n = tween.length, t; i < n; ++i){
-            if ((t = tween[i]).name === name) return t.value;
-        }
-        return null;
-    }
-    return this.each((value == null ? tweenRemove : tweenFunction)(id, name, value));
-};
-function tweenValue(transition, name, value) {
-    var id = transition._id;
-    transition.each(function() {
-        var schedule = (0, _scheduleJs.set)(this, id);
-        (schedule.value || (schedule.value = {}))[name] = value.apply(this, arguments);
-    });
-    return function(node) {
-        return (0, _scheduleJs.get)(node, id).value[name];
-    };
-}
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"69lgs":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Color = require("d3-color");
-var _d3Interpolate = require("d3-interpolate");
-exports.default = function(a, b) {
-    var c;
-    return (typeof b === "number" ? (0, _d3Interpolate.interpolateNumber) : b instanceof (0, _d3Color.color) ? (0, _d3Interpolate.interpolateRgb) : (c = (0, _d3Color.color)(b)) ? (b = c, _d3Interpolate.interpolateRgb) : (0, _d3Interpolate.interpolateString))(a, b);
-};
-
-},{"d3-color":"grhaa","d3-interpolate":"6jJyi","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1hMpn":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Selection = require("d3-selection");
-function attrInterpolate(name, i) {
-    return function(t) {
-        this.setAttribute(name, i.call(this, t));
-    };
-}
-function attrInterpolateNS(fullname, i) {
-    return function(t) {
-        this.setAttributeNS(fullname.space, fullname.local, i.call(this, t));
-    };
-}
-function attrTweenNS(fullname, value) {
-    var t0, i0;
-    function tween() {
-        var i = value.apply(this, arguments);
-        if (i !== i0) t0 = (i0 = i) && attrInterpolateNS(fullname, i);
-        return t0;
-    }
-    tween._value = value;
-    return tween;
-}
-function attrTween(name, value) {
-    var t0, i0;
-    function tween() {
-        var i = value.apply(this, arguments);
-        if (i !== i0) t0 = (i0 = i) && attrInterpolate(name, i);
-        return t0;
-    }
-    tween._value = value;
-    return tween;
-}
-exports.default = function(name, value) {
-    var key = "attr." + name;
-    if (arguments.length < 2) return (key = this.tween(key)) && key._value;
-    if (value == null) return this.tween(key, null);
-    if (typeof value !== "function") throw new Error;
-    var fullname = (0, _d3Selection.namespace)(name);
-    return this.tween(key, (fullname.local ? attrTweenNS : attrTween)(fullname, value));
-};
-
-},{"d3-selection":"gn9gd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"2BzOF":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./schedule.js");
-function delayFunction(id, value) {
-    return function() {
-        (0, _scheduleJs.init)(this, id).delay = +value.apply(this, arguments);
-    };
-}
-function delayConstant(id, value) {
-    return value = +value, function() {
-        (0, _scheduleJs.init)(this, id).delay = value;
-    };
-}
-exports.default = function(value) {
-    var id = this._id;
-    return arguments.length ? this.each((typeof value === "function" ? delayFunction : delayConstant)(id, value)) : (0, _scheduleJs.get)(this.node(), id).delay;
-};
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ei298":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./schedule.js");
-function durationFunction(id, value) {
-    return function() {
-        (0, _scheduleJs.set)(this, id).duration = +value.apply(this, arguments);
-    };
-}
-function durationConstant(id, value) {
-    return value = +value, function() {
-        (0, _scheduleJs.set)(this, id).duration = value;
-    };
-}
-exports.default = function(value) {
-    var id = this._id;
-    return arguments.length ? this.each((typeof value === "function" ? durationFunction : durationConstant)(id, value)) : (0, _scheduleJs.get)(this.node(), id).duration;
-};
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lCGHM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./schedule.js");
-function easeConstant(id, value) {
-    if (typeof value !== "function") throw new Error;
-    return function() {
-        (0, _scheduleJs.set)(this, id).ease = value;
-    };
-}
-exports.default = function(value) {
-    var id = this._id;
-    return arguments.length ? this.each(easeConstant(id, value)) : (0, _scheduleJs.get)(this.node(), id).ease;
-};
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aju4f":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./schedule.js");
-function easeVarying(id, value) {
-    return function() {
-        var v = value.apply(this, arguments);
-        if (typeof v !== "function") throw new Error;
-        (0, _scheduleJs.set)(this, id).ease = v;
-    };
-}
-exports.default = function(value) {
-    if (typeof value !== "function") throw new Error;
-    return this.each(easeVarying(this._id, value));
-};
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"d3Uia":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Selection = require("d3-selection");
-var _indexJs = require("./index.js");
-exports.default = function(match) {
-    if (typeof match !== "function") match = (0, _d3Selection.matcher)(match);
-    for(var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j){
-        for(var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i)if ((node = group[i]) && match.call(node, node.__data__, i, group)) subgroup.push(node);
-    }
-    return new (0, _indexJs.Transition)(subgroups, this._parents, this._name, this._id);
-};
-
-},{"d3-selection":"gn9gd","./index.js":"h2Srb","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9odBi":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _indexJs = require("./index.js");
-exports.default = function(transition) {
-    if (transition._id !== this._id) throw new Error;
-    for(var groups0 = this._groups, groups1 = transition._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j){
-        for(var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge = merges[j] = new Array(n), node, i = 0; i < n; ++i)if (node = group0[i] || group1[i]) merge[i] = node;
-    }
-    for(; j < m0; ++j)merges[j] = groups0[j];
-    return new (0, _indexJs.Transition)(merges, this._parents, this._name, this._id);
-};
-
-},{"./index.js":"h2Srb","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"3XrBC":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./schedule.js");
-function start(name) {
-    return (name + "").trim().split(/^|\s+/).every(function(t) {
-        var i = t.indexOf(".");
-        if (i >= 0) t = t.slice(0, i);
-        return !t || t === "start";
-    });
-}
-function onFunction(id, name, listener) {
-    var on0, on1, sit = start(name) ? (0, _scheduleJs.init) : (0, _scheduleJs.set);
-    return function() {
-        var schedule = sit(this, id), on = schedule.on;
-        // If this node shared a dispatch with the previous node,
-        // just assign the updated shared dispatch and we’re done!
-        // Otherwise, copy-on-write.
-        if (on !== on0) (on1 = (on0 = on).copy()).on(name, listener);
-        schedule.on = on1;
-    };
-}
-exports.default = function(name, listener) {
-    var id = this._id;
-    return arguments.length < 2 ? (0, _scheduleJs.get)(this.node(), id).on.on(name) : this.each(onFunction(id, name, listener));
-};
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aZLkz":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function removeFunction(id) {
-    return function() {
-        var parent = this.parentNode;
-        for(var i in this.__transition)if (+i !== id) return;
-        if (parent) parent.removeChild(this);
-    };
-}
-exports.default = function() {
-    return this.on("end.remove", removeFunction(this._id));
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"bgUUX":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Selection = require("d3-selection");
-var _indexJs = require("./index.js");
-var _scheduleJs = require("./schedule.js");
-var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
-exports.default = function(select) {
-    var name = this._name, id = this._id;
-    if (typeof select !== "function") select = (0, _d3Selection.selector)(select);
-    for(var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j){
-        for(var group = groups[j], n = group.length, subgroup = subgroups[j] = new Array(n), node, subnode, i = 0; i < n; ++i)if ((node = group[i]) && (subnode = select.call(node, node.__data__, i, group))) {
-            if ("__data__" in node) subnode.__data__ = node.__data__;
-            subgroup[i] = subnode;
-            (0, _scheduleJsDefault.default)(subgroup[i], name, id, i, subgroup, (0, _scheduleJs.get)(node, id));
-        }
-    }
-    return new (0, _indexJs.Transition)(subgroups, this._parents, name, id);
-};
-
-},{"d3-selection":"gn9gd","./index.js":"h2Srb","./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lqPi4":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Selection = require("d3-selection");
-var _indexJs = require("./index.js");
-var _scheduleJs = require("./schedule.js");
-var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
-exports.default = function(select) {
-    var name = this._name, id = this._id;
-    if (typeof select !== "function") select = (0, _d3Selection.selectorAll)(select);
-    for(var groups = this._groups, m = groups.length, subgroups = [], parents = [], j = 0; j < m; ++j){
-        for(var group = groups[j], n = group.length, node, i = 0; i < n; ++i)if (node = group[i]) {
-            for(var children = select.call(node, node.__data__, i, group), child, inherit = (0, _scheduleJs.get)(node, id), k = 0, l = children.length; k < l; ++k)if (child = children[k]) (0, _scheduleJsDefault.default)(child, name, id, k, children, inherit);
-            subgroups.push(children);
-            parents.push(node);
-        }
-    }
-    return new (0, _indexJs.Transition)(subgroups, parents, name, id);
-};
-
-},{"d3-selection":"gn9gd","./index.js":"h2Srb","./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"iWTRA":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Selection = require("d3-selection");
-var Selection = (0, _d3Selection.selection).prototype.constructor;
-exports.default = function() {
-    return new Selection(this._groups, this._parents);
-};
-
-},{"d3-selection":"gn9gd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"44QDP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _d3Interpolate = require("d3-interpolate");
-var _d3Selection = require("d3-selection");
-var _scheduleJs = require("./schedule.js");
-var _tweenJs = require("./tween.js");
-var _interpolateJs = require("./interpolate.js");
-var _interpolateJsDefault = parcelHelpers.interopDefault(_interpolateJs);
-function styleNull(name, interpolate) {
-    var string00, string10, interpolate0;
-    return function() {
-        var string0 = (0, _d3Selection.style)(this, name), string1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
-        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : interpolate0 = interpolate(string00 = string0, string10 = string1);
-    };
-}
-function styleRemove(name) {
-    return function() {
-        this.style.removeProperty(name);
-    };
-}
-function styleConstant(name, interpolate, value1) {
-    var string00, string1 = value1 + "", interpolate0;
-    return function() {
-        var string0 = (0, _d3Selection.style)(this, name);
-        return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
-    };
-}
-function styleFunction(name, interpolate, value) {
-    var string00, string10, interpolate0;
-    return function() {
-        var string0 = (0, _d3Selection.style)(this, name), value1 = value(this), string1 = value1 + "";
-        if (value1 == null) string1 = value1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
-        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
-    };
-}
-function styleMaybeRemove(id, name) {
-    var on0, on1, listener0, key = "style." + name, event = "end." + key, remove;
-    return function() {
-        var schedule = (0, _scheduleJs.set)(this, id), on = schedule.on, listener = schedule.value[key] == null ? remove || (remove = styleRemove(name)) : undefined;
-        // If this node shared a dispatch with the previous node,
-        // just assign the updated shared dispatch and we’re done!
-        // Otherwise, copy-on-write.
-        if (on !== on0 || listener0 !== listener) (on1 = (on0 = on).copy()).on(event, listener0 = listener);
-        schedule.on = on1;
-    };
-}
-exports.default = function(name, value, priority) {
-    var i = (name += "") === "transform" ? (0, _d3Interpolate.interpolateTransformCss) : (0, _interpolateJsDefault.default);
-    return value == null ? this.styleTween(name, styleNull(name, i)).on("end.style." + name, styleRemove(name)) : typeof value === "function" ? this.styleTween(name, styleFunction(name, i, (0, _tweenJs.tweenValue)(this, "style." + name, value))).each(styleMaybeRemove(this._id, name)) : this.styleTween(name, styleConstant(name, i, value), priority).on("end.style." + name, null);
-};
-
-},{"d3-interpolate":"6jJyi","d3-selection":"gn9gd","./schedule.js":"de74c","./tween.js":"1Kbbg","./interpolate.js":"69lgs","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"42AvL":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function styleInterpolate(name, i, priority) {
-    return function(t) {
-        this.style.setProperty(name, i.call(this, t), priority);
-    };
-}
-function styleTween(name, value, priority) {
-    var t, i0;
-    function tween() {
-        var i = value.apply(this, arguments);
-        if (i !== i0) t = (i0 = i) && styleInterpolate(name, i, priority);
-        return t;
-    }
-    tween._value = value;
-    return tween;
-}
-exports.default = function(name, value, priority) {
-    var key = "style." + (name += "");
-    if (arguments.length < 2) return (key = this.tween(key)) && key._value;
-    if (value == null) return this.tween(key, null);
-    if (typeof value !== "function") throw new Error;
-    return this.tween(key, styleTween(name, value, priority == null ? "" : priority));
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"6mGEx":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _tweenJs = require("./tween.js");
-function textConstant(value) {
-    return function() {
-        this.textContent = value;
-    };
-}
-function textFunction(value) {
-    return function() {
-        var value1 = value(this);
-        this.textContent = value1 == null ? "" : value1;
-    };
-}
-exports.default = function(value) {
-    return this.tween("text", typeof value === "function" ? textFunction((0, _tweenJs.tweenValue)(this, "text", value)) : textConstant(value == null ? "" : value + ""));
-};
-
-},{"./tween.js":"1Kbbg","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"kqC5z":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-function textInterpolate(i) {
-    return function(t) {
-        this.textContent = i.call(this, t);
-    };
-}
-function textTween(value) {
-    var t0, i0;
-    function tween() {
-        var i = value.apply(this, arguments);
-        if (i !== i0) t0 = (i0 = i) && textInterpolate(i);
-        return t0;
-    }
-    tween._value = value;
-    return tween;
-}
-exports.default = function(value) {
-    var key = "text";
-    if (arguments.length < 1) return (key = this.tween(key)) && key._value;
-    if (value == null) return this.tween(key, null);
-    if (typeof value !== "function") throw new Error;
-    return this.tween(key, textTween(value));
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"50tVR":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _indexJs = require("./index.js");
-var _scheduleJs = require("./schedule.js");
-var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
-exports.default = function() {
-    var name = this._name, id0 = this._id, id1 = (0, _indexJs.newId)();
-    for(var groups = this._groups, m = groups.length, j = 0; j < m; ++j){
-        for(var group = groups[j], n = group.length, node, i = 0; i < n; ++i)if (node = group[i]) {
-            var inherit = (0, _scheduleJs.get)(node, id0);
-            (0, _scheduleJsDefault.default)(node, name, id1, i, group, {
-                time: inherit.time + inherit.delay + inherit.duration,
-                delay: 0,
-                duration: inherit.duration,
-                ease: inherit.ease
-            });
-        }
-    }
-    return new (0, _indexJs.Transition)(groups, this._parents, name, id1);
-};
-
-},{"./index.js":"h2Srb","./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ev0ir":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _scheduleJs = require("./schedule.js");
-exports.default = function() {
-    var on0, on1, that = this, id = that._id, size = that.size();
-    return new Promise(function(resolve, reject) {
-        var cancel = {
-            value: reject
-        }, end = {
-            value: function() {
-                if (--size === 0) resolve();
-            }
-        };
-        that.each(function() {
-            var schedule = (0, _scheduleJs.set)(this, id), on = schedule.on;
-            // If this node shared a dispatch with the previous node,
-            // just assign the updated shared dispatch and we’re done!
-            // Otherwise, copy-on-write.
-            if (on !== on0) {
-                on1 = (on0 = on).copy();
-                on1._.cancel.push(cancel);
-                on1._.interrupt.push(cancel);
-                on1._.end.push(end);
-            }
-            schedule.on = on1;
-        });
-        // The selection was empty, resolve end immediately
-        if (size === 0) resolve();
-    });
-};
-
-},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"8sCNl":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "easeLinear", ()=>(0, _linearJs.linear));
-parcelHelpers.export(exports, "easeQuad", ()=>(0, _quadJs.quadInOut));
-parcelHelpers.export(exports, "easeQuadIn", ()=>(0, _quadJs.quadIn));
-parcelHelpers.export(exports, "easeQuadOut", ()=>(0, _quadJs.quadOut));
-parcelHelpers.export(exports, "easeQuadInOut", ()=>(0, _quadJs.quadInOut));
-parcelHelpers.export(exports, "easeCubic", ()=>(0, _cubicJs.cubicInOut));
-parcelHelpers.export(exports, "easeCubicIn", ()=>(0, _cubicJs.cubicIn));
-parcelHelpers.export(exports, "easeCubicOut", ()=>(0, _cubicJs.cubicOut));
-parcelHelpers.export(exports, "easeCubicInOut", ()=>(0, _cubicJs.cubicInOut));
-parcelHelpers.export(exports, "easePoly", ()=>(0, _polyJs.polyInOut));
-parcelHelpers.export(exports, "easePolyIn", ()=>(0, _polyJs.polyIn));
-parcelHelpers.export(exports, "easePolyOut", ()=>(0, _polyJs.polyOut));
-parcelHelpers.export(exports, "easePolyInOut", ()=>(0, _polyJs.polyInOut));
-parcelHelpers.export(exports, "easeSin", ()=>(0, _sinJs.sinInOut));
-parcelHelpers.export(exports, "easeSinIn", ()=>(0, _sinJs.sinIn));
-parcelHelpers.export(exports, "easeSinOut", ()=>(0, _sinJs.sinOut));
-parcelHelpers.export(exports, "easeSinInOut", ()=>(0, _sinJs.sinInOut));
-parcelHelpers.export(exports, "easeExp", ()=>(0, _expJs.expInOut));
-parcelHelpers.export(exports, "easeExpIn", ()=>(0, _expJs.expIn));
-parcelHelpers.export(exports, "easeExpOut", ()=>(0, _expJs.expOut));
-parcelHelpers.export(exports, "easeExpInOut", ()=>(0, _expJs.expInOut));
-parcelHelpers.export(exports, "easeCircle", ()=>(0, _circleJs.circleInOut));
-parcelHelpers.export(exports, "easeCircleIn", ()=>(0, _circleJs.circleIn));
-parcelHelpers.export(exports, "easeCircleOut", ()=>(0, _circleJs.circleOut));
-parcelHelpers.export(exports, "easeCircleInOut", ()=>(0, _circleJs.circleInOut));
-parcelHelpers.export(exports, "easeBounce", ()=>(0, _bounceJs.bounceOut));
-parcelHelpers.export(exports, "easeBounceIn", ()=>(0, _bounceJs.bounceIn));
-parcelHelpers.export(exports, "easeBounceOut", ()=>(0, _bounceJs.bounceOut));
-parcelHelpers.export(exports, "easeBounceInOut", ()=>(0, _bounceJs.bounceInOut));
-parcelHelpers.export(exports, "easeBack", ()=>(0, _backJs.backInOut));
-parcelHelpers.export(exports, "easeBackIn", ()=>(0, _backJs.backIn));
-parcelHelpers.export(exports, "easeBackOut", ()=>(0, _backJs.backOut));
-parcelHelpers.export(exports, "easeBackInOut", ()=>(0, _backJs.backInOut));
-parcelHelpers.export(exports, "easeElastic", ()=>(0, _elasticJs.elasticOut));
-parcelHelpers.export(exports, "easeElasticIn", ()=>(0, _elasticJs.elasticIn));
-parcelHelpers.export(exports, "easeElasticOut", ()=>(0, _elasticJs.elasticOut));
-parcelHelpers.export(exports, "easeElasticInOut", ()=>(0, _elasticJs.elasticInOut));
-var _linearJs = require("./linear.js");
-var _quadJs = require("./quad.js");
-var _cubicJs = require("./cubic.js");
-var _polyJs = require("./poly.js");
-var _sinJs = require("./sin.js");
-var _expJs = require("./exp.js");
-var _circleJs = require("./circle.js");
-var _bounceJs = require("./bounce.js");
-var _backJs = require("./back.js");
-var _elasticJs = require("./elastic.js");
-
-},{"./linear.js":false,"./quad.js":false,"./cubic.js":"cGjk7","./poly.js":false,"./sin.js":false,"./exp.js":false,"./circle.js":false,"./bounce.js":false,"./back.js":false,"./elastic.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"cGjk7":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "cubicIn", ()=>cubicIn);
-parcelHelpers.export(exports, "cubicOut", ()=>cubicOut);
-parcelHelpers.export(exports, "cubicInOut", ()=>cubicInOut);
-function cubicIn(t) {
-    return t * t * t;
-}
-function cubicOut(t) {
-    return --t * t * t + 1;
-}
-function cubicInOut(t) {
-    return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"NYsfE":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getRadius", ()=>getRadius);
-parcelHelpers.export(exports, "charColorScale", ()=>charColorScale);
-parcelHelpers.export(exports, "getEdgeColor", ()=>getEdgeColor);
-var _d3Scale = require("d3-scale");
-var _helper = require("./helper");
-const getRadius = (maxLines, lines)=>{
-    const radialScale = (0, _d3Scale.scaleRadial)().domain([
-        0,
-        maxLines
-    ]).range([
-        0,
-        60
-    ]);
-    return radialScale(lines);
-};
-const charColorScale = (0, _d3Scale.scaleOrdinal)().domain((0, _helper.houses).map((h)=>h.house)).range((0, _helper.houses).map((h)=>h.color));
-const getEdgeColor = (minWeight, maxWeight, weight)=>{
-    const edgeColorScale = (0, _d3Scale.scaleLinear)().domain([
-        minWeight,
-        maxWeight
-    ]).range([
-        "#C3D2DB",
-        "#364652"
-    ]);
-    return edgeColorScale(weight);
-};
-
-},{"d3-scale":"UQ8g3","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"UQ8g3":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "scaleBand", ()=>(0, _bandJsDefault.default));
-parcelHelpers.export(exports, "scalePoint", ()=>(0, _bandJs.point));
-parcelHelpers.export(exports, "scaleIdentity", ()=>(0, _identityJsDefault.default));
-parcelHelpers.export(exports, "scaleLinear", ()=>(0, _linearJsDefault.default));
-parcelHelpers.export(exports, "scaleLog", ()=>(0, _logJsDefault.default));
-parcelHelpers.export(exports, "scaleSymlog", ()=>(0, _symlogJsDefault.default));
-parcelHelpers.export(exports, "scaleOrdinal", ()=>(0, _ordinalJsDefault.default));
-parcelHelpers.export(exports, "scaleImplicit", ()=>(0, _ordinalJs.implicit));
-parcelHelpers.export(exports, "scalePow", ()=>(0, _powJsDefault.default));
-parcelHelpers.export(exports, "scaleSqrt", ()=>(0, _powJs.sqrt));
-parcelHelpers.export(exports, "scaleRadial", ()=>(0, _radialJsDefault.default));
-parcelHelpers.export(exports, "scaleQuantile", ()=>(0, _quantileJsDefault.default));
-parcelHelpers.export(exports, "scaleQuantize", ()=>(0, _quantizeJsDefault.default));
-parcelHelpers.export(exports, "scaleThreshold", ()=>(0, _thresholdJsDefault.default));
-parcelHelpers.export(exports, "scaleTime", ()=>(0, _timeJsDefault.default));
-parcelHelpers.export(exports, "scaleUtc", ()=>(0, _utcTimeJsDefault.default));
-parcelHelpers.export(exports, "scaleSequential", ()=>(0, _sequentialJsDefault.default));
-parcelHelpers.export(exports, "scaleSequentialLog", ()=>(0, _sequentialJs.sequentialLog));
-parcelHelpers.export(exports, "scaleSequentialPow", ()=>(0, _sequentialJs.sequentialPow));
-parcelHelpers.export(exports, "scaleSequentialSqrt", ()=>(0, _sequentialJs.sequentialSqrt));
-parcelHelpers.export(exports, "scaleSequentialSymlog", ()=>(0, _sequentialJs.sequentialSymlog));
-parcelHelpers.export(exports, "scaleSequentialQuantile", ()=>(0, _sequentialQuantileJsDefault.default));
-parcelHelpers.export(exports, "scaleDiverging", ()=>(0, _divergingJsDefault.default));
-parcelHelpers.export(exports, "scaleDivergingLog", ()=>(0, _divergingJs.divergingLog));
-parcelHelpers.export(exports, "scaleDivergingPow", ()=>(0, _divergingJs.divergingPow));
-parcelHelpers.export(exports, "scaleDivergingSqrt", ()=>(0, _divergingJs.divergingSqrt));
-parcelHelpers.export(exports, "scaleDivergingSymlog", ()=>(0, _divergingJs.divergingSymlog));
-parcelHelpers.export(exports, "tickFormat", ()=>(0, _tickFormatJsDefault.default));
-var _bandJs = require("./band.js");
-var _bandJsDefault = parcelHelpers.interopDefault(_bandJs);
-var _identityJs = require("./identity.js");
-var _identityJsDefault = parcelHelpers.interopDefault(_identityJs);
-var _linearJs = require("./linear.js");
-var _linearJsDefault = parcelHelpers.interopDefault(_linearJs);
-var _logJs = require("./log.js");
-var _logJsDefault = parcelHelpers.interopDefault(_logJs);
-var _symlogJs = require("./symlog.js");
-var _symlogJsDefault = parcelHelpers.interopDefault(_symlogJs);
-var _ordinalJs = require("./ordinal.js");
-var _ordinalJsDefault = parcelHelpers.interopDefault(_ordinalJs);
-var _powJs = require("./pow.js");
-var _powJsDefault = parcelHelpers.interopDefault(_powJs);
-var _radialJs = require("./radial.js");
-var _radialJsDefault = parcelHelpers.interopDefault(_radialJs);
-var _quantileJs = require("./quantile.js");
-var _quantileJsDefault = parcelHelpers.interopDefault(_quantileJs);
-var _quantizeJs = require("./quantize.js");
-var _quantizeJsDefault = parcelHelpers.interopDefault(_quantizeJs);
-var _thresholdJs = require("./threshold.js");
-var _thresholdJsDefault = parcelHelpers.interopDefault(_thresholdJs);
-var _timeJs = require("./time.js");
-var _timeJsDefault = parcelHelpers.interopDefault(_timeJs);
-var _utcTimeJs = require("./utcTime.js");
-var _utcTimeJsDefault = parcelHelpers.interopDefault(_utcTimeJs);
-var _sequentialJs = require("./sequential.js");
-var _sequentialJsDefault = parcelHelpers.interopDefault(_sequentialJs);
-var _sequentialQuantileJs = require("./sequentialQuantile.js");
-var _sequentialQuantileJsDefault = parcelHelpers.interopDefault(_sequentialQuantileJs);
-var _divergingJs = require("./diverging.js");
-var _divergingJsDefault = parcelHelpers.interopDefault(_divergingJs);
-var _tickFormatJs = require("./tickFormat.js");
-var _tickFormatJsDefault = parcelHelpers.interopDefault(_tickFormatJs);
-
-},{"./band.js":false,"./identity.js":false,"./linear.js":"lob4K","./log.js":false,"./symlog.js":false,"./ordinal.js":"hNjKg","./pow.js":false,"./radial.js":"8e44u","./quantile.js":false,"./quantize.js":false,"./threshold.js":false,"./time.js":false,"./utcTime.js":false,"./sequential.js":false,"./sequentialQuantile.js":false,"./diverging.js":false,"./tickFormat.js":"ahQef","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lob4K":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "linearish", ()=>linearish);
-var _d3Array = require("d3-array");
-var _continuousJs = require("./continuous.js");
-var _continuousJsDefault = parcelHelpers.interopDefault(_continuousJs);
-var _initJs = require("./init.js");
-var _tickFormatJs = require("./tickFormat.js");
-var _tickFormatJsDefault = parcelHelpers.interopDefault(_tickFormatJs);
-function linearish(scale) {
-    var domain = scale.domain;
-    scale.ticks = function(count) {
-        var d = domain();
-        return (0, _d3Array.ticks)(d[0], d[d.length - 1], count == null ? 10 : count);
-    };
-    scale.tickFormat = function(count, specifier) {
-        var d = domain();
-        return (0, _tickFormatJsDefault.default)(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
-    };
-    scale.nice = function(count) {
-        if (count == null) count = 10;
-        var d = domain();
-        var i0 = 0;
-        var i1 = d.length - 1;
-        var start = d[i0];
-        var stop = d[i1];
-        var prestep;
-        var step;
-        var maxIter = 10;
-        if (stop < start) {
-            step = start, start = stop, stop = step;
-            step = i0, i0 = i1, i1 = step;
-        }
-        while(maxIter-- > 0){
-            step = (0, _d3Array.tickIncrement)(start, stop, count);
-            if (step === prestep) {
-                d[i0] = start;
-                d[i1] = stop;
-                return domain(d);
-            } else if (step > 0) {
-                start = Math.floor(start / step) * step;
-                stop = Math.ceil(stop / step) * step;
-            } else if (step < 0) {
-                start = Math.ceil(start * step) / step;
-                stop = Math.floor(stop * step) / step;
-            } else break;
-            prestep = step;
-        }
-        return scale;
-    };
-    return scale;
-}
-function linear() {
-    var scale = (0, _continuousJsDefault.default)();
-    scale.copy = function() {
-        return (0, _continuousJs.copy)(scale, linear());
-    };
-    (0, _initJs.initRange).apply(scale, arguments);
-    return linearish(scale);
-}
-exports.default = linear;
-
-},{"d3-array":"1yX2W","./continuous.js":"1LsCM","./init.js":"kp8lc","./tickFormat.js":"ahQef","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1LsCM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "identity", ()=>identity);
-parcelHelpers.export(exports, "copy", ()=>copy);
-parcelHelpers.export(exports, "transformer", ()=>transformer);
-var _d3Array = require("d3-array");
-var _d3Interpolate = require("d3-interpolate");
-var _constantJs = require("./constant.js");
-var _constantJsDefault = parcelHelpers.interopDefault(_constantJs);
-var _numberJs = require("./number.js");
-var _numberJsDefault = parcelHelpers.interopDefault(_numberJs);
-var unit = [
-    0,
-    1
-];
-function identity(x) {
-    return x;
-}
-function normalize(a, b) {
-    return (b -= a = +a) ? function(x) {
-        return (x - a) / b;
-    } : (0, _constantJsDefault.default)(isNaN(b) ? NaN : 0.5);
-}
-function clamper(a, b) {
-    var t;
-    if (a > b) t = a, a = b, b = t;
-    return function(x) {
-        return Math.max(a, Math.min(b, x));
-    };
-}
-// normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
-// interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
-function bimap(domain, range, interpolate) {
-    var d0 = domain[0], d1 = domain[1], r0 = range[0], r1 = range[1];
-    if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);
-    else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
-    return function(x) {
-        return r0(d0(x));
-    };
-}
-function polymap(domain, range, interpolate) {
-    var j = Math.min(domain.length, range.length) - 1, d = new Array(j), r = new Array(j), i = -1;
-    // Reverse descending domains.
-    if (domain[j] < domain[0]) {
-        domain = domain.slice().reverse();
-        range = range.slice().reverse();
-    }
-    while(++i < j){
-        d[i] = normalize(domain[i], domain[i + 1]);
-        r[i] = interpolate(range[i], range[i + 1]);
-    }
-    return function(x) {
-        var i = (0, _d3Array.bisect)(domain, x, 1, j) - 1;
-        return r[i](d[i](x));
-    };
-}
-function copy(source, target) {
-    return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp()).unknown(source.unknown());
-}
-function transformer() {
-    var domain = unit, range = unit, interpolate = (0, _d3Interpolate.interpolate), transform, untransform, unknown, clamp = identity, piecewise, output, input;
-    function rescale() {
-        var n = Math.min(domain.length, range.length);
-        if (clamp !== identity) clamp = clamper(domain[0], domain[n - 1]);
-        piecewise = n > 2 ? polymap : bimap;
-        output = input = null;
-        return scale;
-    }
-    function scale(x) {
-        return x == null || isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate)))(transform(clamp(x)));
-    }
-    scale.invert = function(y) {
-        return clamp(untransform((input || (input = piecewise(range, domain.map(transform), (0, _d3Interpolate.interpolateNumber))))(y)));
-    };
-    scale.domain = function(_) {
-        return arguments.length ? (domain = Array.from(_, (0, _numberJsDefault.default)), rescale()) : domain.slice();
-    };
-    scale.range = function(_) {
-        return arguments.length ? (range = Array.from(_), rescale()) : range.slice();
-    };
-    scale.rangeRound = function(_) {
-        return range = Array.from(_), interpolate = (0, _d3Interpolate.interpolateRound), rescale();
-    };
-    scale.clamp = function(_) {
-        return arguments.length ? (clamp = _ ? true : identity, rescale()) : clamp !== identity;
-    };
-    scale.interpolate = function(_) {
-        return arguments.length ? (interpolate = _, rescale()) : interpolate;
-    };
-    scale.unknown = function(_) {
-        return arguments.length ? (unknown = _, scale) : unknown;
-    };
-    return function(t, u) {
-        transform = t, untransform = u;
-        return rescale();
-    };
-}
-function continuous() {
-    return transformer()(identity, identity);
-}
-exports.default = continuous;
-
-},{"d3-array":"1yX2W","d3-interpolate":"6jJyi","./constant.js":"kIv0D","./number.js":"k9Lyx","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"kIv0D":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"kIv0D":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 function constants(x) {
@@ -5311,7 +4098,1243 @@ function radial() {
 }
 exports.default = radial;
 
-},{"./continuous.js":"1LsCM","./init.js":"kp8lc","./linear.js":"lob4K","./number.js":"k9Lyx","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"cq48B":[function(require,module,exports) {
+},{"./continuous.js":"1LsCM","./init.js":"kp8lc","./linear.js":"lob4K","./number.js":"k9Lyx","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9ZwCu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "loadData", ()=>loadData);
+const loadData = ()=>{
+    const nodes = require("823ddf4ed075553f");
+    const edges = require("565c4c39c009f488");
+    console.log("nodes", nodes);
+    console.log("edges", edges);
+    return [
+        nodes,
+        edges
+    ];
+};
+
+},{"823ddf4ed075553f":"aKcxm","565c4c39c009f488":"i3YVd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aKcxm":[function(require,module,exports) {
+module.exports = JSON.parse('[{"id":"prince","name":"Prince Escalus","house":"Ruling house of Verona","importance":"primary","descrition":"Ruling Prince of Verona","totalLines":76},{"id":"paris","name":"Count Paris","house":"Ruling house of Verona","importance":"primary","descrition":"Kinsman of Escalus who wishes to marry Juliet.","totalLines":70},{"id":"mercutio","name":"Mercutio","house":"Ruling house of Verona","importance":"primary","descrition":"Another kinsman of Escalus, a friend of Romeo.","totalLines":261},{"id":"page","name":"Page","house":"Ruling house of Verona","importance":"secondary","totalLines":9},{"id":"capulet","name":"Capulet","house":"House of Capulet","importance":"primary","descrition":"Patriarch of the house of Capulet.","totalLines":273},{"id":"lady_capulet","name":"Lady Capulet","house":"House of Capulet","importance":"primary","descrition":"Matriarch of the house of Capulet.","totalLines":115},{"id":"juliet","name":"Juliet Capulet","house":"House of Capulet","importance":"primary","descrition":"13-year-old daughter of Capulet, the play\'s female protagonist.","totalLines":544},{"id":"tybalt","name":"Tybalt","house":"House of Capulet","importance":"primary","descrition":"Cousin of Juliet, the nephew of Lady Capulet.","totalLines":36},{"id":"nurse","name":"The Nurse","house":"House of Capulet","importance":"primary","description":"Juliet\'s personal attendant and confidante.","totalLines":281},{"id":"peter","name":"Peter","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":33},{"id":"sampson","name":"Sampson","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":31},{"id":"gregory","name":"Gregory","house":"House of Capulet","importance":"secondary","description":"Servant of the Capulet household.","totalLines":20},{"id":"second_capulet","name":"Second Capulet","house":"House of Capulet","importance":"secondary","totalLines":3},{"id":"musician","name":"Musician","house":"House of Capulet","importance":"secondary","totalLines":1},{"id":"first_musician","name":"First Musician","house":"House of Capulet","importance":"secondary","totalLines":9},{"id":"second_musician","name":"Second Musician","house":"House of Capulet","importance":"secondary","totalLines":4},{"id":"servant","name":"Servant","house":"House of Capulet","importance":"secondary","totalLines":23},{"id":"first_servant","name":"First Servant","house":"House of Capulet","importance":"secondary","totalLines":10},{"id":"second_servant","name":"Second Servant","house":"House of Capulet","importance":"secondary","totalLines":12},{"id":"montague","name":"Montague","house":"House of Montague","importance":"primary","description":"Patriarch of the house of Montague.","totalLines":41},{"id":"lady_montague","name":"Lady Montague","house":"House of Montague","importance":"primary","description":"Matriarch of the house of Montague.","totalLines":3},{"id":"romeo","name":"Romeo Montague","house":"House of Montague","importance":"primary","description":"Son of Montague, is the play\'s male protagonist.","totalLines":613},{"id":"benvolio","name":"Benvolio","house":"House of Montague","importance":"primary","description":"Romeo\'s cousin and best friend.","totalLines":160},{"id":"balthasar","name":"Balthasar","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":32},{"id":"Abraham","name":"Abram","house":"House of Montague","importance":"secondary","description":"Servant of the Montague household.","totalLines":5},{"id":"friar_laurence","name":"Friar Laurence","house":"Others","importance":"primary","description":"Franciscan friar and Romeo\'s confidant.","totalLines":351},{"id":"friar_john","name":"Friar John","house":"Others","importance":"primary","description":"Sent to deliver Friar Laurence\'s letter to Romeo.","totalLines":13},{"id":"apothecary","name":"Apothecary","house":"Others","importance":"primary","description":"Reluctantly sells Romeo poison.","totalLines":7},{"id":"chorus","name":"Chorus","house":"Others","importance":"primary","description":"Reads a prologue to each of the first two acts.","totalLines":29},{"id":"first_citizen","name":"First Citizen","house":"Others","importance":"secondary","totalLines":7},{"id":"first_watchman","name":"First Watchman","house":"Others","importance":"secondary","totalLines":19},{"id":"second_watchman","name":"Second Watchman","house":"Others","importance":"secondary","totalLines":1},{"id":"third_watchman","name":"Third Watchman","house":"Others","importance":"secondary","totalLines":3},{"id":"third_musician","name":"Third Musician","house":"Others","importance":"secondary","totalLines":1}]');
+
+},{}],"i3YVd":[function(require,module,exports) {
+module.exports = JSON.parse('[{"source":"sampson","target":"gregory","weight":1},{"source":"sampson","target":"Abraham","weight":1},{"source":"sampson","target":"benvolio","weight":1},{"source":"sampson","target":"tybalt","weight":1},{"source":"sampson","target":"first_citizen","weight":1},{"source":"sampson","target":"capulet","weight":1},{"source":"sampson","target":"lady_capulet","weight":1},{"source":"sampson","target":"montague","weight":1},{"source":"sampson","target":"lady_montague","weight":1},{"source":"sampson","target":"prince","weight":1},{"source":"sampson","target":"romeo","weight":1},{"source":"gregory","target":"sampson","weight":1},{"source":"gregory","target":"Abraham","weight":1},{"source":"gregory","target":"benvolio","weight":1},{"source":"gregory","target":"tybalt","weight":1},{"source":"gregory","target":"first_citizen","weight":1},{"source":"gregory","target":"capulet","weight":1},{"source":"gregory","target":"lady_capulet","weight":1},{"source":"gregory","target":"montague","weight":1},{"source":"gregory","target":"lady_montague","weight":1},{"source":"gregory","target":"prince","weight":1},{"source":"gregory","target":"romeo","weight":1},{"source":"Abraham","target":"sampson","weight":1},{"source":"Abraham","target":"gregory","weight":1},{"source":"Abraham","target":"benvolio","weight":1},{"source":"Abraham","target":"tybalt","weight":1},{"source":"Abraham","target":"first_citizen","weight":1},{"source":"Abraham","target":"capulet","weight":1},{"source":"Abraham","target":"lady_capulet","weight":1},{"source":"Abraham","target":"montague","weight":1},{"source":"Abraham","target":"lady_montague","weight":1},{"source":"Abraham","target":"prince","weight":1},{"source":"Abraham","target":"romeo","weight":1},{"source":"benvolio","target":"sampson","weight":1},{"source":"benvolio","target":"gregory","weight":1},{"source":"benvolio","target":"Abraham","weight":1},{"source":"benvolio","target":"tybalt","weight":3},{"source":"benvolio","target":"first_citizen","weight":2},{"source":"benvolio","target":"capulet","weight":3},{"source":"benvolio","target":"lady_capulet","weight":2},{"source":"benvolio","target":"montague","weight":2},{"source":"benvolio","target":"lady_montague","weight":1},{"source":"benvolio","target":"prince","weight":2},{"source":"benvolio","target":"romeo","weight":7},{"source":"tybalt","target":"sampson","weight":1},{"source":"tybalt","target":"gregory","weight":1},{"source":"tybalt","target":"Abraham","weight":1},{"source":"tybalt","target":"benvolio","weight":3},{"source":"tybalt","target":"first_citizen","weight":2},{"source":"tybalt","target":"capulet","weight":2},{"source":"tybalt","target":"lady_capulet","weight":2},{"source":"tybalt","target":"montague","weight":2},{"source":"tybalt","target":"lady_montague","weight":1},{"source":"tybalt","target":"prince","weight":2},{"source":"tybalt","target":"romeo","weight":3},{"source":"first_citizen","target":"sampson","weight":1},{"source":"first_citizen","target":"gregory","weight":1},{"source":"first_citizen","target":"Abraham","weight":1},{"source":"first_citizen","target":"benvolio","weight":2},{"source":"first_citizen","target":"tybalt","weight":2},{"source":"first_citizen","target":"capulet","weight":1},{"source":"first_citizen","target":"lady_capulet","weight":2},{"source":"first_citizen","target":"montague","weight":2},{"source":"first_citizen","target":"lady_montague","weight":1},{"source":"first_citizen","target":"prince","weight":2},{"source":"first_citizen","target":"romeo","weight":2},{"source":"capulet","target":"sampson","weight":1},{"source":"capulet","target":"gregory","weight":1},{"source":"capulet","target":"Abraham","weight":1},{"source":"capulet","target":"benvolio","weight":3},{"source":"capulet","target":"tybalt","weight":2},{"source":"capulet","target":"first_citizen","weight":1},{"source":"capulet","target":"lady_capulet","weight":7},{"source":"capulet","target":"montague","weight":2},{"source":"capulet","target":"lady_montague","weight":1},{"source":"capulet","target":"prince","weight":2},{"source":"capulet","target":"romeo","weight":5},{"source":"lady_capulet","target":"sampson","weight":1},{"source":"lady_capulet","target":"gregory","weight":1},{"source":"lady_capulet","target":"Abraham","weight":1},{"source":"lady_capulet","target":"benvolio","weight":2},{"source":"lady_capulet","target":"tybalt","weight":2},{"source":"lady_capulet","target":"first_citizen","weight":2},{"source":"lady_capulet","target":"capulet","weight":7},{"source":"lady_capulet","target":"montague","weight":3},{"source":"lady_capulet","target":"lady_montague","weight":1},{"source":"lady_capulet","target":"prince","weight":3},{"source":"lady_capulet","target":"romeo","weight":4},{"source":"montague","target":"sampson","weight":1},{"source":"montague","target":"gregory","weight":1},{"source":"montague","target":"Abraham","weight":1},{"source":"montague","target":"benvolio","weight":2},{"source":"montague","target":"tybalt","weight":2},{"source":"montague","target":"first_citizen","weight":2},{"source":"montague","target":"capulet","weight":2},{"source":"montague","target":"lady_capulet","weight":3},{"source":"montague","target":"lady_montague","weight":1},{"source":"montague","target":"prince","weight":3},{"source":"montague","target":"romeo","weight":3},{"source":"lady_montague","target":"sampson","weight":1},{"source":"lady_montague","target":"gregory","weight":1},{"source":"lady_montague","target":"Abraham","weight":1},{"source":"lady_montague","target":"benvolio","weight":1},{"source":"lady_montague","target":"tybalt","weight":1},{"source":"lady_montague","target":"first_citizen","weight":1},{"source":"lady_montague","target":"capulet","weight":1},{"source":"lady_montague","target":"lady_capulet","weight":1},{"source":"lady_montague","target":"montague","weight":1},{"source":"lady_montague","target":"prince","weight":1},{"source":"lady_montague","target":"romeo","weight":1},{"source":"prince","target":"sampson","weight":1},{"source":"prince","target":"gregory","weight":1},{"source":"prince","target":"Abraham","weight":1},{"source":"prince","target":"benvolio","weight":2},{"source":"prince","target":"tybalt","weight":2},{"source":"prince","target":"first_citizen","weight":2},{"source":"prince","target":"capulet","weight":2},{"source":"prince","target":"lady_capulet","weight":3},{"source":"prince","target":"montague","weight":3},{"source":"prince","target":"lady_montague","weight":1},{"source":"prince","target":"romeo","weight":3},{"source":"romeo","target":"sampson","weight":1},{"source":"romeo","target":"gregory","weight":1},{"source":"romeo","target":"Abraham","weight":1},{"source":"romeo","target":"benvolio","weight":7},{"source":"romeo","target":"tybalt","weight":3},{"source":"romeo","target":"first_citizen","weight":2},{"source":"romeo","target":"capulet","weight":5},{"source":"romeo","target":"lady_capulet","weight":4},{"source":"romeo","target":"montague","weight":3},{"source":"romeo","target":"lady_montague","weight":1},{"source":"romeo","target":"prince","weight":3},{"source":"capulet","target":"paris","weight":4},{"source":"capulet","target":"servant","weight":2},{"source":"paris","target":"capulet","weight":4},{"source":"paris","target":"servant","weight":1},{"source":"paris","target":"benvolio","weight":1},{"source":"paris","target":"romeo","weight":2},{"source":"servant","target":"capulet","weight":2},{"source":"servant","target":"paris","weight":1},{"source":"servant","target":"benvolio","weight":2},{"source":"servant","target":"romeo","weight":2},{"source":"benvolio","target":"paris","weight":1},{"source":"benvolio","target":"servant","weight":2},{"source":"romeo","target":"paris","weight":2},{"source":"romeo","target":"servant","weight":2},{"source":"lady_capulet","target":"nurse","weight":5},{"source":"lady_capulet","target":"juliet","weight":5},{"source":"lady_capulet","target":"servant","weight":1},{"source":"nurse","target":"lady_capulet","weight":5},{"source":"nurse","target":"juliet","weight":7},{"source":"nurse","target":"servant","weight":2},{"source":"juliet","target":"lady_capulet","weight":5},{"source":"juliet","target":"nurse","weight":7},{"source":"juliet","target":"servant","weight":2},{"source":"servant","target":"lady_capulet","weight":1},{"source":"servant","target":"nurse","weight":2},{"source":"servant","target":"juliet","weight":2},{"source":"romeo","target":"mercutio","weight":4},{"source":"benvolio","target":"mercutio","weight":4},{"source":"mercutio","target":"romeo","weight":4},{"source":"mercutio","target":"benvolio","weight":4},{"source":"first_servant","target":"second_servant","weight":2},{"source":"first_servant","target":"capulet","weight":2},{"source":"first_servant","target":"second_capulet","weight":1},{"source":"first_servant","target":"romeo","weight":1},{"source":"first_servant","target":"servant","weight":1},{"source":"first_servant","target":"tybalt","weight":1},{"source":"first_servant","target":"juliet","weight":1},{"source":"first_servant","target":"nurse","weight":2},{"source":"first_servant","target":"benvolio","weight":1},{"source":"second_servant","target":"first_servant","weight":2},{"source":"second_servant","target":"capulet","weight":3},{"source":"second_servant","target":"second_capulet","weight":1},{"source":"second_servant","target":"romeo","weight":1},{"source":"second_servant","target":"servant","weight":1},{"source":"second_servant","target":"tybalt","weight":1},{"source":"second_servant","target":"juliet","weight":2},{"source":"second_servant","target":"nurse","weight":3},{"source":"second_servant","target":"benvolio","weight":1},{"source":"capulet","target":"first_servant","weight":2},{"source":"capulet","target":"second_servant","weight":3},{"source":"capulet","target":"second_capulet","weight":1},{"source":"capulet","target":"juliet","weight":4},{"source":"capulet","target":"nurse","weight":5},{"source":"second_capulet","target":"first_servant","weight":1},{"source":"second_capulet","target":"second_servant","weight":1},{"source":"second_capulet","target":"capulet","weight":1},{"source":"second_capulet","target":"romeo","weight":1},{"source":"second_capulet","target":"servant","weight":1},{"source":"second_capulet","target":"tybalt","weight":1},{"source":"second_capulet","target":"juliet","weight":1},{"source":"second_capulet","target":"nurse","weight":1},{"source":"second_capulet","target":"benvolio","weight":1},{"source":"romeo","target":"first_servant","weight":1},{"source":"romeo","target":"second_servant","weight":1},{"source":"romeo","target":"second_capulet","weight":1},{"source":"romeo","target":"juliet","weight":5},{"source":"romeo","target":"nurse","weight":5},{"source":"servant","target":"first_servant","weight":1},{"source":"servant","target":"second_servant","weight":1},{"source":"servant","target":"second_capulet","weight":1},{"source":"servant","target":"tybalt","weight":1},{"source":"tybalt","target":"first_servant","weight":1},{"source":"tybalt","target":"second_servant","weight":1},{"source":"tybalt","target":"second_capulet","weight":1},{"source":"tybalt","target":"servant","weight":1},{"source":"tybalt","target":"juliet","weight":1},{"source":"tybalt","target":"nurse","weight":1},{"source":"juliet","target":"first_servant","weight":1},{"source":"juliet","target":"second_servant","weight":2},{"source":"juliet","target":"capulet","weight":4},{"source":"juliet","target":"second_capulet","weight":1},{"source":"juliet","target":"romeo","weight":5},{"source":"juliet","target":"tybalt","weight":1},{"source":"juliet","target":"benvolio","weight":1},{"source":"nurse","target":"first_servant","weight":2},{"source":"nurse","target":"second_servant","weight":3},{"source":"nurse","target":"capulet","weight":5},{"source":"nurse","target":"second_capulet","weight":1},{"source":"nurse","target":"romeo","weight":5},{"source":"nurse","target":"tybalt","weight":1},{"source":"nurse","target":"benvolio","weight":2},{"source":"benvolio","target":"first_servant","weight":1},{"source":"benvolio","target":"second_servant","weight":1},{"source":"benvolio","target":"second_capulet","weight":1},{"source":"benvolio","target":"juliet","weight":1},{"source":"benvolio","target":"nurse","weight":2},{"source":"friar_laurence","target":"romeo","weight":4},{"source":"romeo","target":"friar_laurence","weight":4},{"source":"mercutio","target":"nurse","weight":1},{"source":"mercutio","target":"peter","weight":1},{"source":"benvolio","target":"peter","weight":1},{"source":"romeo","target":"peter","weight":1},{"source":"nurse","target":"mercutio","weight":1},{"source":"nurse","target":"peter","weight":2},{"source":"peter","target":"mercutio","weight":1},{"source":"peter","target":"benvolio","weight":1},{"source":"peter","target":"romeo","weight":1},{"source":"peter","target":"nurse","weight":2},{"source":"friar_laurence","target":"juliet","weight":3},{"source":"juliet","target":"friar_laurence","weight":3},{"source":"mercutio","target":"tybalt","weight":1},{"source":"mercutio","target":"first_citizen","weight":1},{"source":"mercutio","target":"prince","weight":1},{"source":"mercutio","target":"lady_capulet","weight":1},{"source":"mercutio","target":"montague","weight":1},{"source":"tybalt","target":"mercutio","weight":1},{"source":"first_citizen","target":"mercutio","weight":1},{"source":"prince","target":"mercutio","weight":1},{"source":"lady_capulet","target":"mercutio","weight":1},{"source":"montague","target":"mercutio","weight":1},{"source":"friar_laurence","target":"nurse","weight":2},{"source":"nurse","target":"friar_laurence","weight":2},{"source":"paris","target":"lady_capulet","weight":3},{"source":"lady_capulet","target":"paris","weight":3},{"source":"friar_laurence","target":"paris","weight":3},{"source":"paris","target":"friar_laurence","weight":3},{"source":"paris","target":"juliet","weight":2},{"source":"juliet","target":"paris","weight":2},{"source":"second_servant","target":"lady_capulet","weight":2},{"source":"lady_capulet","target":"second_servant","weight":2},{"source":"lady_capulet","target":"first_servant","weight":1},{"source":"first_servant","target":"lady_capulet","weight":1},{"source":"nurse","target":"paris","weight":1},{"source":"nurse","target":"first_musician","weight":1},{"source":"nurse","target":"second_musician","weight":1},{"source":"nurse","target":"musician","weight":1},{"source":"nurse","target":"third_musician","weight":1},{"source":"lady_capulet","target":"friar_laurence","weight":2},{"source":"lady_capulet","target":"first_musician","weight":1},{"source":"lady_capulet","target":"peter","weight":1},{"source":"lady_capulet","target":"second_musician","weight":1},{"source":"lady_capulet","target":"musician","weight":1},{"source":"lady_capulet","target":"third_musician","weight":1},{"source":"capulet","target":"friar_laurence","weight":2},{"source":"capulet","target":"first_musician","weight":1},{"source":"capulet","target":"peter","weight":1},{"source":"capulet","target":"second_musician","weight":1},{"source":"capulet","target":"musician","weight":1},{"source":"capulet","target":"third_musician","weight":1},{"source":"friar_laurence","target":"lady_capulet","weight":2},{"source":"friar_laurence","target":"capulet","weight":2},{"source":"friar_laurence","target":"first_musician","weight":1},{"source":"friar_laurence","target":"peter","weight":1},{"source":"friar_laurence","target":"second_musician","weight":1},{"source":"friar_laurence","target":"musician","weight":1},{"source":"friar_laurence","target":"third_musician","weight":1},{"source":"paris","target":"nurse","weight":1},{"source":"paris","target":"first_musician","weight":1},{"source":"paris","target":"peter","weight":1},{"source":"paris","target":"second_musician","weight":1},{"source":"paris","target":"musician","weight":1},{"source":"paris","target":"third_musician","weight":1},{"source":"first_musician","target":"nurse","weight":1},{"source":"first_musician","target":"lady_capulet","weight":1},{"source":"first_musician","target":"capulet","weight":1},{"source":"first_musician","target":"friar_laurence","weight":1},{"source":"first_musician","target":"paris","weight":1},{"source":"first_musician","target":"peter","weight":1},{"source":"first_musician","target":"second_musician","weight":1},{"source":"first_musician","target":"musician","weight":1},{"source":"first_musician","target":"third_musician","weight":1},{"source":"peter","target":"lady_capulet","weight":1},{"source":"peter","target":"capulet","weight":1},{"source":"peter","target":"friar_laurence","weight":1},{"source":"peter","target":"paris","weight":1},{"source":"peter","target":"first_musician","weight":1},{"source":"peter","target":"second_musician","weight":1},{"source":"peter","target":"musician","weight":1},{"source":"peter","target":"third_musician","weight":1},{"source":"second_musician","target":"nurse","weight":1},{"source":"second_musician","target":"lady_capulet","weight":1},{"source":"second_musician","target":"capulet","weight":1},{"source":"second_musician","target":"friar_laurence","weight":1},{"source":"second_musician","target":"paris","weight":1},{"source":"second_musician","target":"first_musician","weight":1},{"source":"second_musician","target":"peter","weight":1},{"source":"second_musician","target":"musician","weight":1},{"source":"second_musician","target":"third_musician","weight":1},{"source":"musician","target":"nurse","weight":1},{"source":"musician","target":"lady_capulet","weight":1},{"source":"musician","target":"capulet","weight":1},{"source":"musician","target":"friar_laurence","weight":1},{"source":"musician","target":"paris","weight":1},{"source":"musician","target":"first_musician","weight":1},{"source":"musician","target":"peter","weight":1},{"source":"musician","target":"second_musician","weight":1},{"source":"musician","target":"third_musician","weight":1},{"source":"third_musician","target":"nurse","weight":1},{"source":"third_musician","target":"lady_capulet","weight":1},{"source":"third_musician","target":"capulet","weight":1},{"source":"third_musician","target":"friar_laurence","weight":1},{"source":"third_musician","target":"paris","weight":1},{"source":"third_musician","target":"first_musician","weight":1},{"source":"third_musician","target":"peter","weight":1},{"source":"third_musician","target":"second_musician","weight":1},{"source":"third_musician","target":"musician","weight":1},{"source":"romeo","target":"balthasar","weight":2},{"source":"romeo","target":"apothecary","weight":1},{"source":"balthasar","target":"romeo","weight":2},{"source":"balthasar","target":"apothecary","weight":1},{"source":"apothecary","target":"romeo","weight":1},{"source":"apothecary","target":"balthasar","weight":1},{"source":"friar_john","target":"friar_laurence","weight":1},{"source":"friar_laurence","target":"friar_john","weight":1},{"source":"paris","target":"page","weight":1},{"source":"paris","target":"balthasar","weight":1},{"source":"paris","target":"first_watchman","weight":1},{"source":"paris","target":"second_watchman","weight":1},{"source":"paris","target":"third_watchman","weight":1},{"source":"paris","target":"prince","weight":1},{"source":"paris","target":"montague","weight":1},{"source":"page","target":"paris","weight":1},{"source":"page","target":"romeo","weight":1},{"source":"page","target":"balthasar","weight":1},{"source":"page","target":"friar_laurence","weight":1},{"source":"page","target":"juliet","weight":1},{"source":"page","target":"first_watchman","weight":1},{"source":"page","target":"second_watchman","weight":1},{"source":"page","target":"third_watchman","weight":1},{"source":"page","target":"prince","weight":1},{"source":"page","target":"capulet","weight":1},{"source":"page","target":"lady_capulet","weight":1},{"source":"page","target":"montague","weight":1},{"source":"romeo","target":"page","weight":1},{"source":"romeo","target":"first_watchman","weight":1},{"source":"romeo","target":"second_watchman","weight":1},{"source":"romeo","target":"third_watchman","weight":1},{"source":"balthasar","target":"paris","weight":1},{"source":"balthasar","target":"page","weight":1},{"source":"balthasar","target":"friar_laurence","weight":1},{"source":"balthasar","target":"juliet","weight":1},{"source":"balthasar","target":"first_watchman","weight":1},{"source":"balthasar","target":"second_watchman","weight":1},{"source":"balthasar","target":"third_watchman","weight":1},{"source":"balthasar","target":"prince","weight":1},{"source":"balthasar","target":"capulet","weight":1},{"source":"balthasar","target":"lady_capulet","weight":1},{"source":"balthasar","target":"montague","weight":1},{"source":"friar_laurence","target":"page","weight":1},{"source":"friar_laurence","target":"balthasar","weight":1},{"source":"friar_laurence","target":"first_watchman","weight":1},{"source":"friar_laurence","target":"second_watchman","weight":1},{"source":"friar_laurence","target":"third_watchman","weight":1},{"source":"friar_laurence","target":"prince","weight":1},{"source":"friar_laurence","target":"montague","weight":1},{"source":"juliet","target":"page","weight":1},{"source":"juliet","target":"balthasar","weight":1},{"source":"juliet","target":"first_watchman","weight":1},{"source":"juliet","target":"second_watchman","weight":1},{"source":"juliet","target":"third_watchman","weight":1},{"source":"juliet","target":"prince","weight":1},{"source":"juliet","target":"montague","weight":1},{"source":"first_watchman","target":"paris","weight":1},{"source":"first_watchman","target":"page","weight":1},{"source":"first_watchman","target":"romeo","weight":1},{"source":"first_watchman","target":"balthasar","weight":1},{"source":"first_watchman","target":"friar_laurence","weight":1},{"source":"first_watchman","target":"juliet","weight":1},{"source":"first_watchman","target":"second_watchman","weight":1},{"source":"first_watchman","target":"third_watchman","weight":1},{"source":"first_watchman","target":"prince","weight":1},{"source":"first_watchman","target":"capulet","weight":1},{"source":"first_watchman","target":"lady_capulet","weight":1},{"source":"first_watchman","target":"montague","weight":1},{"source":"second_watchman","target":"paris","weight":1},{"source":"second_watchman","target":"page","weight":1},{"source":"second_watchman","target":"romeo","weight":1},{"source":"second_watchman","target":"balthasar","weight":1},{"source":"second_watchman","target":"friar_laurence","weight":1},{"source":"second_watchman","target":"juliet","weight":1},{"source":"second_watchman","target":"first_watchman","weight":1},{"source":"second_watchman","target":"third_watchman","weight":1},{"source":"second_watchman","target":"prince","weight":1},{"source":"second_watchman","target":"capulet","weight":1},{"source":"second_watchman","target":"lady_capulet","weight":1},{"source":"second_watchman","target":"montague","weight":1},{"source":"third_watchman","target":"paris","weight":1},{"source":"third_watchman","target":"page","weight":1},{"source":"third_watchman","target":"romeo","weight":1},{"source":"third_watchman","target":"balthasar","weight":1},{"source":"third_watchman","target":"friar_laurence","weight":1},{"source":"third_watchman","target":"juliet","weight":1},{"source":"third_watchman","target":"first_watchman","weight":1},{"source":"third_watchman","target":"second_watchman","weight":1},{"source":"third_watchman","target":"prince","weight":1},{"source":"third_watchman","target":"capulet","weight":1},{"source":"third_watchman","target":"lady_capulet","weight":1},{"source":"third_watchman","target":"montague","weight":1},{"source":"prince","target":"paris","weight":1},{"source":"prince","target":"page","weight":1},{"source":"prince","target":"balthasar","weight":1},{"source":"prince","target":"friar_laurence","weight":1},{"source":"prince","target":"juliet","weight":1},{"source":"prince","target":"first_watchman","weight":1},{"source":"prince","target":"second_watchman","weight":1},{"source":"prince","target":"third_watchman","weight":1},{"source":"capulet","target":"page","weight":1},{"source":"capulet","target":"balthasar","weight":1},{"source":"capulet","target":"first_watchman","weight":1},{"source":"capulet","target":"second_watchman","weight":1},{"source":"capulet","target":"third_watchman","weight":1},{"source":"lady_capulet","target":"page","weight":1},{"source":"lady_capulet","target":"balthasar","weight":1},{"source":"lady_capulet","target":"first_watchman","weight":1},{"source":"lady_capulet","target":"second_watchman","weight":1},{"source":"lady_capulet","target":"third_watchman","weight":1},{"source":"montague","target":"paris","weight":1},{"source":"montague","target":"page","weight":1},{"source":"montague","target":"balthasar","weight":1},{"source":"montague","target":"friar_laurence","weight":1},{"source":"montague","target":"juliet","weight":1},{"source":"montague","target":"first_watchman","weight":1},{"source":"montague","target":"second_watchman","weight":1},{"source":"montague","target":"third_watchman","weight":1}]');
+
+},{}],"bhcXq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "drawMatrix", ()=>drawMatrix);
+var _d3Selection = require("d3-selection");
+var _d3Array = require("d3-array");
+var _d3Transition = require("d3-transition");
+var _scales = require("./scales");
+const drawMatrix = (nodes, edges)=>{
+    // Order characters (nodes) by number of lines
+    nodes.sort((a, b)=>b.totalLines - a.totalLines);
+    // Create the data matrix
+    const edgeHash = {};
+    edges.forEach((edge)=>{
+        const id = `${edge.source}-${edge.target}`;
+        edgeHash[id] = edge;
+    });
+    console.log("edgeHash", edgeHash);
+    const matrix = [];
+    const itemWidth = 16;
+    const padding = 2;
+    nodes.forEach((charA, i)=>{
+        nodes.forEach((charB, j)=>{
+            if (charA !== charB) {
+                const id = `${charA.id}-${charB.id}`;
+                const item = {
+                    id: id,
+                    source: charA.id,
+                    target: charB.id,
+                    cx: i * (itemWidth + padding) + itemWidth / 2,
+                    cy: j * (itemWidth + padding) + itemWidth / 2
+                };
+                if (edgeHash[id]) {
+                    item["weight"] = edgeHash[id].weight;
+                    matrix.push(item);
+                }
+            }
+        });
+    });
+    console.log("matrix", matrix);
+    // Dimensions
+    const innerWidth = nodes.length * (itemWidth + padding);
+    const innerHeight = nodes.length * (itemWidth + padding);
+    const margin = {
+        top: 130,
+        right: 0,
+        bottom: 0,
+        left: 130
+    };
+    const width = innerWidth + margin.right + margin.left;
+    const height = innerHeight + margin.top + margin.bottom;
+    // Append SVG container
+    const svg = (0, _d3Selection.select)("#matrix").append("svg").attr("viewBox", `0 0 ${width} ${height}`).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
+    // Append matrix dots
+    const minWeight = (0, _d3Array.min)(edges, (d)=>d.weight);
+    const maxWeight = (0, _d3Array.max)(edges, (d)=>d.weight);
+    svg.selectAll(".matrix-dot").data(matrix).join("circle").attr("class", "matrix-dot").attr("cx", (d)=>d.cx).attr("cy", (d)=>d.cy).attr("r", itemWidth / 2).attr("fill", (d)=>d.weight ? (0, _scales.getEdgeColor)(minWeight, maxWeight, d.weight) : "white");
+    // Append labels
+    svg.selectAll(".label-left").data(nodes).join("text").attr("class", "label-left").attr("x", -8).attr("y", (d, i)=>i * (itemWidth + padding) + itemWidth / 2).attr("text-anchor", "end").attr("dominant-baseline", "middle").text((d)=>d.name).style("font-size", "13px");
+    svg.selectAll(".label-top").data(nodes).join("text").attr("class", "label-top").attr("dominant-baseline", "middle").attr("transform", (d, i)=>`translate(${i * (itemWidth + padding) + itemWidth / 2}, -8) rotate(-90)`).text((d)=>d.name).style("font-size", "13px");
+    // Add legend
+    const weights = (0, _d3Array.range)(minWeight, maxWeight + 1);
+    const legend = (0, _d3Selection.select)(".matrix-legend").append("ul").selectAll(".legend-color").data(weights).join("li").attr("class", "legend-color");
+    legend.append("div").attr("class", "legend-color-circle").style("background-color", (d)=>(0, _scales.getEdgeColor)(minWeight, maxWeight, d));
+    legend.append("div").attr("class", "legend-color-label").text((d)=>d);
+    // Interaction - Mouse over dot
+    (0, _d3Selection.selectAll)(".matrix-dot").on("mouseenter", (e, d)=>{
+        const t = (0, _d3Transition.transition)().duration(150);
+        (0, _d3Selection.selectAll)(".matrix-dot").transition(t).attr("fill-opacity", (dot)=>dot.id === d.id ? 1 : 0.1);
+        (0, _d3Selection.selectAll)(".label-top").transition(t).style("opacity", (label)=>label.id === d.source ? 1 : 0.1);
+        (0, _d3Selection.selectAll)(".label-left").transition(t).style("opacity", (label)=>label.id === d.target ? 1 : 0.1);
+        const charA = nodes.find((char)=>char.id === d.source).name;
+        const charB = nodes.find((char)=>char.id === d.target).name;
+        (0, _d3Selection.select)(".matrix-tooltip-charA").text(charA);
+        (0, _d3Selection.select)(".matrix-tooltip-charB").text(charB);
+        (0, _d3Selection.select)(".matrix-tooltip-scenes").text(d.weight);
+        (0, _d3Selection.select)(".matrix-tooltip").classed("hidden", false);
+    }).on("mouseleave", (e, d)=>{
+        (0, _d3Selection.selectAll)(".matrix-dot").attr("fill-opacity", 1);
+        (0, _d3Selection.selectAll)(".label-top, .label-left").style("opacity", 1);
+        (0, _d3Selection.select)(".matrix-tooltip").classed("hidden", true);
+    });
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","d3-selection":"gn9gd","d3-array":"1yX2W","d3-transition":"4lorl","./scales":"NYsfE"}],"4lorl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "transition", ()=>(0, _indexJsDefault.default));
+parcelHelpers.export(exports, "active", ()=>(0, _activeJsDefault.default));
+parcelHelpers.export(exports, "interrupt", ()=>(0, _interruptJsDefault.default));
+var _indexJs = require("./selection/index.js");
+var _indexJs1 = require("./transition/index.js");
+var _indexJsDefault = parcelHelpers.interopDefault(_indexJs1);
+var _activeJs = require("./active.js");
+var _activeJsDefault = parcelHelpers.interopDefault(_activeJs);
+var _interruptJs = require("./interrupt.js");
+var _interruptJsDefault = parcelHelpers.interopDefault(_interruptJs);
+
+},{"./selection/index.js":"heX1u","./transition/index.js":"h2Srb","./active.js":false,"./interrupt.js":"j3g05","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"heX1u":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _d3Selection = require("d3-selection");
+var _interruptJs = require("./interrupt.js");
+var _interruptJsDefault = parcelHelpers.interopDefault(_interruptJs);
+var _transitionJs = require("./transition.js");
+var _transitionJsDefault = parcelHelpers.interopDefault(_transitionJs);
+(0, _d3Selection.selection).prototype.interrupt = (0, _interruptJsDefault.default);
+(0, _d3Selection.selection).prototype.transition = (0, _transitionJsDefault.default);
+
+},{"d3-selection":"gn9gd","./interrupt.js":"ecsW0","./transition.js":"aZzEX","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ecsW0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _interruptJs = require("../interrupt.js");
+var _interruptJsDefault = parcelHelpers.interopDefault(_interruptJs);
+exports.default = function(name) {
+    return this.each(function() {
+        (0, _interruptJsDefault.default)(this, name);
+    });
+};
+
+},{"../interrupt.js":"j3g05","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"j3g05":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./transition/schedule.js");
+exports.default = function(node, name) {
+    var schedules = node.__transition, schedule, active, empty = true, i;
+    if (!schedules) return;
+    name = name == null ? null : name + "";
+    for(i in schedules){
+        if ((schedule = schedules[i]).name !== name) {
+            empty = false;
+            continue;
+        }
+        active = schedule.state > (0, _scheduleJs.STARTING) && schedule.state < (0, _scheduleJs.ENDING);
+        schedule.state = (0, _scheduleJs.ENDED);
+        schedule.timer.stop();
+        schedule.on.call(active ? "interrupt" : "cancel", node, node.__data__, schedule.index, schedule.group);
+        delete schedules[i];
+    }
+    if (empty) delete node.__transition;
+};
+
+},{"./transition/schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"de74c":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CREATED", ()=>CREATED);
+parcelHelpers.export(exports, "SCHEDULED", ()=>SCHEDULED);
+parcelHelpers.export(exports, "STARTING", ()=>STARTING);
+parcelHelpers.export(exports, "STARTED", ()=>STARTED);
+parcelHelpers.export(exports, "RUNNING", ()=>RUNNING);
+parcelHelpers.export(exports, "ENDING", ()=>ENDING);
+parcelHelpers.export(exports, "ENDED", ()=>ENDED);
+parcelHelpers.export(exports, "init", ()=>init);
+parcelHelpers.export(exports, "set", ()=>set);
+parcelHelpers.export(exports, "get", ()=>get);
+var _d3Dispatch = require("d3-dispatch");
+var _d3Timer = require("d3-timer");
+var emptyOn = (0, _d3Dispatch.dispatch)("start", "end", "cancel", "interrupt");
+var emptyTween = [];
+var CREATED = 0;
+var SCHEDULED = 1;
+var STARTING = 2;
+var STARTED = 3;
+var RUNNING = 4;
+var ENDING = 5;
+var ENDED = 6;
+exports.default = function(node, name, id, index, group, timing) {
+    var schedules = node.__transition;
+    if (!schedules) node.__transition = {};
+    else if (id in schedules) return;
+    create(node, id, {
+        name: name,
+        index: index,
+        group: group,
+        on: emptyOn,
+        tween: emptyTween,
+        time: timing.time,
+        delay: timing.delay,
+        duration: timing.duration,
+        ease: timing.ease,
+        timer: null,
+        state: CREATED
+    });
+};
+function init(node, id) {
+    var schedule = get(node, id);
+    if (schedule.state > CREATED) throw new Error("too late; already scheduled");
+    return schedule;
+}
+function set(node, id) {
+    var schedule = get(node, id);
+    if (schedule.state > STARTED) throw new Error("too late; already running");
+    return schedule;
+}
+function get(node, id) {
+    var schedule = node.__transition;
+    if (!schedule || !(schedule = schedule[id])) throw new Error("transition not found");
+    return schedule;
+}
+function create(node, id, self) {
+    var schedules = node.__transition, tween;
+    // Initialize the self timer when the transition is created.
+    // Note the actual delay is not known until the first callback!
+    schedules[id] = self;
+    self.timer = (0, _d3Timer.timer)(schedule, 0, self.time);
+    function schedule(elapsed) {
+        self.state = SCHEDULED;
+        self.timer.restart(start, self.delay, self.time);
+        // If the elapsed delay is less than our first sleep, start immediately.
+        if (self.delay <= elapsed) start(elapsed - self.delay);
+    }
+    function start(elapsed) {
+        var i, j, n, o;
+        // If the state is not SCHEDULED, then we previously errored on start.
+        if (self.state !== SCHEDULED) return stop();
+        for(i in schedules){
+            o = schedules[i];
+            if (o.name !== self.name) continue;
+            // While this element already has a starting transition during this frame,
+            // defer starting an interrupting transition until that transition has a
+            // chance to tick (and possibly end); see d3/d3-transition#54!
+            if (o.state === STARTED) return (0, _d3Timer.timeout)(start);
+            // Interrupt the active transition, if any.
+            if (o.state === RUNNING) {
+                o.state = ENDED;
+                o.timer.stop();
+                o.on.call("interrupt", node, node.__data__, o.index, o.group);
+                delete schedules[i];
+            } else if (+i < id) {
+                o.state = ENDED;
+                o.timer.stop();
+                o.on.call("cancel", node, node.__data__, o.index, o.group);
+                delete schedules[i];
+            }
+        }
+        // Defer the first tick to end of the current frame; see d3/d3#1576.
+        // Note the transition may be canceled after start and before the first tick!
+        // Note this must be scheduled before the start event; see d3/d3-transition#16!
+        // Assuming this is successful, subsequent callbacks go straight to tick.
+        (0, _d3Timer.timeout)(function() {
+            if (self.state === STARTED) {
+                self.state = RUNNING;
+                self.timer.restart(tick, self.delay, self.time);
+                tick(elapsed);
+            }
+        });
+        // Dispatch the start event.
+        // Note this must be done before the tween are initialized.
+        self.state = STARTING;
+        self.on.call("start", node, node.__data__, self.index, self.group);
+        if (self.state !== STARTING) return; // interrupted
+        self.state = STARTED;
+        // Initialize the tween, deleting null tween.
+        tween = new Array(n = self.tween.length);
+        for(i = 0, j = -1; i < n; ++i)if (o = self.tween[i].value.call(node, node.__data__, self.index, self.group)) tween[++j] = o;
+        tween.length = j + 1;
+    }
+    function tick(elapsed) {
+        var t = elapsed < self.duration ? self.ease.call(null, elapsed / self.duration) : (self.timer.restart(stop), self.state = ENDING, 1), i = -1, n = tween.length;
+        while(++i < n)tween[i].call(node, t);
+        // Dispatch the end event.
+        if (self.state === ENDING) {
+            self.on.call("end", node, node.__data__, self.index, self.group);
+            stop();
+        }
+    }
+    function stop() {
+        self.state = ENDED;
+        self.timer.stop();
+        delete schedules[id];
+        for(var i in schedules)return; // eslint-disable-line no-unused-vars
+        delete node.__transition;
+    }
+}
+
+},{"d3-dispatch":"5WtHO","d3-timer":"7TEss","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"5WtHO":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "dispatch", ()=>(0, _dispatchJsDefault.default));
+var _dispatchJs = require("./dispatch.js");
+var _dispatchJsDefault = parcelHelpers.interopDefault(_dispatchJs);
+
+},{"./dispatch.js":"8Hmyd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"8Hmyd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var noop = {
+    value: ()=>{}
+};
+function dispatch() {
+    for(var i = 0, n = arguments.length, _ = {}, t; i < n; ++i){
+        if (!(t = arguments[i] + "") || t in _ || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
+        _[t] = [];
+    }
+    return new Dispatch(_);
+}
+function Dispatch(_) {
+    this._ = _;
+}
+function parseTypenames(typenames, types) {
+    return typenames.trim().split(/^|\s+/).map(function(t) {
+        var name = "", i = t.indexOf(".");
+        if (i >= 0) name = t.slice(i + 1), t = t.slice(0, i);
+        if (t && !types.hasOwnProperty(t)) throw new Error("unknown type: " + t);
+        return {
+            type: t,
+            name: name
+        };
+    });
+}
+Dispatch.prototype = dispatch.prototype = {
+    constructor: Dispatch,
+    on: function(typename, callback) {
+        var _ = this._, T = parseTypenames(typename + "", _), t, i = -1, n = T.length;
+        // If no callback was specified, return the callback of the given type and name.
+        if (arguments.length < 2) {
+            while(++i < n)if ((t = (typename = T[i]).type) && (t = get(_[t], typename.name))) return t;
+            return;
+        }
+        // If a type was specified, set the callback for the given type and name.
+        // Otherwise, if a null callback was specified, remove callbacks of the given name.
+        if (callback != null && typeof callback !== "function") throw new Error("invalid callback: " + callback);
+        while(++i < n){
+            if (t = (typename = T[i]).type) _[t] = set(_[t], typename.name, callback);
+            else if (callback == null) for(t in _)_[t] = set(_[t], typename.name, null);
+        }
+        return this;
+    },
+    copy: function() {
+        var copy = {}, _ = this._;
+        for(var t in _)copy[t] = _[t].slice();
+        return new Dispatch(copy);
+    },
+    call: function(type, that) {
+        if ((n = arguments.length - 2) > 0) for(var args = new Array(n), i = 0, n, t; i < n; ++i)args[i] = arguments[i + 2];
+        if (!this._.hasOwnProperty(type)) throw new Error("unknown type: " + type);
+        for(t = this._[type], i = 0, n = t.length; i < n; ++i)t[i].value.apply(that, args);
+    },
+    apply: function(type, that, args) {
+        if (!this._.hasOwnProperty(type)) throw new Error("unknown type: " + type);
+        for(var t = this._[type], i = 0, n = t.length; i < n; ++i)t[i].value.apply(that, args);
+    }
+};
+function get(type, name) {
+    for(var i = 0, n = type.length, c; i < n; ++i){
+        if ((c = type[i]).name === name) return c.value;
+    }
+}
+function set(type, name, callback) {
+    for(var i = 0, n = type.length; i < n; ++i)if (type[i].name === name) {
+        type[i] = noop, type = type.slice(0, i).concat(type.slice(i + 1));
+        break;
+    }
+    if (callback != null) type.push({
+        name: name,
+        value: callback
+    });
+    return type;
+}
+exports.default = dispatch;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"7TEss":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "now", ()=>(0, _timerJs.now));
+parcelHelpers.export(exports, "timer", ()=>(0, _timerJs.timer));
+parcelHelpers.export(exports, "timerFlush", ()=>(0, _timerJs.timerFlush));
+parcelHelpers.export(exports, "timeout", ()=>(0, _timeoutJsDefault.default));
+parcelHelpers.export(exports, "interval", ()=>(0, _intervalJsDefault.default));
+var _timerJs = require("./timer.js");
+var _timeoutJs = require("./timeout.js");
+var _timeoutJsDefault = parcelHelpers.interopDefault(_timeoutJs);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+
+},{"./timer.js":"bfF2F","./timeout.js":"ioM7O","./interval.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"bfF2F":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "now", ()=>now);
+parcelHelpers.export(exports, "Timer", ()=>Timer);
+parcelHelpers.export(exports, "timer", ()=>timer);
+parcelHelpers.export(exports, "timerFlush", ()=>timerFlush);
+var frame = 0, timeout = 0, interval = 0, pokeDelay = 1000, taskHead, taskTail, clockLast = 0, clockNow = 0, clockSkew = 0, clock = typeof performance === "object" && performance.now ? performance : Date, setFrame = typeof window === "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(f) {
+    setTimeout(f, 17);
+};
+function now() {
+    return clockNow || (setFrame(clearNow), clockNow = clock.now() + clockSkew);
+}
+function clearNow() {
+    clockNow = 0;
+}
+function Timer() {
+    this._call = this._time = this._next = null;
+}
+Timer.prototype = timer.prototype = {
+    constructor: Timer,
+    restart: function(callback, delay, time) {
+        if (typeof callback !== "function") throw new TypeError("callback is not a function");
+        time = (time == null ? now() : +time) + (delay == null ? 0 : +delay);
+        if (!this._next && taskTail !== this) {
+            if (taskTail) taskTail._next = this;
+            else taskHead = this;
+            taskTail = this;
+        }
+        this._call = callback;
+        this._time = time;
+        sleep();
+    },
+    stop: function() {
+        if (this._call) {
+            this._call = null;
+            this._time = Infinity;
+            sleep();
+        }
+    }
+};
+function timer(callback, delay, time) {
+    var t = new Timer;
+    t.restart(callback, delay, time);
+    return t;
+}
+function timerFlush() {
+    now(); // Get the current time, if not already set.
+    ++frame; // Pretend we’ve set an alarm, if we haven’t already.
+    var t = taskHead, e;
+    while(t){
+        if ((e = clockNow - t._time) >= 0) t._call.call(undefined, e);
+        t = t._next;
+    }
+    --frame;
+}
+function wake() {
+    clockNow = (clockLast = clock.now()) + clockSkew;
+    frame = timeout = 0;
+    try {
+        timerFlush();
+    } finally{
+        frame = 0;
+        nap();
+        clockNow = 0;
+    }
+}
+function poke() {
+    var now = clock.now(), delay = now - clockLast;
+    if (delay > pokeDelay) clockSkew -= delay, clockLast = now;
+}
+function nap() {
+    var t0, t1 = taskHead, t2, time = Infinity;
+    while(t1)if (t1._call) {
+        if (time > t1._time) time = t1._time;
+        t0 = t1, t1 = t1._next;
+    } else {
+        t2 = t1._next, t1._next = null;
+        t1 = t0 ? t0._next = t2 : taskHead = t2;
+    }
+    taskTail = t0;
+    sleep(time);
+}
+function sleep(time) {
+    if (frame) return; // Soonest alarm already set, or will be.
+    if (timeout) timeout = clearTimeout(timeout);
+    var delay = time - clockNow; // Strictly less than if we recomputed clockNow.
+    if (delay > 24) {
+        if (time < Infinity) timeout = setTimeout(wake, time - clock.now() - clockSkew);
+        if (interval) interval = clearInterval(interval);
+    } else {
+        if (!interval) clockLast = clock.now(), interval = setInterval(poke, pokeDelay);
+        frame = 1, setFrame(wake);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ioM7O":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _timerJs = require("./timer.js");
+exports.default = function(callback, delay, time) {
+    var t = new (0, _timerJs.Timer);
+    delay = delay == null ? 0 : +delay;
+    t.restart((elapsed)=>{
+        t.stop();
+        callback(elapsed + delay);
+    }, delay, time);
+    return t;
+};
+
+},{"./timer.js":"bfF2F","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aZzEX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _indexJs = require("../transition/index.js");
+var _scheduleJs = require("../transition/schedule.js");
+var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
+var _d3Ease = require("d3-ease");
+var _d3Timer = require("d3-timer");
+var defaultTiming = {
+    time: null,
+    delay: 0,
+    duration: 250,
+    ease: (0, _d3Ease.easeCubicInOut)
+};
+function inherit(node, id) {
+    var timing;
+    while(!(timing = node.__transition) || !(timing = timing[id])){
+        if (!(node = node.parentNode)) throw new Error(`transition ${id} not found`);
+    }
+    return timing;
+}
+exports.default = function(name) {
+    var id, timing;
+    if (name instanceof (0, _indexJs.Transition)) id = name._id, name = name._name;
+    else id = (0, _indexJs.newId)(), (timing = defaultTiming).time = (0, _d3Timer.now)(), name = name == null ? null : name + "";
+    for(var groups = this._groups, m = groups.length, j = 0; j < m; ++j){
+        for(var group = groups[j], n = group.length, node, i = 0; i < n; ++i)if (node = group[i]) (0, _scheduleJsDefault.default)(node, name, id, i, group, timing || inherit(node, id));
+    }
+    return new (0, _indexJs.Transition)(groups, this._parents, name, id);
+};
+
+},{"../transition/index.js":"h2Srb","../transition/schedule.js":"de74c","d3-ease":"8sCNl","d3-timer":"7TEss","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"h2Srb":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Transition", ()=>Transition);
+parcelHelpers.export(exports, "newId", ()=>newId);
+var _d3Selection = require("d3-selection");
+var _attrJs = require("./attr.js");
+var _attrJsDefault = parcelHelpers.interopDefault(_attrJs);
+var _attrTweenJs = require("./attrTween.js");
+var _attrTweenJsDefault = parcelHelpers.interopDefault(_attrTweenJs);
+var _delayJs = require("./delay.js");
+var _delayJsDefault = parcelHelpers.interopDefault(_delayJs);
+var _durationJs = require("./duration.js");
+var _durationJsDefault = parcelHelpers.interopDefault(_durationJs);
+var _easeJs = require("./ease.js");
+var _easeJsDefault = parcelHelpers.interopDefault(_easeJs);
+var _easeVaryingJs = require("./easeVarying.js");
+var _easeVaryingJsDefault = parcelHelpers.interopDefault(_easeVaryingJs);
+var _filterJs = require("./filter.js");
+var _filterJsDefault = parcelHelpers.interopDefault(_filterJs);
+var _mergeJs = require("./merge.js");
+var _mergeJsDefault = parcelHelpers.interopDefault(_mergeJs);
+var _onJs = require("./on.js");
+var _onJsDefault = parcelHelpers.interopDefault(_onJs);
+var _removeJs = require("./remove.js");
+var _removeJsDefault = parcelHelpers.interopDefault(_removeJs);
+var _selectJs = require("./select.js");
+var _selectJsDefault = parcelHelpers.interopDefault(_selectJs);
+var _selectAllJs = require("./selectAll.js");
+var _selectAllJsDefault = parcelHelpers.interopDefault(_selectAllJs);
+var _selectionJs = require("./selection.js");
+var _selectionJsDefault = parcelHelpers.interopDefault(_selectionJs);
+var _styleJs = require("./style.js");
+var _styleJsDefault = parcelHelpers.interopDefault(_styleJs);
+var _styleTweenJs = require("./styleTween.js");
+var _styleTweenJsDefault = parcelHelpers.interopDefault(_styleTweenJs);
+var _textJs = require("./text.js");
+var _textJsDefault = parcelHelpers.interopDefault(_textJs);
+var _textTweenJs = require("./textTween.js");
+var _textTweenJsDefault = parcelHelpers.interopDefault(_textTweenJs);
+var _transitionJs = require("./transition.js");
+var _transitionJsDefault = parcelHelpers.interopDefault(_transitionJs);
+var _tweenJs = require("./tween.js");
+var _tweenJsDefault = parcelHelpers.interopDefault(_tweenJs);
+var _endJs = require("./end.js");
+var _endJsDefault = parcelHelpers.interopDefault(_endJs);
+var id = 0;
+function Transition(groups, parents, name, id) {
+    this._groups = groups;
+    this._parents = parents;
+    this._name = name;
+    this._id = id;
+}
+function transition(name) {
+    return (0, _d3Selection.selection)().transition(name);
+}
+exports.default = transition;
+function newId() {
+    return ++id;
+}
+var selection_prototype = (0, _d3Selection.selection).prototype;
+Transition.prototype = transition.prototype = {
+    constructor: Transition,
+    select: (0, _selectJsDefault.default),
+    selectAll: (0, _selectAllJsDefault.default),
+    selectChild: selection_prototype.selectChild,
+    selectChildren: selection_prototype.selectChildren,
+    filter: (0, _filterJsDefault.default),
+    merge: (0, _mergeJsDefault.default),
+    selection: (0, _selectionJsDefault.default),
+    transition: (0, _transitionJsDefault.default),
+    call: selection_prototype.call,
+    nodes: selection_prototype.nodes,
+    node: selection_prototype.node,
+    size: selection_prototype.size,
+    empty: selection_prototype.empty,
+    each: selection_prototype.each,
+    on: (0, _onJsDefault.default),
+    attr: (0, _attrJsDefault.default),
+    attrTween: (0, _attrTweenJsDefault.default),
+    style: (0, _styleJsDefault.default),
+    styleTween: (0, _styleTweenJsDefault.default),
+    text: (0, _textJsDefault.default),
+    textTween: (0, _textTweenJsDefault.default),
+    remove: (0, _removeJsDefault.default),
+    tween: (0, _tweenJsDefault.default),
+    delay: (0, _delayJsDefault.default),
+    duration: (0, _durationJsDefault.default),
+    ease: (0, _easeJsDefault.default),
+    easeVarying: (0, _easeVaryingJsDefault.default),
+    end: (0, _endJsDefault.default),
+    [Symbol.iterator]: selection_prototype[Symbol.iterator]
+};
+
+},{"d3-selection":"gn9gd","./attr.js":"9UgA3","./attrTween.js":"1hMpn","./delay.js":"2BzOF","./duration.js":"ei298","./ease.js":"lCGHM","./easeVarying.js":"aju4f","./filter.js":"d3Uia","./merge.js":"9odBi","./on.js":"3XrBC","./remove.js":"aZLkz","./select.js":"bgUUX","./selectAll.js":"lqPi4","./selection.js":"iWTRA","./style.js":"44QDP","./styleTween.js":"42AvL","./text.js":"6mGEx","./textTween.js":"kqC5z","./transition.js":"50tVR","./tween.js":"1Kbbg","./end.js":"ev0ir","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9UgA3":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Interpolate = require("d3-interpolate");
+var _d3Selection = require("d3-selection");
+var _tweenJs = require("./tween.js");
+var _interpolateJs = require("./interpolate.js");
+var _interpolateJsDefault = parcelHelpers.interopDefault(_interpolateJs);
+function attrRemove(name) {
+    return function() {
+        this.removeAttribute(name);
+    };
+}
+function attrRemoveNS(fullname) {
+    return function() {
+        this.removeAttributeNS(fullname.space, fullname.local);
+    };
+}
+function attrConstant(name, interpolate, value1) {
+    var string00, string1 = value1 + "", interpolate0;
+    return function() {
+        var string0 = this.getAttribute(name);
+        return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
+    };
+}
+function attrConstantNS(fullname, interpolate, value1) {
+    var string00, string1 = value1 + "", interpolate0;
+    return function() {
+        var string0 = this.getAttributeNS(fullname.space, fullname.local);
+        return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
+    };
+}
+function attrFunction(name, interpolate, value) {
+    var string00, string10, interpolate0;
+    return function() {
+        var string0, value1 = value(this), string1;
+        if (value1 == null) return void this.removeAttribute(name);
+        string0 = this.getAttribute(name);
+        string1 = value1 + "";
+        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+    };
+}
+function attrFunctionNS(fullname, interpolate, value) {
+    var string00, string10, interpolate0;
+    return function() {
+        var string0, value1 = value(this), string1;
+        if (value1 == null) return void this.removeAttributeNS(fullname.space, fullname.local);
+        string0 = this.getAttributeNS(fullname.space, fullname.local);
+        string1 = value1 + "";
+        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+    };
+}
+exports.default = function(name, value) {
+    var fullname = (0, _d3Selection.namespace)(name), i = fullname === "transform" ? (0, _d3Interpolate.interpolateTransformSvg) : (0, _interpolateJsDefault.default);
+    return this.attrTween(name, typeof value === "function" ? (fullname.local ? attrFunctionNS : attrFunction)(fullname, i, (0, _tweenJs.tweenValue)(this, "attr." + name, value)) : value == null ? (fullname.local ? attrRemoveNS : attrRemove)(fullname) : (fullname.local ? attrConstantNS : attrConstant)(fullname, i, value));
+};
+
+},{"d3-interpolate":"6jJyi","d3-selection":"gn9gd","./tween.js":"1Kbbg","./interpolate.js":"69lgs","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1Kbbg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "tweenValue", ()=>tweenValue);
+var _scheduleJs = require("./schedule.js");
+function tweenRemove(id, name) {
+    var tween0, tween1;
+    return function() {
+        var schedule = (0, _scheduleJs.set)(this, id), tween = schedule.tween;
+        // If this node shared tween with the previous node,
+        // just assign the updated shared tween and we’re done!
+        // Otherwise, copy-on-write.
+        if (tween !== tween0) {
+            tween1 = tween0 = tween;
+            for(var i = 0, n = tween1.length; i < n; ++i)if (tween1[i].name === name) {
+                tween1 = tween1.slice();
+                tween1.splice(i, 1);
+                break;
+            }
+        }
+        schedule.tween = tween1;
+    };
+}
+function tweenFunction(id, name, value) {
+    var tween0, tween1;
+    if (typeof value !== "function") throw new Error;
+    return function() {
+        var schedule = (0, _scheduleJs.set)(this, id), tween = schedule.tween;
+        // If this node shared tween with the previous node,
+        // just assign the updated shared tween and we’re done!
+        // Otherwise, copy-on-write.
+        if (tween !== tween0) {
+            tween1 = (tween0 = tween).slice();
+            for(var t = {
+                name: name,
+                value: value
+            }, i = 0, n = tween1.length; i < n; ++i)if (tween1[i].name === name) {
+                tween1[i] = t;
+                break;
+            }
+            if (i === n) tween1.push(t);
+        }
+        schedule.tween = tween1;
+    };
+}
+exports.default = function(name, value) {
+    var id = this._id;
+    name += "";
+    if (arguments.length < 2) {
+        var tween = (0, _scheduleJs.get)(this.node(), id).tween;
+        for(var i = 0, n = tween.length, t; i < n; ++i){
+            if ((t = tween[i]).name === name) return t.value;
+        }
+        return null;
+    }
+    return this.each((value == null ? tweenRemove : tweenFunction)(id, name, value));
+};
+function tweenValue(transition, name, value) {
+    var id = transition._id;
+    transition.each(function() {
+        var schedule = (0, _scheduleJs.set)(this, id);
+        (schedule.value || (schedule.value = {}))[name] = value.apply(this, arguments);
+    });
+    return function(node) {
+        return (0, _scheduleJs.get)(node, id).value[name];
+    };
+}
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"69lgs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Color = require("d3-color");
+var _d3Interpolate = require("d3-interpolate");
+exports.default = function(a, b) {
+    var c;
+    return (typeof b === "number" ? (0, _d3Interpolate.interpolateNumber) : b instanceof (0, _d3Color.color) ? (0, _d3Interpolate.interpolateRgb) : (c = (0, _d3Color.color)(b)) ? (b = c, _d3Interpolate.interpolateRgb) : (0, _d3Interpolate.interpolateString))(a, b);
+};
+
+},{"d3-color":"grhaa","d3-interpolate":"6jJyi","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"1hMpn":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Selection = require("d3-selection");
+function attrInterpolate(name, i) {
+    return function(t) {
+        this.setAttribute(name, i.call(this, t));
+    };
+}
+function attrInterpolateNS(fullname, i) {
+    return function(t) {
+        this.setAttributeNS(fullname.space, fullname.local, i.call(this, t));
+    };
+}
+function attrTweenNS(fullname, value) {
+    var t0, i0;
+    function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t0 = (i0 = i) && attrInterpolateNS(fullname, i);
+        return t0;
+    }
+    tween._value = value;
+    return tween;
+}
+function attrTween(name, value) {
+    var t0, i0;
+    function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t0 = (i0 = i) && attrInterpolate(name, i);
+        return t0;
+    }
+    tween._value = value;
+    return tween;
+}
+exports.default = function(name, value) {
+    var key = "attr." + name;
+    if (arguments.length < 2) return (key = this.tween(key)) && key._value;
+    if (value == null) return this.tween(key, null);
+    if (typeof value !== "function") throw new Error;
+    var fullname = (0, _d3Selection.namespace)(name);
+    return this.tween(key, (fullname.local ? attrTweenNS : attrTween)(fullname, value));
+};
+
+},{"d3-selection":"gn9gd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"2BzOF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./schedule.js");
+function delayFunction(id, value) {
+    return function() {
+        (0, _scheduleJs.init)(this, id).delay = +value.apply(this, arguments);
+    };
+}
+function delayConstant(id, value) {
+    return value = +value, function() {
+        (0, _scheduleJs.init)(this, id).delay = value;
+    };
+}
+exports.default = function(value) {
+    var id = this._id;
+    return arguments.length ? this.each((typeof value === "function" ? delayFunction : delayConstant)(id, value)) : (0, _scheduleJs.get)(this.node(), id).delay;
+};
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ei298":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./schedule.js");
+function durationFunction(id, value) {
+    return function() {
+        (0, _scheduleJs.set)(this, id).duration = +value.apply(this, arguments);
+    };
+}
+function durationConstant(id, value) {
+    return value = +value, function() {
+        (0, _scheduleJs.set)(this, id).duration = value;
+    };
+}
+exports.default = function(value) {
+    var id = this._id;
+    return arguments.length ? this.each((typeof value === "function" ? durationFunction : durationConstant)(id, value)) : (0, _scheduleJs.get)(this.node(), id).duration;
+};
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lCGHM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./schedule.js");
+function easeConstant(id, value) {
+    if (typeof value !== "function") throw new Error;
+    return function() {
+        (0, _scheduleJs.set)(this, id).ease = value;
+    };
+}
+exports.default = function(value) {
+    var id = this._id;
+    return arguments.length ? this.each(easeConstant(id, value)) : (0, _scheduleJs.get)(this.node(), id).ease;
+};
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aju4f":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./schedule.js");
+function easeVarying(id, value) {
+    return function() {
+        var v = value.apply(this, arguments);
+        if (typeof v !== "function") throw new Error;
+        (0, _scheduleJs.set)(this, id).ease = v;
+    };
+}
+exports.default = function(value) {
+    if (typeof value !== "function") throw new Error;
+    return this.each(easeVarying(this._id, value));
+};
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"d3Uia":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Selection = require("d3-selection");
+var _indexJs = require("./index.js");
+exports.default = function(match) {
+    if (typeof match !== "function") match = (0, _d3Selection.matcher)(match);
+    for(var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j){
+        for(var group = groups[j], n = group.length, subgroup = subgroups[j] = [], node, i = 0; i < n; ++i)if ((node = group[i]) && match.call(node, node.__data__, i, group)) subgroup.push(node);
+    }
+    return new (0, _indexJs.Transition)(subgroups, this._parents, this._name, this._id);
+};
+
+},{"d3-selection":"gn9gd","./index.js":"h2Srb","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"9odBi":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _indexJs = require("./index.js");
+exports.default = function(transition) {
+    if (transition._id !== this._id) throw new Error;
+    for(var groups0 = this._groups, groups1 = transition._groups, m0 = groups0.length, m1 = groups1.length, m = Math.min(m0, m1), merges = new Array(m0), j = 0; j < m; ++j){
+        for(var group0 = groups0[j], group1 = groups1[j], n = group0.length, merge = merges[j] = new Array(n), node, i = 0; i < n; ++i)if (node = group0[i] || group1[i]) merge[i] = node;
+    }
+    for(; j < m0; ++j)merges[j] = groups0[j];
+    return new (0, _indexJs.Transition)(merges, this._parents, this._name, this._id);
+};
+
+},{"./index.js":"h2Srb","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"3XrBC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./schedule.js");
+function start(name) {
+    return (name + "").trim().split(/^|\s+/).every(function(t) {
+        var i = t.indexOf(".");
+        if (i >= 0) t = t.slice(0, i);
+        return !t || t === "start";
+    });
+}
+function onFunction(id, name, listener) {
+    var on0, on1, sit = start(name) ? (0, _scheduleJs.init) : (0, _scheduleJs.set);
+    return function() {
+        var schedule = sit(this, id), on = schedule.on;
+        // If this node shared a dispatch with the previous node,
+        // just assign the updated shared dispatch and we’re done!
+        // Otherwise, copy-on-write.
+        if (on !== on0) (on1 = (on0 = on).copy()).on(name, listener);
+        schedule.on = on1;
+    };
+}
+exports.default = function(name, listener) {
+    var id = this._id;
+    return arguments.length < 2 ? (0, _scheduleJs.get)(this.node(), id).on.on(name) : this.each(onFunction(id, name, listener));
+};
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"aZLkz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function removeFunction(id) {
+    return function() {
+        var parent = this.parentNode;
+        for(var i in this.__transition)if (+i !== id) return;
+        if (parent) parent.removeChild(this);
+    };
+}
+exports.default = function() {
+    return this.on("end.remove", removeFunction(this._id));
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"bgUUX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Selection = require("d3-selection");
+var _indexJs = require("./index.js");
+var _scheduleJs = require("./schedule.js");
+var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
+exports.default = function(select) {
+    var name = this._name, id = this._id;
+    if (typeof select !== "function") select = (0, _d3Selection.selector)(select);
+    for(var groups = this._groups, m = groups.length, subgroups = new Array(m), j = 0; j < m; ++j){
+        for(var group = groups[j], n = group.length, subgroup = subgroups[j] = new Array(n), node, subnode, i = 0; i < n; ++i)if ((node = group[i]) && (subnode = select.call(node, node.__data__, i, group))) {
+            if ("__data__" in node) subnode.__data__ = node.__data__;
+            subgroup[i] = subnode;
+            (0, _scheduleJsDefault.default)(subgroup[i], name, id, i, subgroup, (0, _scheduleJs.get)(node, id));
+        }
+    }
+    return new (0, _indexJs.Transition)(subgroups, this._parents, name, id);
+};
+
+},{"d3-selection":"gn9gd","./index.js":"h2Srb","./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lqPi4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Selection = require("d3-selection");
+var _indexJs = require("./index.js");
+var _scheduleJs = require("./schedule.js");
+var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
+exports.default = function(select) {
+    var name = this._name, id = this._id;
+    if (typeof select !== "function") select = (0, _d3Selection.selectorAll)(select);
+    for(var groups = this._groups, m = groups.length, subgroups = [], parents = [], j = 0; j < m; ++j){
+        for(var group = groups[j], n = group.length, node, i = 0; i < n; ++i)if (node = group[i]) {
+            for(var children = select.call(node, node.__data__, i, group), child, inherit = (0, _scheduleJs.get)(node, id), k = 0, l = children.length; k < l; ++k)if (child = children[k]) (0, _scheduleJsDefault.default)(child, name, id, k, children, inherit);
+            subgroups.push(children);
+            parents.push(node);
+        }
+    }
+    return new (0, _indexJs.Transition)(subgroups, parents, name, id);
+};
+
+},{"d3-selection":"gn9gd","./index.js":"h2Srb","./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"iWTRA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Selection = require("d3-selection");
+var Selection = (0, _d3Selection.selection).prototype.constructor;
+exports.default = function() {
+    return new Selection(this._groups, this._parents);
+};
+
+},{"d3-selection":"gn9gd","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"44QDP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _d3Interpolate = require("d3-interpolate");
+var _d3Selection = require("d3-selection");
+var _scheduleJs = require("./schedule.js");
+var _tweenJs = require("./tween.js");
+var _interpolateJs = require("./interpolate.js");
+var _interpolateJsDefault = parcelHelpers.interopDefault(_interpolateJs);
+function styleNull(name, interpolate) {
+    var string00, string10, interpolate0;
+    return function() {
+        var string0 = (0, _d3Selection.style)(this, name), string1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
+        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : interpolate0 = interpolate(string00 = string0, string10 = string1);
+    };
+}
+function styleRemove(name) {
+    return function() {
+        this.style.removeProperty(name);
+    };
+}
+function styleConstant(name, interpolate, value1) {
+    var string00, string1 = value1 + "", interpolate0;
+    return function() {
+        var string0 = (0, _d3Selection.style)(this, name);
+        return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
+    };
+}
+function styleFunction(name, interpolate, value) {
+    var string00, string10, interpolate0;
+    return function() {
+        var string0 = (0, _d3Selection.style)(this, name), value1 = value(this), string1 = value1 + "";
+        if (value1 == null) string1 = value1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
+        return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+    };
+}
+function styleMaybeRemove(id, name) {
+    var on0, on1, listener0, key = "style." + name, event = "end." + key, remove;
+    return function() {
+        var schedule = (0, _scheduleJs.set)(this, id), on = schedule.on, listener = schedule.value[key] == null ? remove || (remove = styleRemove(name)) : undefined;
+        // If this node shared a dispatch with the previous node,
+        // just assign the updated shared dispatch and we’re done!
+        // Otherwise, copy-on-write.
+        if (on !== on0 || listener0 !== listener) (on1 = (on0 = on).copy()).on(event, listener0 = listener);
+        schedule.on = on1;
+    };
+}
+exports.default = function(name, value, priority) {
+    var i = (name += "") === "transform" ? (0, _d3Interpolate.interpolateTransformCss) : (0, _interpolateJsDefault.default);
+    return value == null ? this.styleTween(name, styleNull(name, i)).on("end.style." + name, styleRemove(name)) : typeof value === "function" ? this.styleTween(name, styleFunction(name, i, (0, _tweenJs.tweenValue)(this, "style." + name, value))).each(styleMaybeRemove(this._id, name)) : this.styleTween(name, styleConstant(name, i, value), priority).on("end.style." + name, null);
+};
+
+},{"d3-interpolate":"6jJyi","d3-selection":"gn9gd","./schedule.js":"de74c","./tween.js":"1Kbbg","./interpolate.js":"69lgs","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"42AvL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function styleInterpolate(name, i, priority) {
+    return function(t) {
+        this.style.setProperty(name, i.call(this, t), priority);
+    };
+}
+function styleTween(name, value, priority) {
+    var t, i0;
+    function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t = (i0 = i) && styleInterpolate(name, i, priority);
+        return t;
+    }
+    tween._value = value;
+    return tween;
+}
+exports.default = function(name, value, priority) {
+    var key = "style." + (name += "");
+    if (arguments.length < 2) return (key = this.tween(key)) && key._value;
+    if (value == null) return this.tween(key, null);
+    if (typeof value !== "function") throw new Error;
+    return this.tween(key, styleTween(name, value, priority == null ? "" : priority));
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"6mGEx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _tweenJs = require("./tween.js");
+function textConstant(value) {
+    return function() {
+        this.textContent = value;
+    };
+}
+function textFunction(value) {
+    return function() {
+        var value1 = value(this);
+        this.textContent = value1 == null ? "" : value1;
+    };
+}
+exports.default = function(value) {
+    return this.tween("text", typeof value === "function" ? textFunction((0, _tweenJs.tweenValue)(this, "text", value)) : textConstant(value == null ? "" : value + ""));
+};
+
+},{"./tween.js":"1Kbbg","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"kqC5z":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+function textInterpolate(i) {
+    return function(t) {
+        this.textContent = i.call(this, t);
+    };
+}
+function textTween(value) {
+    var t0, i0;
+    function tween() {
+        var i = value.apply(this, arguments);
+        if (i !== i0) t0 = (i0 = i) && textInterpolate(i);
+        return t0;
+    }
+    tween._value = value;
+    return tween;
+}
+exports.default = function(value) {
+    var key = "text";
+    if (arguments.length < 1) return (key = this.tween(key)) && key._value;
+    if (value == null) return this.tween(key, null);
+    if (typeof value !== "function") throw new Error;
+    return this.tween(key, textTween(value));
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"50tVR":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _indexJs = require("./index.js");
+var _scheduleJs = require("./schedule.js");
+var _scheduleJsDefault = parcelHelpers.interopDefault(_scheduleJs);
+exports.default = function() {
+    var name = this._name, id0 = this._id, id1 = (0, _indexJs.newId)();
+    for(var groups = this._groups, m = groups.length, j = 0; j < m; ++j){
+        for(var group = groups[j], n = group.length, node, i = 0; i < n; ++i)if (node = group[i]) {
+            var inherit = (0, _scheduleJs.get)(node, id0);
+            (0, _scheduleJsDefault.default)(node, name, id1, i, group, {
+                time: inherit.time + inherit.delay + inherit.duration,
+                delay: 0,
+                duration: inherit.duration,
+                ease: inherit.ease
+            });
+        }
+    }
+    return new (0, _indexJs.Transition)(groups, this._parents, name, id1);
+};
+
+},{"./index.js":"h2Srb","./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"ev0ir":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _scheduleJs = require("./schedule.js");
+exports.default = function() {
+    var on0, on1, that = this, id = that._id, size = that.size();
+    return new Promise(function(resolve, reject) {
+        var cancel = {
+            value: reject
+        }, end = {
+            value: function() {
+                if (--size === 0) resolve();
+            }
+        };
+        that.each(function() {
+            var schedule = (0, _scheduleJs.set)(this, id), on = schedule.on;
+            // If this node shared a dispatch with the previous node,
+            // just assign the updated shared dispatch and we’re done!
+            // Otherwise, copy-on-write.
+            if (on !== on0) {
+                on1 = (on0 = on).copy();
+                on1._.cancel.push(cancel);
+                on1._.interrupt.push(cancel);
+                on1._.end.push(end);
+            }
+            schedule.on = on1;
+        });
+        // The selection was empty, resolve end immediately
+        if (size === 0) resolve();
+    });
+};
+
+},{"./schedule.js":"de74c","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"8sCNl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "easeLinear", ()=>(0, _linearJs.linear));
+parcelHelpers.export(exports, "easeQuad", ()=>(0, _quadJs.quadInOut));
+parcelHelpers.export(exports, "easeQuadIn", ()=>(0, _quadJs.quadIn));
+parcelHelpers.export(exports, "easeQuadOut", ()=>(0, _quadJs.quadOut));
+parcelHelpers.export(exports, "easeQuadInOut", ()=>(0, _quadJs.quadInOut));
+parcelHelpers.export(exports, "easeCubic", ()=>(0, _cubicJs.cubicInOut));
+parcelHelpers.export(exports, "easeCubicIn", ()=>(0, _cubicJs.cubicIn));
+parcelHelpers.export(exports, "easeCubicOut", ()=>(0, _cubicJs.cubicOut));
+parcelHelpers.export(exports, "easeCubicInOut", ()=>(0, _cubicJs.cubicInOut));
+parcelHelpers.export(exports, "easePoly", ()=>(0, _polyJs.polyInOut));
+parcelHelpers.export(exports, "easePolyIn", ()=>(0, _polyJs.polyIn));
+parcelHelpers.export(exports, "easePolyOut", ()=>(0, _polyJs.polyOut));
+parcelHelpers.export(exports, "easePolyInOut", ()=>(0, _polyJs.polyInOut));
+parcelHelpers.export(exports, "easeSin", ()=>(0, _sinJs.sinInOut));
+parcelHelpers.export(exports, "easeSinIn", ()=>(0, _sinJs.sinIn));
+parcelHelpers.export(exports, "easeSinOut", ()=>(0, _sinJs.sinOut));
+parcelHelpers.export(exports, "easeSinInOut", ()=>(0, _sinJs.sinInOut));
+parcelHelpers.export(exports, "easeExp", ()=>(0, _expJs.expInOut));
+parcelHelpers.export(exports, "easeExpIn", ()=>(0, _expJs.expIn));
+parcelHelpers.export(exports, "easeExpOut", ()=>(0, _expJs.expOut));
+parcelHelpers.export(exports, "easeExpInOut", ()=>(0, _expJs.expInOut));
+parcelHelpers.export(exports, "easeCircle", ()=>(0, _circleJs.circleInOut));
+parcelHelpers.export(exports, "easeCircleIn", ()=>(0, _circleJs.circleIn));
+parcelHelpers.export(exports, "easeCircleOut", ()=>(0, _circleJs.circleOut));
+parcelHelpers.export(exports, "easeCircleInOut", ()=>(0, _circleJs.circleInOut));
+parcelHelpers.export(exports, "easeBounce", ()=>(0, _bounceJs.bounceOut));
+parcelHelpers.export(exports, "easeBounceIn", ()=>(0, _bounceJs.bounceIn));
+parcelHelpers.export(exports, "easeBounceOut", ()=>(0, _bounceJs.bounceOut));
+parcelHelpers.export(exports, "easeBounceInOut", ()=>(0, _bounceJs.bounceInOut));
+parcelHelpers.export(exports, "easeBack", ()=>(0, _backJs.backInOut));
+parcelHelpers.export(exports, "easeBackIn", ()=>(0, _backJs.backIn));
+parcelHelpers.export(exports, "easeBackOut", ()=>(0, _backJs.backOut));
+parcelHelpers.export(exports, "easeBackInOut", ()=>(0, _backJs.backInOut));
+parcelHelpers.export(exports, "easeElastic", ()=>(0, _elasticJs.elasticOut));
+parcelHelpers.export(exports, "easeElasticIn", ()=>(0, _elasticJs.elasticIn));
+parcelHelpers.export(exports, "easeElasticOut", ()=>(0, _elasticJs.elasticOut));
+parcelHelpers.export(exports, "easeElasticInOut", ()=>(0, _elasticJs.elasticInOut));
+var _linearJs = require("./linear.js");
+var _quadJs = require("./quad.js");
+var _cubicJs = require("./cubic.js");
+var _polyJs = require("./poly.js");
+var _sinJs = require("./sin.js");
+var _expJs = require("./exp.js");
+var _circleJs = require("./circle.js");
+var _bounceJs = require("./bounce.js");
+var _backJs = require("./back.js");
+var _elasticJs = require("./elastic.js");
+
+},{"./linear.js":false,"./quad.js":false,"./cubic.js":"cGjk7","./poly.js":false,"./sin.js":false,"./exp.js":false,"./circle.js":false,"./bounce.js":false,"./back.js":false,"./elastic.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"cGjk7":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "cubicIn", ()=>cubicIn);
+parcelHelpers.export(exports, "cubicOut", ()=>cubicOut);
+parcelHelpers.export(exports, "cubicInOut", ()=>cubicInOut);
+function cubicIn(t) {
+    return t * t * t;
+}
+function cubicOut(t) {
+    return --t * t * t + 1;
+}
+function cubicInOut(t) {
+    return ((t *= 2) <= 1 ? t * t * t : (t -= 2) * t * t + 2) / 2;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"cq48B":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "drawArcDiagram", ()=>drawArcDiagram);
@@ -5354,7 +5377,7 @@ const drawArcDiagram = (nodes, edges)=>{
     const getArc = (d)=>{
         const arcGenerator = (0, _d3Shape.line)().curve((0, _d3Shape.curveBasis));
         const midX = (d.source.x + d.target.x) / 2;
-        const midY = -Math.min(Math.abs(d.source.x - d.target.x), height - 100);
+        const midY = -Math.abs((d.source.x - d.target.x) / 2);
         const path = arcGenerator([
             [
                 d.source.x,
@@ -5556,7 +5579,7 @@ var _noneJsDefault1 = parcelHelpers.interopDefault(_noneJs1);
 var _reverseJs = require("./order/reverse.js");
 var _reverseJsDefault = parcelHelpers.interopDefault(_reverseJs);
 
-},{"./arc.js":false,"./area.js":false,"./line.js":"hTFAN","./pie.js":false,"./areaRadial.js":false,"./lineRadial.js":false,"./pointRadial.js":false,"./link.js":false,"./symbol.js":false,"./symbol/asterisk.js":false,"./symbol/circle.js":false,"./symbol/cross.js":false,"./symbol/diamond.js":false,"./symbol/diamond2.js":false,"./symbol/plus.js":false,"./symbol/square.js":false,"./symbol/square2.js":false,"./symbol/star.js":false,"./symbol/triangle.js":false,"./symbol/triangle2.js":false,"./symbol/wye.js":false,"./symbol/times.js":false,"./curve/basisClosed.js":false,"./curve/basisOpen.js":false,"./curve/basis.js":"lmIyE","./curve/bump.js":false,"./curve/bundle.js":false,"./curve/cardinalClosed.js":false,"./curve/cardinalOpen.js":false,"./curve/cardinal.js":false,"./curve/catmullRomClosed.js":false,"./curve/catmullRomOpen.js":false,"./curve/catmullRom.js":false,"./curve/linearClosed.js":false,"./curve/linear.js":"ajwdK","./curve/monotone.js":false,"./curve/natural.js":false,"./curve/step.js":false,"./stack.js":false,"./offset/expand.js":false,"./offset/diverging.js":false,"./offset/none.js":false,"./offset/silhouette.js":false,"./offset/wiggle.js":false,"./order/appearance.js":false,"./order/ascending.js":false,"./order/descending.js":false,"./order/insideOut.js":false,"./order/none.js":false,"./order/reverse.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"hTFAN":[function(require,module,exports) {
+},{"./arc.js":false,"./area.js":false,"./line.js":"hTFAN","./pie.js":false,"./areaRadial.js":false,"./lineRadial.js":false,"./pointRadial.js":"gH3Nl","./link.js":false,"./symbol.js":false,"./symbol/asterisk.js":false,"./symbol/circle.js":false,"./symbol/cross.js":false,"./symbol/diamond.js":false,"./symbol/diamond2.js":false,"./symbol/plus.js":false,"./symbol/square.js":false,"./symbol/square2.js":false,"./symbol/star.js":false,"./symbol/triangle.js":false,"./symbol/triangle2.js":false,"./symbol/wye.js":false,"./symbol/times.js":false,"./curve/basisClosed.js":false,"./curve/basisOpen.js":false,"./curve/basis.js":"lmIyE","./curve/bump.js":"etTRy","./curve/bundle.js":false,"./curve/cardinalClosed.js":false,"./curve/cardinalOpen.js":false,"./curve/cardinal.js":"brZ6e","./curve/catmullRomClosed.js":false,"./curve/catmullRomOpen.js":false,"./curve/catmullRom.js":"j2hDs","./curve/linearClosed.js":false,"./curve/linear.js":"ajwdK","./curve/monotone.js":false,"./curve/natural.js":false,"./curve/step.js":false,"./stack.js":false,"./offset/expand.js":false,"./offset/diverging.js":false,"./offset/none.js":false,"./offset/silhouette.js":false,"./offset/wiggle.js":false,"./order/appearance.js":false,"./order/ascending.js":false,"./order/descending.js":false,"./order/insideOut.js":false,"./order/none.js":false,"./order/reverse.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"hTFAN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _arrayJs = require("./array.js");
@@ -5792,6 +5815,16 @@ function y(p) {
     return p[1];
 }
 
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"gH3Nl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = function(x, y) {
+    return [
+        (y = +y) * Math.cos(x -= Math.PI / 2),
+        y * Math.sin(x)
+    ];
+};
+
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"lmIyE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -5849,6 +5882,265 @@ Basis.prototype = {
 exports.default = function(context) {
     return new Basis(context);
 };
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"etTRy":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "bumpX", ()=>bumpX);
+parcelHelpers.export(exports, "bumpY", ()=>bumpY);
+parcelHelpers.export(exports, "bumpRadial", ()=>bumpRadial);
+var _pointRadialJs = require("../pointRadial.js");
+var _pointRadialJsDefault = parcelHelpers.interopDefault(_pointRadialJs);
+class Bump {
+    constructor(context, x){
+        this._context = context;
+        this._x = x;
+    }
+    areaStart() {
+        this._line = 0;
+    }
+    areaEnd() {
+        this._line = NaN;
+    }
+    lineStart() {
+        this._point = 0;
+    }
+    lineEnd() {
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    }
+    point(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                if (this._line) this._context.lineTo(x, y);
+                else this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2; // falls through
+            default:
+                if (this._x) this._context.bezierCurveTo(this._x0 = (this._x0 + x) / 2, this._y0, this._x0, y, x, y);
+                else this._context.bezierCurveTo(this._x0, this._y0 = (this._y0 + y) / 2, x, this._y0, x, y);
+                break;
+        }
+        this._x0 = x, this._y0 = y;
+    }
+}
+class BumpRadial {
+    constructor(context){
+        this._context = context;
+    }
+    lineStart() {
+        this._point = 0;
+    }
+    lineEnd() {}
+    point(x, y) {
+        x = +x, y = +y;
+        if (this._point === 0) this._point = 1;
+        else {
+            const p0 = (0, _pointRadialJsDefault.default)(this._x0, this._y0);
+            const p1 = (0, _pointRadialJsDefault.default)(this._x0, this._y0 = (this._y0 + y) / 2);
+            const p2 = (0, _pointRadialJsDefault.default)(x, this._y0);
+            const p3 = (0, _pointRadialJsDefault.default)(x, y);
+            this._context.moveTo(...p0);
+            this._context.bezierCurveTo(...p1, ...p2, ...p3);
+        }
+        this._x0 = x, this._y0 = y;
+    }
+}
+function bumpX(context) {
+    return new Bump(context, true);
+}
+function bumpY(context) {
+    return new Bump(context, false);
+}
+function bumpRadial(context) {
+    return new BumpRadial(context);
+}
+
+},{"../pointRadial.js":"gH3Nl","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"brZ6e":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "point", ()=>point);
+parcelHelpers.export(exports, "Cardinal", ()=>Cardinal);
+function point(that, x, y) {
+    that._context.bezierCurveTo(that._x1 + that._k * (that._x2 - that._x0), that._y1 + that._k * (that._y2 - that._y0), that._x2 + that._k * (that._x1 - x), that._y2 + that._k * (that._y1 - y), that._x2, that._y2);
+}
+function Cardinal(context, tension) {
+    this._context = context;
+    this._k = (1 - tension) / 6;
+}
+Cardinal.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._x2 = this._y0 = this._y1 = this._y2 = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        switch(this._point){
+            case 2:
+                this._context.lineTo(this._x2, this._y2);
+                break;
+            case 3:
+                point(this, this._x1, this._y1);
+                break;
+        }
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2;
+                this._x1 = x, this._y1 = y;
+                break;
+            case 2:
+                this._point = 3; // falls through
+            default:
+                point(this, x, y);
+                break;
+        }
+        this._x0 = this._x1, this._x1 = this._x2, this._x2 = x;
+        this._y0 = this._y1, this._y1 = this._y2, this._y2 = y;
+    }
+};
+exports.default = function custom(tension) {
+    function cardinal(context) {
+        return new Cardinal(context, tension);
+    }
+    cardinal.tension = function(tension) {
+        return custom(+tension);
+    };
+    return cardinal;
+}(0);
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"j2hDs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "point", ()=>point);
+var _mathJs = require("../math.js");
+var _cardinalJs = require("./cardinal.js");
+function point(that, x, y) {
+    var x1 = that._x1, y1 = that._y1, x2 = that._x2, y2 = that._y2;
+    if (that._l01_a > (0, _mathJs.epsilon)) {
+        var a = 2 * that._l01_2a + 3 * that._l01_a * that._l12_a + that._l12_2a, n = 3 * that._l01_a * (that._l01_a + that._l12_a);
+        x1 = (x1 * a - that._x0 * that._l12_2a + that._x2 * that._l01_2a) / n;
+        y1 = (y1 * a - that._y0 * that._l12_2a + that._y2 * that._l01_2a) / n;
+    }
+    if (that._l23_a > (0, _mathJs.epsilon)) {
+        var b = 2 * that._l23_2a + 3 * that._l23_a * that._l12_a + that._l12_2a, m = 3 * that._l23_a * (that._l23_a + that._l12_a);
+        x2 = (x2 * b + that._x1 * that._l23_2a - x * that._l12_2a) / m;
+        y2 = (y2 * b + that._y1 * that._l23_2a - y * that._l12_2a) / m;
+    }
+    that._context.bezierCurveTo(x1, y1, x2, y2, that._x2, that._y2);
+}
+function CatmullRom(context, alpha) {
+    this._context = context;
+    this._alpha = alpha;
+}
+CatmullRom.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._x2 = this._y0 = this._y1 = this._y2 = NaN;
+        this._l01_a = this._l12_a = this._l23_a = this._l01_2a = this._l12_2a = this._l23_2a = this._point = 0;
+    },
+    lineEnd: function() {
+        switch(this._point){
+            case 2:
+                this._context.lineTo(this._x2, this._y2);
+                break;
+            case 3:
+                this.point(this._x2, this._y2);
+                break;
+        }
+        if (this._line || this._line !== 0 && this._point === 1) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        if (this._point) {
+            var x23 = this._x2 - x, y23 = this._y2 - y;
+            this._l23_a = Math.sqrt(this._l23_2a = Math.pow(x23 * x23 + y23 * y23, this._alpha));
+        }
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                this._line ? this._context.lineTo(x, y) : this._context.moveTo(x, y);
+                break;
+            case 1:
+                this._point = 2;
+                break;
+            case 2:
+                this._point = 3; // falls through
+            default:
+                point(this, x, y);
+                break;
+        }
+        this._l01_a = this._l12_a, this._l12_a = this._l23_a;
+        this._l01_2a = this._l12_2a, this._l12_2a = this._l23_2a;
+        this._x0 = this._x1, this._x1 = this._x2, this._x2 = x;
+        this._y0 = this._y1, this._y1 = this._y2, this._y2 = y;
+    }
+};
+exports.default = function custom(alpha) {
+    function catmullRom(context) {
+        return alpha ? new CatmullRom(context, alpha) : new (0, _cardinalJs.Cardinal)(context, 0);
+    }
+    catmullRom.alpha = function(alpha) {
+        return custom(+alpha);
+    };
+    return catmullRom;
+}(0.5);
+
+},{"../math.js":"4VX7v","./cardinal.js":"brZ6e","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"4VX7v":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "abs", ()=>abs);
+parcelHelpers.export(exports, "atan2", ()=>atan2);
+parcelHelpers.export(exports, "cos", ()=>cos);
+parcelHelpers.export(exports, "max", ()=>max);
+parcelHelpers.export(exports, "min", ()=>min);
+parcelHelpers.export(exports, "sin", ()=>sin);
+parcelHelpers.export(exports, "sqrt", ()=>sqrt);
+parcelHelpers.export(exports, "epsilon", ()=>epsilon);
+parcelHelpers.export(exports, "pi", ()=>pi);
+parcelHelpers.export(exports, "halfPi", ()=>halfPi);
+parcelHelpers.export(exports, "tau", ()=>tau);
+parcelHelpers.export(exports, "acos", ()=>acos);
+parcelHelpers.export(exports, "asin", ()=>asin);
+const abs = Math.abs;
+const atan2 = Math.atan2;
+const cos = Math.cos;
+const max = Math.max;
+const min = Math.min;
+const sin = Math.sin;
+const sqrt = Math.sqrt;
+const epsilon = 1e-12;
+const pi = Math.PI;
+const halfPi = pi / 2;
+const tau = 2 * pi;
+function acos(x) {
+    return x > 1 ? 0 : x < -1 ? pi : Math.acos(x);
+}
+function asin(x) {
+    return x >= 1 ? halfPi : x <= -1 ? -halfPi : Math.asin(x);
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}]},["fdTx9","1SICI"], "1SICI", "parcelRequire94c2")
 

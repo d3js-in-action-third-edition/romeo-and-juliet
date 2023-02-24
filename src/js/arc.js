@@ -43,7 +43,7 @@ export const drawArcDiagram = (nodes, edges) => {
   const getArc = d => {
     const arcGenerator = line().curve(curveBasis);
     const midX = (d.source.x + d.target.x) / 2;
-    const midY = -Math.min(Math.abs(d.source.x - d.target.x), height - 100);
+    const midY = -Math.abs((d.source.x - d.target.x) / 2);
     const path = arcGenerator([[d.source.x, 0], [midX, midY], [d.target.x, 0]]);
 
     return path;
