@@ -63,3 +63,15 @@
 .matrix-tooltip-scenes {
   font-weight: 700;
 }
+
+/* Beeswarm legend */
+.beeswarm-legend {
+  margin-left: 100px;
+}
+.beeswarm-legend.hidden {
+  opacity: 0;
+}
+.beeswarm-legend .beeswarm-legend-name {
+  font-size: 2rem;
+  font-weight: 700;
+}

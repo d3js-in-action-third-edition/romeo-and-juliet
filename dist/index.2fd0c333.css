@@ -70,4 +70,17 @@
   font-weight: 700;
 }
 
+.beeswarm-legend {
+  margin-left: 100px;
+}
+
+.beeswarm-legend.hidden {
+  opacity: 0;
+}
+
+.beeswarm-legend .beeswarm-legend-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
 /*# sourceMappingURL=index.2fd0c333.css.map */

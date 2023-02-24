@@ -6324,6 +6324,15 @@ const drawBeeswarm = (nodes)=>{
         "5.1"
     ];
     svg.selectAll(".scene-label").data((0, _helper.scenes).filter((s)=>sceneLabels.includes(s.scene))).join("text").attr("x", (d)=>xScale(d.firstLine)).attr("y", 28).attr("text-anchor", "middle").text((d)=>d.scene).style("font-size", "16px").style("font-weight", 500);
+    // Add interactions
+    (0, _d3Selection.selectAll)(".beeswarm-circle").on("mouseenter", (e, d)=>{
+        (0, _d3Selection.select)(".beeswarm-legend-name").text(d.name);
+        (0, _d3Selection.select)(".beeswarm-legend-description").text(d.description);
+        (0, _d3Selection.select)(".beeswarm-legend-line .legend-line").text(`“ ${d.firstLine} ”`);
+        (0, _d3Selection.select)(".beeswarm-legend").classed("hidden", false);
+    }).on("mouseleave", (e, d)=>{
+        (0, _d3Selection.select)(".beeswarm-legend").classed("hidden", true);
+    });
 };
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8","d3-force":"helua","d3-selection":"gn9gd","d3-array":"1yX2W","./scales":"NYsfE","d3-scale":"UQ8g3","./helper":"lVRAz"}],"helua":[function(require,module,exports) {

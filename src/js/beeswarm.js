@@ -112,4 +112,17 @@ export const drawBeeswarm = (nodes) => {
       .style("font-size", "16px")
       .style("font-weight", 500);
 
+
+  // Add interactions
+  selectAll(".beeswarm-circle")
+    .on("mouseenter", (e, d) => {
+      select(".beeswarm-legend-name").text(d.name);
+      select(".beeswarm-legend-description").text(d.description);
+      select(".beeswarm-legend-line .legend-line").text(`“ ${d.firstLine} ”`);
+      select(".beeswarm-legend").classed("hidden", false);
+    })
+    .on("mouseleave", (e, d) => {
+      select(".beeswarm-legend").classed("hidden", true);
+    });
+
 };
