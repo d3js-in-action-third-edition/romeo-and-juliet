@@ -111,21 +111,12 @@ export const drawArcDiagram = (nodes, edges) => {
       
       selectAll(".arc-node")
         .transition(t)
-        .attr("fill-opacity", char => char.id === d.id || isLinked(char)
-            ? 1
-            : 0
-        )
-        .attr("stroke-opacity", char => char.id === d.id || isLinked(char)
-            ? 1
-            : 0
-        );
+        .attr("fill-opacity", char => char.id === d.id || isLinked(char) ? 1 : 0 )
+        .attr("stroke-opacity", char => char.id === d.id || isLinked(char) ? 1 : 0 );
 
       selectAll(".arc-label")
         .transition(t)
-        .style("opacity", char => char.id === d.id || isLinked(char)
-            ? 1
-            : 0
-        )
+        .style("opacity", char => char.id === d.id || isLinked(char) ? 1 : 0 )
         .style("font-weight", char => char.id === d.id ? 700 : 400);
     })
     .on("mouseleave", (e, d) => {

@@ -29,13 +29,20 @@
   border-radius: 50%;
 }
 
-/* Adjacency matrix legend */
-.matrix-sidebar {
+/* Interactive legends */
+.matrix-sidebar,
+.network-sidebar {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   padding-left: 15px;
+  opacity: 1;
+  transition: opacity 250ms ease;
+}
+.matrix-tooltip.hidden,
+.network-sidebar.hidden {
+  opacity: 0;
 }
 .matrix-legend ul {
   margin: 0;
@@ -60,23 +67,9 @@
   margin-top: 20px;
   font-size: 2rem;
 }
-.matrix-tooltip.hidden {
-  opacity: 0;
-}
 .matrix-tooltip-charA,
 .matrix-tooltip-charB,
-.matrix-tooltip-scenes {
-  font-weight: 700;
-}
-
-/* Beeswarm legend */
-.beeswarm-legend {
-  margin-left: 100px;
-}
-.beeswarm-legend.hidden {
-  opacity: 0;
-}
-.beeswarm-legend .beeswarm-legend-name {
-  font-size: 2rem;
+.matrix-tooltip-scenes,
+.network-character {
   font-weight: 700;
 }

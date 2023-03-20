@@ -1,6 +1,7 @@
 import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide } from "d3-force";
 import { select, selectAll } from "d3-selection";
 import { min, max } from "d3-array";
+import { transition } from "d3-transition";
 import { getRadius, charColorScale, getEdgeColor } from "./scales";
 
 export const drawNetwork = (nodes, edges) => {
@@ -8,6 +9,7 @@ export const drawNetwork = (nodes, edges) => {
   const networkNodes = JSON.parse(JSON.stringify(nodes));
   const networkEdges = JSON.parse(JSON.stringify(edges));
   console.log("networkNodes", networkNodes);
+  console.log("networkEdges", networkEdges);
 
   // const nodeHash = networkNodes.reduce((hash, node) => {
   //   hash[node.id] = node;
@@ -22,8 +24,8 @@ export const drawNetwork = (nodes, edges) => {
   console.log("networkEdges", networkEdges);
 
   // Dimensions
-  const width = 1140;
-  const height = 800;
+  const width = 850;
+  const height = 600;
 
   // Append SVG container
   const svg = select("#network")
@@ -56,9 +58,7 @@ export const drawNetwork = (nodes, edges) => {
         d["radius"] = getRadius(maxLines, d.totalLines);
         return d.radius;
       })
-      .attr("fill", d => charColorScale(d.house))
-      .attr("stroke", "#FAFBFF")
-      .attr("stroke-width", 1);
+      .attr("fill", d => charColorScale(d.house));
 
   const updateNetwork = () => {
     selectAll(".network-link")
@@ -80,16 +80,16 @@ export const drawNetwork = (nodes, edges) => {
     .force("bounding", () => { // custom force to keep nodes in frame
       networkNodes.forEach(node => {
         if (node.x < -width/2 + node.radius) {
-          node.vx = 1;
+          node.vx = 5;
         }
         if (node.y < -height/2 + node.radius) {
-          node.vy = 1;
+          node.vy = 5;
         }
         if (node.x > width/2 - node.radius) {
-          node.vx = -1;
+          node.vx = -5;
         }
         if (node.y > height/2 - node.radius) {
-          node.vy = -1;
+          node.vy = -5;
         }
       });
     })
@@ -101,5 +101,46 @@ export const drawNetwork = (nodes, edges) => {
     .links(networkEdges);
 
 
+  // Interactions
+  selectAll(".network-node")
+    .on("mouseenter", (e, d) => {
+      console.log(d)
+      const t = transition()
+        .duration(150);
+
+      const isLinked = char => {
+        return networkEdges.find(edge => 
+          (edge.source.id === d.id && edge.target.id === char.id) || 
+          (edge.source.id === char.id && edge.target.id === d.id))
+            ? true
+            : false;
+      };
+
+      selectAll(".network-link")
+        .transition(t)
+        .attr("stroke-opacity", link => link.source.id === d.id || link.target.id === d.id ? 1 : 0);
+    
+      selectAll(".network-node")
+        .transition(t)
+        .attr("fill-opacity", char => char.id === d.id || isLinked(char) ? 1 : 0 );
+
+      select(".network-character")
+        .text(d.name);
+      select(".network-description")
+        .text(d.description);
+      select(".network-sidebar")
+        .classed("hidden", false);
+    })
+    .on("mouseleave", () => {
+
+      selectAll(".network-link")
+        .attr("stroke-opacity", 1);
+
+      selectAll(".network-node")
+        .attr("fill-opacity", 1);
+
+      select(".network-sidebar")
+        .classed("hidden", true);
+    });
 
 };

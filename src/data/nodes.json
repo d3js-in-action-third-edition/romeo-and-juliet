@@ -3,7 +3,7 @@
         "id": "prince",
         "name": "Prince Escalus",
         "house": "Ruling house of Verona",
-        "descrition": "Ruling Prince of Verona",
+        "description": "Ruling Prince of Verona",
         "totalLines": 76,
         "firstLineNumber": 88,
         "firstLine": "Rebellious subjects, enemies to peace,"
@@ -12,7 +12,7 @@
         "id": "paris",
         "name": "Count Paris",
         "house": "Ruling house of Verona",
-        "descrition": "Kinsman of Escalus who wishes to marry Juliet.",
+        "description": "Kinsman of Escalus who wishes to marry Juliet.",
         "totalLines": 70,
         "firstLineNumber": 256,
         "firstLine": "Of honourable reckoning are you both,"
@@ -21,7 +21,7 @@
         "id": "mercutio",
         "name": "Mercutio",
         "house": "Ruling house of Verona",
-        "descrition": "Another kinsman of Escalus, a friend of Romeo.",
+        "description": "Another kinsman of Escalus, a friend of Romeo.",
         "totalLines": 261,
         "firstLineNumber": 478,
         "firstLine": "Nay, gentle Romeo, we must have you dance."
@@ -38,7 +38,7 @@
         "id": "capulet",
         "name": "Capulet",
         "house": "House of Capulet",
-        "descrition": "Patriarch of the house of Capulet.",
+        "description": "Patriarch of the house of Capulet.",
         "totalLines": 273,
         "firstLineNumber": 82,
         "firstLine": "What noise is this? Give me my long sword, ho!"
@@ -47,7 +47,7 @@
         "id": "lady_capulet",
         "name": "Lady Capulet",
         "house": "House of Capulet",
-        "descrition": "Matriarch of the house of Capulet.",
+        "description": "Matriarch of the house of Capulet.",
         "totalLines": 115,
         "firstLineNumber": 83,
         "firstLine": "A crutch, a crutch! why call you for a sword?"
@@ -56,7 +56,7 @@
         "id": "juliet",
         "name": "Juliet Capulet",
         "house": "House of Capulet",
-        "descrition": "13-year-old daughter of Capulet, the play's female protagonist.",
+        "description": "13-year-old daughter of Capulet, the play's female protagonist.",
         "totalLines": 544,
         "firstLineNumber": 360,
         "firstLine": "How now! who calls?"
@@ -65,7 +65,7 @@
         "id": "tybalt",
         "name": "Tybalt",
         "house": "House of Capulet",
-        "descrition": "Cousin of Juliet, the nephew of Lady Capulet.",
+        "description": "Cousin of Juliet, the nephew of Lady Capulet.",
         "totalLines": 36,
         "firstLineNumber": 73,
         "firstLine": "What, art thou drawn among these heartless hinds?"

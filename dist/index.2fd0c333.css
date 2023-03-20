@@ -32,12 +32,18 @@
   top: 1px;
 }
 
-.matrix-sidebar {
+.matrix-sidebar, .network-sidebar {
   height: 100%;
+  opacity: 1;
   flex-direction: column;
   justify-content: center;
   padding-left: 15px;
+  transition: opacity .25s;
   display: flex;
+}
+
+.matrix-tooltip.hidden, .network-sidebar.hidden {
+  opacity: 0;
 }
 
 .matrix-legend ul {
@@ -68,24 +74,7 @@
   font-size: 2rem;
 }
 
-.matrix-tooltip.hidden {
-  opacity: 0;
-}
-
-.matrix-tooltip-charA, .matrix-tooltip-charB, .matrix-tooltip-scenes {
-  font-weight: 700;
-}
-
-.beeswarm-legend {
-  margin-left: 100px;
-}
-
-.beeswarm-legend.hidden {
-  opacity: 0;
-}
-
-.beeswarm-legend .beeswarm-legend-name {
-  font-size: 2rem;
+.matrix-tooltip-charA, .matrix-tooltip-charB, .matrix-tooltip-scenes, .network-character {
   font-weight: 700;
 }
 
