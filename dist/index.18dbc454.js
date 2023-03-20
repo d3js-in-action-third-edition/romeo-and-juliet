@@ -5473,7 +5473,7 @@ var _helper = require("./helper");
 const drawArcDiagram = (nodes, edges)=>{
     // Dimensions
     const width = 1140;
-    const height = 550;
+    const height = 400;
     const margin = {
         top: height - 200,
         right: 100,
@@ -5501,13 +5501,13 @@ const drawArcDiagram = (nodes, edges)=>{
     const svg = (0, _d3Selection.select)("#arc").append("svg").attr("viewBox", `0 0 ${width} ${height}`).append("g").attr("transform", `translate(${margin.left}, ${margin.top})`);
     // Append arcs
     const getArc = (d)=>{
-        const arcGenerator = (0, _d3Shape.line)().curve((0, _d3Shape.curveBasis));
+        const arcGenerator = (0, _d3Shape.line)().curve((0, _d3Shape.curveCardinal));
         const midX = (d.source.x + d.target.x) / 2;
-        const midY = -Math.abs((d.source.x - d.target.x) / 2) - 60;
+        const midY = -Math.abs((d.source.x - d.target.x) / 6);
         const path = arcGenerator([
             [
                 d.source.x,
-                -60
+                0
             ],
             [
                 midX,
@@ -5515,7 +5515,7 @@ const drawArcDiagram = (nodes, edges)=>{
             ],
             [
                 d.target.x,
-                -60
+                0
             ]
         ]);
         return path;
@@ -5531,10 +5531,15 @@ const drawArcDiagram = (nodes, edges)=>{
     // Add interactions
     (0, _d3Selection.selectAll)(".arc-node").on("mouseenter", (e, d)=>{
         const t = (0, _d3Transition.transition)().duration(150);
-        (0, _d3Selection.selectAll)(".arc-link").attr("stroke-opacity", (link)=>link.source.id === d.id || link.target.id === d.id ? 1 : 0);
-        (0, _d3Selection.selectAll)(".arc-label").style("opacity", (char)=>char.id === d.id || arcEdges.find((edge)=>edge.source.id === d.id && edge.target.id === char.id || edge.source.id === char.id && edge.target.id === d.id) ? 1 : 0).style("font-weight", (char)=>char.id === d.id ? 700 : 400);
+        const isLinked = (char)=>{
+            return arcEdges.find((edge)=>edge.source.id === d.id && edge.target.id === char.id || edge.source.id === char.id && edge.target.id === d.id) ? true : false;
+        };
+        (0, _d3Selection.selectAll)(".arc-link").transition(t).attr("stroke-opacity", (link)=>link.source.id === d.id || link.target.id === d.id ? 1 : 0);
+        (0, _d3Selection.selectAll)(".arc-node").transition(t).attr("fill-opacity", (char)=>char.id === d.id || isLinked(char) ? 1 : 0).attr("stroke-opacity", (char)=>char.id === d.id || isLinked(char) ? 1 : 0);
+        (0, _d3Selection.selectAll)(".arc-label").transition(t).style("opacity", (char)=>char.id === d.id || isLinked(char) ? 1 : 0).style("font-weight", (char)=>char.id === d.id ? 700 : 400);
     }).on("mouseleave", (e, d)=>{
         (0, _d3Selection.selectAll)(".arc-link").attr("stroke-opacity", 0.4);
+        (0, _d3Selection.selectAll)(".arc-node").attr("fill-opacity", 1).attr("stroke-opacity", 1);
         (0, _d3Selection.selectAll)(".arc-label").style("opacity", 1).style("font-weight", 400);
     });
 };
@@ -5705,7 +5710,7 @@ var _noneJsDefault1 = parcelHelpers.interopDefault(_noneJs1);
 var _reverseJs = require("./order/reverse.js");
 var _reverseJsDefault = parcelHelpers.interopDefault(_reverseJs);
 
-},{"./arc.js":false,"./area.js":false,"./line.js":"hTFAN","./pie.js":false,"./areaRadial.js":false,"./lineRadial.js":false,"./pointRadial.js":"gH3Nl","./link.js":false,"./symbol.js":false,"./symbol/asterisk.js":false,"./symbol/circle.js":false,"./symbol/cross.js":false,"./symbol/diamond.js":false,"./symbol/diamond2.js":false,"./symbol/plus.js":false,"./symbol/square.js":false,"./symbol/square2.js":false,"./symbol/star.js":false,"./symbol/triangle.js":false,"./symbol/triangle2.js":false,"./symbol/wye.js":false,"./symbol/times.js":false,"./curve/basisClosed.js":false,"./curve/basisOpen.js":false,"./curve/basis.js":"lmIyE","./curve/bump.js":"etTRy","./curve/bundle.js":false,"./curve/cardinalClosed.js":false,"./curve/cardinalOpen.js":false,"./curve/cardinal.js":"brZ6e","./curve/catmullRomClosed.js":false,"./curve/catmullRomOpen.js":false,"./curve/catmullRom.js":"j2hDs","./curve/linearClosed.js":false,"./curve/linear.js":"ajwdK","./curve/monotone.js":false,"./curve/natural.js":false,"./curve/step.js":false,"./stack.js":false,"./offset/expand.js":false,"./offset/diverging.js":false,"./offset/none.js":false,"./offset/silhouette.js":false,"./offset/wiggle.js":false,"./order/appearance.js":false,"./order/ascending.js":false,"./order/descending.js":false,"./order/insideOut.js":false,"./order/none.js":false,"./order/reverse.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"hTFAN":[function(require,module,exports) {
+},{"./arc.js":false,"./area.js":false,"./line.js":"hTFAN","./pie.js":false,"./areaRadial.js":false,"./lineRadial.js":false,"./pointRadial.js":"gH3Nl","./link.js":false,"./symbol.js":false,"./symbol/asterisk.js":false,"./symbol/circle.js":false,"./symbol/cross.js":false,"./symbol/diamond.js":false,"./symbol/diamond2.js":false,"./symbol/plus.js":false,"./symbol/square.js":false,"./symbol/square2.js":false,"./symbol/star.js":false,"./symbol/triangle.js":false,"./symbol/triangle2.js":false,"./symbol/wye.js":false,"./symbol/times.js":false,"./curve/basisClosed.js":false,"./curve/basisOpen.js":false,"./curve/basis.js":"lmIyE","./curve/bump.js":"etTRy","./curve/bundle.js":false,"./curve/cardinalClosed.js":false,"./curve/cardinalOpen.js":"avKmC","./curve/cardinal.js":"brZ6e","./curve/catmullRomClosed.js":false,"./curve/catmullRomOpen.js":"4v2qz","./curve/catmullRom.js":"j2hDs","./curve/linearClosed.js":false,"./curve/linear.js":"ajwdK","./curve/monotone.js":false,"./curve/natural.js":false,"./curve/step.js":false,"./stack.js":false,"./offset/expand.js":false,"./offset/diverging.js":false,"./offset/none.js":false,"./offset/silhouette.js":false,"./offset/wiggle.js":false,"./order/appearance.js":false,"./order/ascending.js":false,"./order/descending.js":false,"./order/insideOut.js":false,"./order/none.js":false,"./order/reverse.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"hTFAN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _arrayJs = require("./array.js");
@@ -6085,7 +6090,64 @@ function bumpRadial(context) {
     return new BumpRadial(context);
 }
 
-},{"../pointRadial.js":"gH3Nl","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"brZ6e":[function(require,module,exports) {
+},{"../pointRadial.js":"gH3Nl","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"avKmC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CardinalOpen", ()=>CardinalOpen);
+var _cardinalJs = require("./cardinal.js");
+function CardinalOpen(context, tension) {
+    this._context = context;
+    this._k = (1 - tension) / 6;
+}
+CardinalOpen.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._x2 = this._y0 = this._y1 = this._y2 = NaN;
+        this._point = 0;
+    },
+    lineEnd: function() {
+        if (this._line || this._line !== 0 && this._point === 3) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                break;
+            case 1:
+                this._point = 2;
+                break;
+            case 2:
+                this._point = 3;
+                this._line ? this._context.lineTo(this._x2, this._y2) : this._context.moveTo(this._x2, this._y2);
+                break;
+            case 3:
+                this._point = 4; // falls through
+            default:
+                (0, _cardinalJs.point)(this, x, y);
+                break;
+        }
+        this._x0 = this._x1, this._x1 = this._x2, this._x2 = x;
+        this._y0 = this._y1, this._y1 = this._y2, this._y2 = y;
+    }
+};
+exports.default = function custom(tension) {
+    function cardinal(context) {
+        return new CardinalOpen(context, tension);
+    }
+    cardinal.tension = function(tension) {
+        return custom(+tension);
+    };
+    return cardinal;
+}(0);
+
+},{"./cardinal.js":"brZ6e","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"brZ6e":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "point", ()=>point);
@@ -6151,7 +6213,70 @@ exports.default = function custom(tension) {
     return cardinal;
 }(0);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"j2hDs":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"4v2qz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _cardinalOpenJs = require("./cardinalOpen.js");
+var _catmullRomJs = require("./catmullRom.js");
+function CatmullRomOpen(context, alpha) {
+    this._context = context;
+    this._alpha = alpha;
+}
+CatmullRomOpen.prototype = {
+    areaStart: function() {
+        this._line = 0;
+    },
+    areaEnd: function() {
+        this._line = NaN;
+    },
+    lineStart: function() {
+        this._x0 = this._x1 = this._x2 = this._y0 = this._y1 = this._y2 = NaN;
+        this._l01_a = this._l12_a = this._l23_a = this._l01_2a = this._l12_2a = this._l23_2a = this._point = 0;
+    },
+    lineEnd: function() {
+        if (this._line || this._line !== 0 && this._point === 3) this._context.closePath();
+        this._line = 1 - this._line;
+    },
+    point: function(x, y) {
+        x = +x, y = +y;
+        if (this._point) {
+            var x23 = this._x2 - x, y23 = this._y2 - y;
+            this._l23_a = Math.sqrt(this._l23_2a = Math.pow(x23 * x23 + y23 * y23, this._alpha));
+        }
+        switch(this._point){
+            case 0:
+                this._point = 1;
+                break;
+            case 1:
+                this._point = 2;
+                break;
+            case 2:
+                this._point = 3;
+                this._line ? this._context.lineTo(this._x2, this._y2) : this._context.moveTo(this._x2, this._y2);
+                break;
+            case 3:
+                this._point = 4; // falls through
+            default:
+                (0, _catmullRomJs.point)(this, x, y);
+                break;
+        }
+        this._l01_a = this._l12_a, this._l12_a = this._l23_a;
+        this._l01_2a = this._l12_2a, this._l12_2a = this._l23_2a;
+        this._x0 = this._x1, this._x1 = this._x2, this._x2 = x;
+        this._y0 = this._y1, this._y1 = this._y2, this._y2 = y;
+    }
+};
+exports.default = function custom(alpha) {
+    function catmullRom(context) {
+        return alpha ? new CatmullRomOpen(context, alpha) : new (0, _cardinalOpenJs.CardinalOpen)(context, 0);
+    }
+    catmullRom.alpha = function(alpha) {
+        return custom(+alpha);
+    };
+    return catmullRom;
+}(0.5);
+
+},{"./cardinalOpen.js":"avKmC","./catmullRom.js":"j2hDs","@parcel/transformer-js/src/esmodule-helpers.js":"fD7H8"}],"j2hDs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "point", ()=>point);

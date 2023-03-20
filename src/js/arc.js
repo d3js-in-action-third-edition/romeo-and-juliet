@@ -1,6 +1,6 @@
 import { select, selectAll } from "d3-selection";
 import { max, min } from "d3-array";
-import { line, curveBasis } from "d3-shape";
+import { line, curveCardinal } from "d3-shape";
 import { transition } from "d3-transition";
 import { getRadius, charColorScale, getEdgeColor } from "./scales";
 import { houses } from "./helper";
@@ -9,7 +9,7 @@ export const drawArcDiagram = (nodes, edges) => {
 
   // Dimensions
   const width = 1140;
-  const height = 550;
+  const height = 400;
   const margin = { top: height - 200, right: 100, bottom: 0, left: 100 };
   const innerWidth = width - margin.right - margin.left;
 
@@ -41,13 +41,14 @@ export const drawArcDiagram = (nodes, edges) => {
 
   // Append arcs
   const getArc = d => {
-    const arcGenerator = line().curve(curveBasis);
+    const arcGenerator = line().curve(curveCardinal);
     const midX = (d.source.x + d.target.x) / 2;
-    const midY = -Math.abs((d.source.x - d.target.x) / 2) - 60;
-    const path = arcGenerator([[d.source.x, -60], [midX, midY], [d.target.x, -60]]);
+    const midY = -Math.abs((d.source.x - d.target.x) / 6);
+    const path = arcGenerator([[d.source.x, 0], [midX, midY], [d.target.x, 0]]);
 
     return path;
   };
+
   const minWeight = min(edges, d => d.weight);
   const maxWeight = max(edges, d => d.weight);
   svg
@@ -95,13 +96,33 @@ export const drawArcDiagram = (nodes, edges) => {
     .on("mouseenter", (e, d) => {
       const t = transition()
         .duration(150);
+
+      const isLinked = char => {
+        return arcEdges.find(edge => 
+          (edge.source.id === d.id && edge.target.id === char.id) || 
+          (edge.source.id === char.id && edge.target.id === d.id))
+            ? true
+            : false;
+      };
       
       selectAll(".arc-link")
+        .transition(t)
         .attr("stroke-opacity", link => link.source.id === d.id || link.target.id === d.id ? 1 : 0);
       
+      selectAll(".arc-node")
+        .transition(t)
+        .attr("fill-opacity", char => char.id === d.id || isLinked(char)
+            ? 1
+            : 0
+        )
+        .attr("stroke-opacity", char => char.id === d.id || isLinked(char)
+            ? 1
+            : 0
+        );
+
       selectAll(".arc-label")
-        .style("opacity", char => char.id === d.id || arcEdges.find(edge => 
-          (edge.source.id === d.id && edge.target.id === char.id) || (edge.source.id === char.id && edge.target.id === d.id))
+        .transition(t)
+        .style("opacity", char => char.id === d.id || isLinked(char)
             ? 1
             : 0
         )
@@ -110,6 +131,10 @@ export const drawArcDiagram = (nodes, edges) => {
     .on("mouseleave", (e, d) => {
       selectAll(".arc-link")
         .attr("stroke-opacity", 0.4);
+
+      selectAll(".arc-node")
+        .attr("fill-opacity", 1)
+        .attr("stroke-opacity", 1);
 
       selectAll(".arc-label")
         .style("opacity", 1)

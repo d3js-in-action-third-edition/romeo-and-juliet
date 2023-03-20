@@ -5,7 +5,7 @@
 }
 .legend {
   align-self: flex-end;
-  bottom: 2rem;
+  bottom: 10rem;
   position: -webkit-sticky;
   position: sticky;
 }
