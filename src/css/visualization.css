@@ -1,4 +1,14 @@
 /* Color Legend */
+.legend-container {
+  display: flex;
+  height: 100%;
+}
+.legend {
+  align-self: flex-end;
+  bottom: 2rem;
+  position: -webkit-sticky;
+  position: sticky;
+}
 .legend-houses ul {
   margin: 0;
   padding-left: 0;

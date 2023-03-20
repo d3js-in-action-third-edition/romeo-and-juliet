@@ -1,3 +1,14 @@
+.legend-container {
+  height: 100%;
+  display: flex;
+}
+
+.legend {
+  align-self: flex-end;
+  position: sticky;
+  bottom: 2rem;
+}
+
 .legend-houses ul {
   margin: 0;
   padding-left: 0;

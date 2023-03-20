@@ -10,77 +10,76 @@
 <body>
 	<div class="container">
 
-		<h1>Romeo and Juliet</h1>
-		<div class="intro">Add main intro here</div>
-		<div class="intro">
-			<div class="row">
-				<div class="col col-9">
-					<p></p>
-				</div>
-			</div>
-		</div>
 		<section>
-			<h2>Adjacency Matrix</h2>
-			<div class="intro">Add section intro here</div>
 			<div class="row">
-				<div class="col col-9">
-					<div id="matrix"></div>
-				</div>
-				<div class="col col-3">
-					<div class="matrix-sidebar">
-						<h3>Number of shared scenes</h3>
-						<div class="matrix-legend"></div>
-						<div class="matrix-tooltip hidden">
-							<span class="matrix-tooltip-charA"></span>
-							and
-							<span class="matrix-tooltip-charB"></span>
-							appear together in
-							<span class="matrix-tooltip-scenes"></span>
-							scenes
+				<div class="col col-9 offset-3">
+					<h1>Romeo and Juliet</h1>
+					<div class="intro">Add main intro here</div>
+					<h2>Adjacency Matrix</h2>
+					<div class="intro">Add section intro here</div>
+					<div class="row">
+						<div class="col col-9">
+							<div id="matrix"></div>
+						</div>
+						<div class="col col-3">
+							<div class="matrix-sidebar">
+								<h3>Number of shared scenes</h3>
+								<div class="matrix-legend"></div>
+								<div class="matrix-tooltip hidden">
+									<span class="matrix-tooltip-charA"></span>
+									and
+									<span class="matrix-tooltip-charB"></span>
+									appear together in
+									<span class="matrix-tooltip-scenes"></span>
+									scenes
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section>
-			<h2>Characters Legend</h2>
-			<div class="legend">
-				<div class="row">
-					<div class="col col-4">
-						<h3>Houses</h3>
-						<div class="legend-houses"></div>
-					</div>
-					<div class="col col-4">
-						<h3>Number of lines in the play</h3>
-						<div class="legend-radius"></div>
+		<div class="row">
+			<div class="col col-3">
+				<div class="legend-container">
+					<div class="legend">
+						<h2>Characters Legend</h2>
+						<div class="legend-section">
+							<h3>Houses</h3>
+							<div class="legend-houses"></div>
+						</div>
+						<div class="legend-section">
+							<h3>Number of lines in the play</h3>
+							<div class="legend-radius"></div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-		<section>
-			<h2>Arc Diagram</h2>
-			<div class="intro">Add intro here</div>
-			<div id="arc"></div>
-		</section>
-		<section>
-			<h2>Force-directed Layout</h2>
-			<h3>Beeswarm</h3>
-			<p class="intro">Each character is a circle. The horizontal position of each characters represents their first line in the play. The circles' size is proportional to the total number of lines for each character.</p>
-			<div id="beeswarm"></div>
-			<div class="beeswarm-legend hidden">
-				<div class="beeswarm-legend-name"></div>
-				<div class="beeswarm-legend-description"></div>
-				<div class="beeswarm-legend-line">
-					<span class="legend-label">First line:</span>
-					<span class="legend-line"></span>
-				</div>
+			<div class="col col-9">
+				<section>
+					<h2>Arc Diagram</h2>
+					<div class="intro">Add intro here</div>
+					<div id="arc"></div>
+				</section>
+				<section>
+					<h2>Force-directed Layout</h2>
+					<h3>Beeswarm</h3>
+					<p class="intro">Each character is a circle. The horizontal position of each characters represents their first line in the play. The circles' size is proportional to the total number of lines for each character.</p>
+					<div id="beeswarm"></div>
+					<div class="beeswarm-legend hidden">
+						<div class="beeswarm-legend-name"></div>
+						<div class="beeswarm-legend-description"></div>
+						<div class="beeswarm-legend-line">
+							<span class="legend-label">First line:</span>
+							<span class="legend-line"></span>
+						</div>
+					</div>
+					<h3>Network</h3>
+					<div class="intro">Add section intro here</div>
+					<div id="network"></div>
+				</section>
 			</div>
-			<h3>Network</h3>
-			<div class="intro">Add section intro here</div>
-			<div id="network"></div>
-		</section>
-		
-		
+		</div>
 
 		<div class="source">
 			<h3>Data sources</h3>
