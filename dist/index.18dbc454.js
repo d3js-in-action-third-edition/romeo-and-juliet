@@ -6446,11 +6446,11 @@ const drawBeeswarm = (nodes)=>{
     svg.selectAll(".beeswarm-circle").data(characters)// .data(sampleNodes)
     .join("circle").attr("class", "beeswarm-circle")// .attr("cx", d => xScale(d.firstLineNumber))
     // .attr("cx", d => xScale(d.value))
-    .attr("cx", 0).attr("cy", 0).attr("r", 8)// .attr("r", d => {
-    //   d["radius"] = getRadius(maxLines, d.totalLines);
-    //   return d.radius;
-    // })
-    .attr("fill", (d)=>(0, _scales.charColorScale)(d.house));
+    .attr("cx", 0).attr("cy", 0)// .attr("r", 8)
+    .attr("r", (d)=>{
+        d["radius"] = (0, _scales.getRadius)(maxLines, d.totalLines);
+        return d.radius;
+    }).attr("fill", (d)=>(0, _scales.charColorScale)(d.house));
     // .attr("fill", "#474973")
     // .attr("stroke", "#FAFBFF")
     // .attr("stroke-width", 1);
@@ -6497,7 +6497,12 @@ const drawBeeswarm = (nodes)=>{
     //   .nodes(characters)
     //   .on("tick", updateNetwork);
     // Many-body force
-    const simulation = (0, _d3Force.forceSimulation)().force("charge", (0, _d3Force.forceManyBody)().strength(10)).nodes(characters).on("tick", updateNetwork);
+    // const simulation = forceSimulation()
+    //   .force("charge", forceManyBody().strength(10))
+    //   .nodes(characters)
+    //   .on("tick", updateNetwork);
+    // Final
+    const simulation = (0, _d3Force.forceSimulation)().force("y", (0, _d3Force.forceY)(0)).force("collide", (0, _d3Force.forceCollide)().radius((d)=>d.radius + 2)).nodes(characters).on("tick", updateNetwork);
 // const simulation = forceSimulation()
 //   .force("x", forceX(d => xScale(d.firstLineNumber)).strength(1) )
 //   .force("y", forceY().strength(0.1) )

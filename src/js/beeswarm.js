@@ -54,11 +54,11 @@ export const drawBeeswarm = (nodes) => {
       // .attr("cx", d => xScale(d.value))
       .attr("cx", 0)
       .attr("cy", 0)
-      .attr("r", 8)
-      // .attr("r", d => {
-      //   d["radius"] = getRadius(maxLines, d.totalLines);
-      //   return d.radius;
-      // })
+      // .attr("r", 8)
+      .attr("r", d => {
+        d["radius"] = getRadius(maxLines, d.totalLines);
+        return d.radius;
+      })
       .attr("fill", d => charColorScale(d.house))
       // .attr("fill", "#474973")
       // .attr("stroke", "#FAFBFF")
@@ -117,8 +117,15 @@ export const drawBeeswarm = (nodes) => {
   //   .on("tick", updateNetwork);
 
   // Many-body force
+  // const simulation = forceSimulation()
+  //   .force("charge", forceManyBody().strength(10))
+  //   .nodes(characters)
+  //   .on("tick", updateNetwork);
+
+  // Final
   const simulation = forceSimulation()
-    .force("charge", forceManyBody().strength(10))
+    .force("y", forceY(0) )
+    .force("collide", forceCollide().radius(d => d.radius + 2) )
     .nodes(characters)
     .on("tick", updateNetwork);
 
