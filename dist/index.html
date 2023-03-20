@@ -14,9 +14,9 @@
 			<div class="row">
 				<div class="col col-9 offset-3">
 					<h1>Romeo and Juliet</h1>
-					<div class="intro">Add main intro here</div>
+					<div class="intro">Romeo and Juliet is a play written by William Shakespeare about the tragic romance between two Italian teenagers from enemy families. In this project, we investigate how the characters share scenes during the play. Throughout these network visualizations, the characters are the nodes, and we use the number of scenes they share to create the edges or links between them.</div>
 					<h2>Adjacency Matrix</h2>
-					<div class="intro">Add section intro here</div>
+					<div class="intro">In an adjacency matrix, the nodes are positioned along the x-axis and once again along the y-axis. If a node from the x-axis is connected to a node from the y-axis, the corresponding grid square is filled. Otherwise, it is left blank. We also use the opacity of the grid squares to indicate how many scenes two characters share.</div>
 					<div class="row">
 						<div class="col col-9">
 							<div id="matrix"></div>
@@ -58,24 +58,16 @@
 			<div class="col col-9">
 				<section>
 					<h2>Arc Diagram</h2>
-					<div class="intro">Add intro here</div>
+					<div class="intro">Another way to graphically represent networks is by using an arc diagram. An arc diagram arranges the nodes along a line and draws the links as arcs above and/or below that line. The width of a link can also represent the strength of a connection.</div>
 					<div id="arc"></div>
 				</section>
 				<section>
 					<h2>Force-directed Layout</h2>
 					<h3>Beeswarm</h3>
-					<p class="intro">Each character is a circle. The horizontal position of each characters represents their first line in the play. The circles' size is proportional to the total number of lines for each character.</p>
+					<p class="intro">A beeswarm is a form of network visualization where we present the nodes as a cluster and omit the links. The position of the nodes sometimes visualizes a specific value, making them especially useful for distributions.</p>
 					<div id="beeswarm"></div>
-					<div class="beeswarm-legend hidden">
-						<div class="beeswarm-legend-name"></div>
-						<div class="beeswarm-legend-description"></div>
-						<div class="beeswarm-legend-line">
-							<span class="legend-label">First line:</span>
-							<span class="legend-line"></span>
-						</div>
-					</div>
 					<h3>Network</h3>
-					<div class="intro">Add section intro here</div>
+					<div class="intro">In this network visualization, each character is represented by a circle. The size of the circles is proportional to the number of lines the character has in the play. When two characters share at least one scene, we draw a link between them. The stronger the link, the closer the nodes are.</div>
 					<div class="row">
 						<div class="col col-9">
 							<div id="network"></div>
