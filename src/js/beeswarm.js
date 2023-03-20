@@ -12,7 +12,7 @@ export const drawBeeswarm = (nodes) => {
   console.log("characters", characters);
 
   const sampleArray = range(300);
-  sampleNodes = [];
+  const sampleNodes = [];
   sampleArray.forEach(() => {
     const randomNumberGenerator = randomNormal();
     sampleNodes.push({ value: randomNumberGenerator() * 10 });
