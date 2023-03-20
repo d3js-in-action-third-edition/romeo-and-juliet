@@ -57,7 +57,7 @@ export const drawArcDiagram = (nodes, edges) => {
     .join("path")
       .attr("class", "arc-link")
       .attr("d", d => getArc(d))
-      .attr("fill", "transparent")
+      .attr("fill", "none")
       .attr("stroke", d => getEdgeColor(minWeight, maxWeight, d.weight))
       .attr("stroke-width", d => d.weight)
       .attr("stroke-opacity", 0.4)
