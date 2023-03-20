@@ -73,10 +73,26 @@ export const drawNetwork = (nodes, edges) => {
   };
 
   const simulation = forceSimulation()
-    .force("charge", forceManyBody().strength(-800))
+    .force("charge", forceManyBody().strength(-1000))
     .force("collide", forceCollide().radius(d => d.radius + 2) )
     .force("center", forceCenter().x(0).y(0))
-    .force("link", forceLink().id(d => d.id))
+    .force("link", forceLink().id(d => d.id).strength(d => d.weight/10))
+    .force("bounding", () => { // custom force to keep nodes in frame
+      networkNodes.forEach(node => {
+        if (node.x < -width/2 + node.radius) {
+          node.vx = 1;
+        }
+        if (node.y < -height/2 + node.radius) {
+          node.vy = 1;
+        }
+        if (node.x > width/2 - node.radius) {
+          node.vx = -1;
+        }
+        if (node.y > height/2 - node.radius) {
+          node.vy = -1;
+        }
+      });
+    })
     .nodes(networkNodes)
     .on("tick", updateNetwork);
 

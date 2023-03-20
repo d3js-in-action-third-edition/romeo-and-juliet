@@ -11,8 +11,21 @@ export const drawMatrix = (nodes, edges) => {
   // Create the data matrix
   const edgeHash = {};
   edges.forEach(edge => {
-    const id = `${edge.source}-${edge.target}`;
-    edgeHash[id] = edge;
+    const link1 = {
+      source: edge.source,
+      target: edge.target,
+      weight: edge.weight
+    };
+    const id1 = `${edge.source}-${edge.target}`;
+    edgeHash[id1] = link1;
+    
+    const link2 = {
+      source: edge.target,
+      target: edge.source,
+      weight: edge.weight
+    };
+    const id2 = `${edge.target}-${edge.source}`;
+    edgeHash[id2] = link2;
   });
   console.log("edgeHash", edgeHash);
 
@@ -27,8 +40,8 @@ export const drawMatrix = (nodes, edges) => {
           id: id,
           source: charA.id,
           target: charB.id,
-          cx: i * (itemWidth + padding) + itemWidth / 2,
-          cy: j * (itemWidth + padding) + itemWidth / 2
+          x: i * (itemWidth + padding),
+          y: j * (itemWidth + padding)
         };
         if (edgeHash[id]) {
           item["weight"] = edgeHash[id].weight;
@@ -61,11 +74,12 @@ export const drawMatrix = (nodes, edges) => {
   svg
     .selectAll(".matrix-dot")
     .data(matrix)
-    .join("circle")
+    .join("rect")
       .attr("class", "matrix-dot")
-      .attr("cx", d => d.cx)
-      .attr("cy", d => d.cy)
-      .attr("r", itemWidth / 2)
+      .attr("x", d => d.x)
+      .attr("y", d => d.y)
+      .attr("width", itemWidth)
+      .attr("height", itemWidth)
       .attr("fill", d => d.weight ? getEdgeColor(minWeight, maxWeight, d.weight) : "white");
 
   // Append labels
@@ -80,7 +94,7 @@ export const drawMatrix = (nodes, edges) => {
       .attr("dominant-baseline", "middle")
       .text(d => d.name)
       .style("font-size", "13px");
-  svg
+  svg // Shouldn't that be done with a scale?
     .selectAll(".label-top")
     .data(nodes)
     .join("text")

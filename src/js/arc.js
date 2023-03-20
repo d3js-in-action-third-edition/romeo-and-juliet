@@ -9,7 +9,7 @@ export const drawArcDiagram = (nodes, edges) => {
 
   // Dimensions
   const width = 1140;
-  const height = 500;
+  const height = 550;
   const margin = { top: height - 200, right: 100, bottom: 0, left: 100 };
   const innerWidth = width - margin.right - margin.left;
 
@@ -43,8 +43,8 @@ export const drawArcDiagram = (nodes, edges) => {
   const getArc = d => {
     const arcGenerator = line().curve(curveBasis);
     const midX = (d.source.x + d.target.x) / 2;
-    const midY = -Math.abs((d.source.x - d.target.x) / 2);
-    const path = arcGenerator([[d.source.x, 0], [midX, midY], [d.target.x, 0]]);
+    const midY = -Math.abs((d.source.x - d.target.x) / 2) - 60;
+    const path = arcGenerator([[d.source.x, -60], [midX, midY], [d.target.x, -60]]);
 
     return path;
   };
@@ -59,7 +59,8 @@ export const drawArcDiagram = (nodes, edges) => {
       .attr("fill", "transparent")
       .attr("stroke", d => getEdgeColor(minWeight, maxWeight, d.weight))
       .attr("stroke-width", d => d.weight)
-      .attr("stroke-opacity", 0);
+      .attr("stroke-opacity", 0.4)
+      .attr("stroke-linecap", "round");
 
   // Append nodes
   const maxLines = max(arcNodes, d => d.totalLines);
@@ -108,7 +109,7 @@ export const drawArcDiagram = (nodes, edges) => {
     })
     .on("mouseleave", (e, d) => {
       selectAll(".arc-link")
-        .attr("stroke-opacity", 0);
+        .attr("stroke-opacity", 0.4);
 
       selectAll(".arc-label")
         .style("opacity", 1)

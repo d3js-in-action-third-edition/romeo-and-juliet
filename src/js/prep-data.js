@@ -65,20 +65,23 @@ export const prepData = () => {
       sceneCharacters.forEach(source => {
         sceneCharacters.forEach(target => {
           if (source !== target) {
-            if (!edges.find(e => e.source === source && e.target === target)) {
+            if (!edges.find(e => (e.source === source && e.target === target) || (e.source === target && e.target === source))) {
               edges.push({
                 source: source,
                 target: target,
                 weight: 1
               });
             } else {
-              const edge = edges.find(e => e.source === source && e.target === target);
+              const edge = edges.find(e => (e.source === source && e.target === target) || (e.source === target && e.target === source));
               edge.weight += 1;
             }
           }
         });
       });
     }
+  });
+  edges.forEach(edge => {
+    edge.weight = edge.weight / 2;
   });
   console.log("edges original", edges);
 
