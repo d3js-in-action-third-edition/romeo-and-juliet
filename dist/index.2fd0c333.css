@@ -32,6 +32,12 @@
   top: 1px;
 }
 
+@media screen and (max-width: 768px) {
+  .legend-radius svg {
+    width: 100px;
+  }
+}
+
 .matrix-sidebar, .network-sidebar {
   height: 100%;
   opacity: 1;

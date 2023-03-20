@@ -596,7 +596,7 @@ const createLegend = ()=>{
     const maxRadius = (0, _scales.getRadius)(linesMax, linesMax);
     const mediumRadius = (0, _scales.getRadius)(linesMax, linesMedium);
     const minRadius = (0, _scales.getRadius)(linesMax, linesMin);
-    const legendRadius = (0, _d3Selection.select)(".legend-radius").append("svg").attr("width", 260).attr("height", 200).append("g").attr("transform", "translate(1, 10)");
+    const legendRadius = (0, _d3Selection.select)(".legend-radius").append("svg").attr("viewBox", "0 0 260 200").append("g").attr("transform", "translate(1, 10)");
     const legendCircles = legendRadius.append("g").attr("fill", "transparent").attr("stroke", "#272626");
     legendCircles.append("circle").attr("cx", maxRadius).attr("cy", maxRadius).attr("r", maxRadius);
     legendCircles.append("circle").attr("cx", maxRadius).attr("cy", 2 * maxRadius - mediumRadius).attr("r", mediumRadius);

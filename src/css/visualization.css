@@ -28,6 +28,11 @@
   margin-right: 7px;
   border-radius: 50%;
 }
+@media screen and (max-width: 768px) {
+  .legend-radius svg {
+    width: 100px;
+  }
+}
 
 /* Interactive legends */
 .matrix-sidebar,

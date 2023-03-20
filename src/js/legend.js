@@ -32,8 +32,7 @@ export const createLegend = () => {
   const minRadius = getRadius(linesMax, linesMin);
   const legendRadius = select(".legend-radius")
     .append("svg")
-      .attr("width", 260)
-      .attr("height", 200)
+      .attr("viewBox", "0 0 260 200")
     .append("g")
       .attr("transform", "translate(1, 10)");
   const legendCircles = legendRadius 
