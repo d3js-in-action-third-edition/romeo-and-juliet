@@ -9,14 +9,6 @@ export const getRadius = (maxLines, lines) => {
   return radialScale(lines);
 };
 
-export const charColorScale = scaleOrdinal()
+export const colorScale = scaleOrdinal()
   .domain(houses.map(h => h.house))
   .range(houses.map(h => h.color));
-
-export const getEdgeColor = (minWeight, maxWeight, weight) => {
-  const edgeColorScale = scaleLinear()
-    .domain([minWeight, maxWeight])
-    .range(["#C3D2DB", "#364652"]);
-
-  return edgeColorScale(weight);
-}; 

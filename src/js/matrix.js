@@ -1,16 +1,17 @@
 import { select, selectAll } from "d3-selection";
-import { min, max, range } from "d3-array";
+import { max, range } from "d3-array";
+import { scaleLinear } from "d3-scale";
 import { transition } from "d3-transition";
-import { getEdgeColor } from "./scales";
 
 export const drawMatrix = (nodes, edges) => {
 
   // Order characters (nodes) by number of lines
-  nodes.sort((a, b) => b.totalLines - a.totalLines);
-  
-  // Create the data matrix
+  nodes.sort((a, b) => b.totalLinesNumber - a.totalLinesNumber);
+
+  // Prepare the data matrix
   const edgeHash = {};
   edges.forEach(edge => {
+
     const link1 = {
       source: edge.source,
       target: edge.target,
@@ -26,11 +27,12 @@ export const drawMatrix = (nodes, edges) => {
     };
     const id2 = `${edge.target}-${edge.source}`;
     edgeHash[id2] = link2;
+
   });
   console.log("edgeHash", edgeHash);
 
   const matrix = [];
-  const itemWidth = 16;
+  const squareWidth = 16;
   const padding = 2;
   nodes.forEach((charA, i) => {
     nodes.forEach((charB, j) => {
@@ -40,9 +42,10 @@ export const drawMatrix = (nodes, edges) => {
           id: id,
           source: charA.id,
           target: charB.id,
-          x: i * (itemWidth + padding),
-          y: j * (itemWidth + padding)
+          x: i * (squareWidth + padding),
+          y: j * (squareWidth + padding)
         };
+
         if (edgeHash[id]) {
           item["weight"] = edgeHash[id].weight;
           matrix.push(item)
@@ -54,8 +57,8 @@ export const drawMatrix = (nodes, edges) => {
 
 
   // Dimensions
-  const innerWidth = nodes.length * (itemWidth + padding);
-  const innerHeight = nodes.length * (itemWidth + padding);
+  const innerWidth = nodes.length * (squareWidth + padding);
+  const innerHeight = nodes.length * (squareWidth + padding);
   const margin = { top: 130, right: 0, bottom: 0, left: 130 };
   const width = innerWidth + margin.right + margin.left;
   const height = innerHeight + margin.top + margin.bottom;
@@ -68,78 +71,82 @@ export const drawMatrix = (nodes, edges) => {
     .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  // Append matrix dots
-  const minWeight = min(edges, d => d.weight);
+    
+  // Append the grid squares
   const maxWeight = max(edges, d => d.weight);
+  const opacityScale = scaleLinear()
+    .domain([0, maxWeight])
+    .range([0, 1]);
   svg
-    .selectAll(".matrix-dot")
+    .selectAll(".grid-quare")
     .data(matrix)
     .join("rect")
-      .attr("class", "matrix-dot")
+      .attr("class", "grid-quare")
       .attr("x", d => d.x)
       .attr("y", d => d.y)
-      .attr("width", itemWidth)
-      .attr("height", itemWidth)
-      .attr("fill", d => d.weight ? getEdgeColor(minWeight, maxWeight, d.weight) : "white");
+      .attr("width", squareWidth)
+      .attr("height", squareWidth)
+      .attr("fill", "#364652")
+      .attr("fill-opacity", d => opacityScale(d.weight));
 
-  // Append labels
-  svg
-    .selectAll(".label-left")
+
+  // Append the labels
+  const labelsContainer = svg
+    .selectAll(".matrix-label")
     .data(nodes)
-    .join("text")
-      .attr("class", "label-left")
-      .attr("x", -8)
-      .attr("y", (d, i) => i * (itemWidth + padding) + itemWidth / 2)
-      .attr("text-anchor", "end")
+    .join("g")
+      .attr("class", "matrix-label")
       .attr("dominant-baseline", "middle")
-      .text(d => d.name)
       .style("font-size", "13px");
-  svg // Shouldn't that be done with a scale?
-    .selectAll(".label-top")
-    .data(nodes)
-    .join("text")
+
+  labelsContainer
+    .append("text")
       .attr("class", "label-top")
-      .attr("dominant-baseline", "middle")
-      .attr("transform", (d, i) => `translate(${i * (itemWidth + padding) + itemWidth / 2}, -8) rotate(-90)`)
-      .text(d => d.name)
-      .style("font-size", "13px");
+      .attr("x", -8)
+      .attr("y", (d, i) => i * (squareWidth + padding) + squareWidth / 2)
+      .attr("text-anchor", "end")
+      .text(d => d.name);
+      
+  labelsContainer
+    .append("text")
+      .attr("class", "label-left")
+      .attr("transform", (d, i) => `translate(${i * (squareWidth + padding) + squareWidth / 2}, -8) rotate(-90)`)
+      .text(d => d.name);
 
 
-  // Add legend
-  const weights = range(minWeight, maxWeight + 1);
+  // Add a legend for the opacity of the squares
+  const weights = range(1, maxWeight + 1);
+
   const legend = select(".matrix-legend")
     .append("ul")
-    .selectAll(".legend-color")
+    .selectAll(".legend-color-item")
     .data(weights)
     .join("li")
-      .attr("class", "legend-color");
+      .attr("class", "legend-color-item");
   legend
     .append("div")
-      .attr("class", "legend-color-circle")
-      .style("background-color", d => getEdgeColor(minWeight, maxWeight, d));
+      .attr("class", "legend-color")
+      .style("background-color", "#364652")
+      .style("opacity", d => opacityScale(d));
   legend
     .append("div")
       .attr("class", "legend-color-label")
       .text(d => d);
 
 
-  // Interaction - Mouse over dot
-  selectAll(".matrix-dot")
+  // Add mouse interaction
+  selectAll(".grid-quare")
     .on("mouseenter", (e, d) => {
       const t = transition()
         .duration(150);
-      
-      selectAll(".matrix-dot")
-        .transition(t)
-        .attr("fill-opacity", dot => dot.id === d.id ? 1 : 0.1);
-
-      selectAll(".label-top")
-        .transition(t)
-        .style("opacity", label => label.id === d.source ? 1 : 0.1);
 
       selectAll(".label-left")
         .transition(t)
-        .style("opacity", label => label.id === d.target ? 1 : 0.1);
+          .style("opacity", label => label.id === d.source ? 1 : 0.1);
+
+      selectAll(".label-top")
+        .transition(t)
+          .style("opacity", label => label.id === d.target ? 1 : 0.1);
 
       const charA = nodes.find(char => char.id === d.source).name;
       const charB = nodes.find(char => char.id === d.target).name;
@@ -149,9 +156,6 @@ export const drawMatrix = (nodes, edges) => {
       select(".matrix-tooltip").classed("hidden", false);
     })
     .on("mouseleave", (e, d) => {
-      selectAll(".matrix-dot")
-        .attr("fill-opacity", 1);
-
       selectAll(".label-top, .label-left")
         .style("opacity", 1);
 

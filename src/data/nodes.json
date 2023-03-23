@@ -4,292 +4,224 @@
         "name": "Prince Escalus",
         "house": "Ruling house of Verona",
         "description": "Ruling Prince of Verona",
-        "totalLines": 76,
-        "firstLineNumber": 88,
-        "firstLine": "Rebellious subjects, enemies to peace,"
+        "totalLinesNumber": 76
     },
     {
         "id": "paris",
         "name": "Count Paris",
         "house": "Ruling house of Verona",
         "description": "Kinsman of Escalus who wishes to marry Juliet.",
-        "totalLines": 70,
-        "firstLineNumber": 256,
-        "firstLine": "Of honourable reckoning are you both,"
+        "totalLinesNumber": 70
     },
     {
         "id": "mercutio",
         "name": "Mercutio",
         "house": "Ruling house of Verona",
         "description": "Another kinsman of Escalus, a friend of Romeo.",
-        "totalLines": 261,
-        "firstLineNumber": 478,
-        "firstLine": "Nay, gentle Romeo, we must have you dance."
+        "totalLinesNumber": 261
     },
     {
         "id": "page",
         "name": "Page",
         "house": "Ruling house of Verona",
-        "totalLines": 9,
-        "firstLineNumber": 2784,
-        "firstLine": "[Aside]  I am almost afraid to stand alone"
+        "totalLinesNumber": 9
     },
     {
         "id": "capulet",
         "name": "Capulet",
         "house": "House of Capulet",
         "description": "Patriarch of the house of Capulet.",
-        "totalLines": 273,
-        "firstLineNumber": 82,
-        "firstLine": "What noise is this? Give me my long sword, ho!"
+        "totalLinesNumber": 273
     },
     {
         "id": "lady_capulet",
         "name": "Lady Capulet",
         "house": "House of Capulet",
         "description": "Matriarch of the house of Capulet.",
-        "totalLines": 115,
-        "firstLineNumber": 83,
-        "firstLine": "A crutch, a crutch! why call you for a sword?"
+        "totalLinesNumber": 115
     },
     {
         "id": "juliet",
         "name": "Juliet Capulet",
         "house": "House of Capulet",
         "description": "13-year-old daughter of Capulet, the play's female protagonist.",
-        "totalLines": 544,
-        "firstLineNumber": 360,
-        "firstLine": "How now! who calls?"
+        "totalLinesNumber": 544
     },
     {
         "id": "tybalt",
         "name": "Tybalt",
         "house": "House of Capulet",
         "description": "Cousin of Juliet, the nephew of Lady Capulet.",
-        "totalLines": 36,
-        "firstLineNumber": 73,
-        "firstLine": "What, art thou drawn among these heartless hinds?"
+        "totalLinesNumber": 36
     },
     {
         "id": "nurse",
         "name": "The Nurse",
         "house": "House of Capulet",
         "description": "Juliet's personal attendant and confidante.",
-        "totalLines": 281,
-        "firstLineNumber": 357,
-        "firstLine": "Now, by my maidenhead, at twelve year old,"
+        "totalLinesNumber": 281
     },
     {
         "id": "peter",
         "name": "Peter",
         "house": "House of Capulet",
         "description": "Servant of the Capulet household.",
-        "totalLines": 33,
-        "firstLineNumber": 1198,
-        "firstLine": "Anon!"
+        "totalLinesNumber": 33
     },
     {
         "id": "sampson",
         "name": "Sampson",
         "house": "House of Capulet",
         "description": "Servant of the Capulet household.",
-        "totalLines": 31,
-        "firstLineNumber": 15,
-        "firstLine": "Gregory, o' my word, we'll not carry coals."
+        "totalLinesNumber": 31
     },
     {
         "id": "gregory",
         "name": "Gregory",
         "house": "House of Capulet",
         "description": "Servant of the Capulet household.",
-        "totalLines": 20,
-        "firstLineNumber": 16,
-        "firstLine": "No, for then we should be colliers."
+        "totalLinesNumber": 20
     },
     {
         "id": "second_capulet",
         "name": "Second Capulet",
         "house": "House of Capulet",
-        "totalLines": 3,
-        "firstLineNumber": 618,
-        "firstLine": "By'r lady, thirty years."
+        "totalLinesNumber": 3
     },
     {
         "id": "musician",
         "name": "Musician",
         "house": "House of Capulet",
-        "totalLines": 1,
-        "firstLineNumber": 2642,
-        "firstLine": "Marry, sir, because silver hath a sweet sound."
+        "totalLinesNumber": 1
     },
     {
         "id": "first_musician",
         "name": "First Musician",
         "house": "House of Capulet",
-        "totalLines": 9,
-        "firstLineNumber": 2611,
-        "firstLine": "Faith, we may put up our pipes, and be gone."
+        "totalLinesNumber": 9
     },
     {
         "id": "second_musician",
         "name": "Second Musician",
         "house": "House of Capulet",
-        "totalLines": 4,
-        "firstLineNumber": 2633,
-        "firstLine": "Pray you, put up your dagger, and put out your wit."
+        "totalLinesNumber": 4
     },
     {
         "id": "servant",
         "name": "Servant",
         "house": "House of Capulet",
-        "totalLines": 23,
-        "firstLineNumber": 291,
-        "firstLine": "Find them out whose names are written here! It is"
+        "totalLinesNumber": 23
     },
     {
         "id": "first_servant",
         "name": "First Servant",
         "house": "House of Capulet",
-        "totalLines": 10,
-        "firstLineNumber": 586,
-        "firstLine": "Where's Potpan, that he helps not to take away? He"
+        "totalLinesNumber": 10
     },
     {
         "id": "second_servant",
         "name": "Second Servant",
         "house": "House of Capulet",
-        "totalLines": 12,
-        "firstLineNumber": 588,
-        "firstLine": "When good manners shall lie all in one or two men's"
+        "totalLinesNumber": 12
     },
     {
         "id": "montague",
         "name": "Montague",
         "house": "House of Montague",
         "description": "Patriarch of the house of Montague.",
-        "totalLines": 41,
-        "firstLineNumber": 86,
-        "firstLine": "Thou villain Capulet,--Hold me not, let me go."
+        "totalLinesNumber": 41
     },
     {
         "id": "lady_montague",
         "name": "Lady Montague",
         "house": "House of Montague",
         "description": "Matriarch of the house of Montague.",
-        "totalLines": 3,
-        "firstLineNumber": 87,
-        "firstLine": "Thou shalt not stir a foot to seek a foe."
+        "totalLinesNumber": 3
     },
     {
         "id": "romeo",
         "name": "Romeo Montague",
         "house": "House of Montague",
         "description": "Son of Montague, is the play's male protagonist.",
-        "totalLines": 613,
-        "firstLineNumber": 167,
-        "firstLine": "Is the day so young?"
+        "totalLinesNumber": 613
     },
     {
         "id": "benvolio",
         "name": "Benvolio",
         "house": "House of Montague",
         "description": "Romeo's cousin and best friend.",
-        "totalLines": 160,
-        "firstLineNumber": 71,
-        "firstLine": "Part, fools!"
+        "totalLinesNumber": 160
     },
     {
         "id": "balthasar",
         "name": "Balthasar",
         "house": "House of Montague",
         "description": "Servant of the Montague household.",
-        "totalLines": 32,
-        "firstLineNumber": 2672,
-        "firstLine": "Then she is well, and nothing can be ill:"
+        "totalLinesNumber": 32
     },
     {
         "id": "abraham",
         "name": "Abram",
         "house": "House of Montague",
         "description": "Servant of the Montague household.",
-        "totalLines": 5,
-        "firstLineNumber": 54,
-        "firstLine": "Do you bite your thumb at us, sir?"
+        "totalLinesNumber": 5
     },
     {
         "id": "friar_laurence",
         "name": "Friar Laurence",
         "house": "Others",
         "description": "Franciscan friar and Romeo's confidant.",
-        "totalLines": 351,
-        "firstLineNumber": 1003,
-        "firstLine": "The grey-eyed morn smiles on the frowning night,"
+        "totalLinesNumber": 351
     },
     {
         "id": "friar_john",
         "name": "Friar John",
         "house": "Others",
         "description": "Sent to deliver Friar Laurence's letter to Romeo.",
-        "totalLines": 13,
-        "firstLineNumber": 2745,
-        "firstLine": "Holy Franciscan friar! brother, ho!"
+        "totalLinesNumber": 13
     },
     {
         "id": "apothecary",
         "name": "Apothecary",
         "house": "Others",
         "description": "Reluctantly sells Romeo poison.",
-        "totalLines": 7,
-        "firstLineNumber": 2715,
-        "firstLine": "Who calls so loud?"
+        "totalLinesNumber": 7
     },
     {
         "id": "chorus",
         "name": "Chorus",
         "house": "Others",
         "description": "Reads a prologue to each of the first two acts.",
-        "totalLines": 29,
-        "firstLineNumber": 0,
-        "firstLine": "Two households, both alike in dignity,"
+        "totalLinesNumber": 29
     },
     {
         "id": "first_citizen",
         "name": "First Citizen",
         "house": "Others",
-        "totalLines": 7,
-        "firstLineNumber": 80,
-        "firstLine": "Clubs, bills, and partisans! strike! beat them down!"
+        "totalLinesNumber": 7
     },
     {
         "id": "first_watchman",
         "name": "First Watchman",
         "house": "Others",
-        "totalLines": 19,
-        "firstLineNumber": 2950,
-        "firstLine": "[Within]  Lead, boy: which way?"
+        "totalLinesNumber": 19
     },
     {
         "id": "second_watchman",
         "name": "Second Watchman",
         "house": "Others",
-        "totalLines": 1,
-        "firstLineNumber": 2965,
-        "firstLine": "Here's Romeo's man, we found him in the churchyard."
+        "totalLinesNumber": 1
     },
     {
         "id": "third_watchman",
         "name": "Third Watchman",
         "house": "Others",
-        "totalLines": 3,
-        "firstLineNumber": 2967,
-        "firstLine": "Here is a friar, that trembles, sighs and weeps:"
+        "totalLinesNumber": 3
     },
     {
         "id": "third_musician",
         "name": "Third Musician",
         "house": "Others",
-        "totalLines": 1,
-        "firstLineNumber": 2646,
-        "firstLine": "Faith, I know not what to say."
+        "totalLinesNumber": 1
     }
 ]

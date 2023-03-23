@@ -1,65 +1,52 @@
-import { forceSimulation, forceLink, forceManyBody, forceCenter, forceCollide } from "d3-force";
 import { select, selectAll } from "d3-selection";
-import { min, max } from "d3-array";
+import { max } from "d3-array";
+import { forceSimulation, forceCollide, forceCenter, forceManyBody, forceLink } from "d3-force";
 import { transition } from "d3-transition";
-import { getRadius, charColorScale, getEdgeColor } from "./scales";
+import { colorScale, getRadius } from "./scales";
 
 export const drawNetwork = (nodes, edges) => {
-
-  const networkNodes = JSON.parse(JSON.stringify(nodes));
-  const networkEdges = JSON.parse(JSON.stringify(edges));
-  console.log("networkNodes", networkNodes);
-  console.log("networkEdges", networkEdges);
-
-  // const nodeHash = networkNodes.reduce((hash, node) => {
-  //   hash[node.id] = node;
-  //   return hash;
-  // });
-  // console.log("nodeHash", nodeHash);
-
-  // networkEdges.forEach(edge => {
-  //   edge.source = nodeHash[edge.source];
-  //   edge.target = nodeHash[edge.target];
-  // });
-  console.log("networkEdges", networkEdges);
 
   // Dimensions
   const width = 850;
   const height = 600;
 
-  // Append SVG container
+
+  // Append a SVG container
   const svg = select("#network")
     .append("svg")
       .attr("viewBox", `0 0 ${width} ${height}`)
     .append("g")
       .attr("transform", `translate(${width/2}, ${height/2})`);
 
+
   // Append links
-  const minWeight = min(networkEdges, d => d.weight);
-  const maxWeight = max(networkEdges, d => d.weight);
   svg
     .selectAll(".network-link")
-    .data(networkEdges)
+    .data(edges)
     .join("line")
       .attr("class", "network-link")
-      .attr("stroke", d => getEdgeColor(minWeight, maxWeight, d.weight))
+      .attr("stroke", "#364652")
+      .attr("stroke-opacity", 0.1)
       .attr("stroke-width", d => d.weight);
 
+
   // Append nodes
-  const maxLines = max(networkNodes, d => d.totalLines);
+  const maxLines = max(nodes, d => d.totalLinesNumber)
   svg
     .selectAll(".network-node")
-    .data(networkNodes)
+    .data(nodes)
     .join("circle")
-      .attr("class", d => `network-node network-node-${d.id}`)
-      .attr("cx", 0)
-      .attr("cy", 0)
+      .attr("class", "network-node")
       .attr("r", d => {
-        d["radius"] = getRadius(maxLines, d.totalLines);
+        d["radius"] = getRadius(maxLines, d.totalLinesNumber);
         return d.radius;
       })
-      .attr("fill", d => charColorScale(d.house));
+      .attr("fill", d => colorScale(d.house))
+      .attr("stroke", "#FAFBFF")
+      .attr("stroke-width", 1);
 
+  
+  // Function called after each tick to set the nodes' position
   const updateNetwork = () => {
     selectAll(".network-link")
       .attr("x1", d => d.source.x)
@@ -72,13 +59,15 @@ export const drawNetwork = (nodes, edges) => {
       .attr("cy", d => d.y);
   };
 
+
+  // Run the simulation
   const simulation = forceSimulation()
     .force("charge", forceManyBody().strength(-1000))
     .force("collide", forceCollide().radius(d => d.radius + 2) )
     .force("center", forceCenter().x(0).y(0))
     .force("link", forceLink().id(d => d.id).strength(d => d.weight/10))
     .force("bounding", () => { // custom force to keep nodes in frame
-      networkNodes.forEach(node => {
+      nodes.forEach(node => {
         if (node.x < -width/2 + node.radius) {
           node.vx = 5;
         }
@@ -93,23 +82,23 @@ export const drawNetwork = (nodes, edges) => {
         }
       });
     })
-    .nodes(networkNodes)
+    .nodes(nodes)
     .on("tick", updateNetwork);
 
   simulation
     .force("link")
-    .links(networkEdges);
+    .links(edges);
 
 
-  // Interactions
+  // Add interaction
   selectAll(".network-node")
     .on("mouseenter", (e, d) => {
-      console.log(d)
+      
       const t = transition()
         .duration(150);
 
       const isLinked = char => {
-        return networkEdges.find(edge => 
+        return edges.find(edge => 
           (edge.source.id === d.id && edge.target.id === char.id) || 
           (edge.source.id === char.id && edge.target.id === d.id))
             ? true
@@ -118,7 +107,7 @@ export const drawNetwork = (nodes, edges) => {
 
       selectAll(".network-link")
         .transition(t)
-        .attr("stroke-opacity", link => link.source.id === d.id || link.target.id === d.id ? 1 : 0);
+        .attr("stroke-opacity", link => link.source.id === d.id || link.target.id === d.id ? 0.1 : 0);
     
       selectAll(".network-node")
         .transition(t)
@@ -130,17 +119,20 @@ export const drawNetwork = (nodes, edges) => {
         .text(d.description);
       select(".network-sidebar")
         .classed("hidden", false);
+
     })
     .on("mouseleave", () => {
 
       selectAll(".network-link")
-        .attr("stroke-opacity", 1);
+        .attr("stroke-opacity", 0.1);
 
       selectAll(".network-node")
         .attr("fill-opacity", 1);
 
       select(".network-sidebar")
         .classed("hidden", true);
+
     });
+
 
 };

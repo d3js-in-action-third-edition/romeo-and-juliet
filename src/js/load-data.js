@@ -1,10 +1,10 @@
 export const loadData = () => {
 
   const nodes = require("../data/nodes.json");
-  const links = require("../data/links.json");
+  const edges = require("../data/edges.json");
   console.log("nodes", nodes);
-  console.log("links", links);
+  console.log("edges", edges);
 
-  return [nodes, links];
+  return [nodes, edges];
 
 };
